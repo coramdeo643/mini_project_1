@@ -1,5 +1,7 @@
 package com.tenco.blog.board;
 
+import com.tenco.blog.boards.이력서.Board;
+import com.tenco.blog.boards.이력서.BoardJpaRepository;
 import com.tenco.blog.user.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

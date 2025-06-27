@@ -1,10 +1,8 @@
-package com.tenco.blog.board;
+package com.tenco.blog.boards.큐앤에이;
 
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
 import com.tenco.blog.user.User;
-import com.tenco.blog.utils.Define;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

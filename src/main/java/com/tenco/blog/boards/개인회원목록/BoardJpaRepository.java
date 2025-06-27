@@ -1,4 +1,4 @@
-package com.tenco.blog.board;
+package com.tenco.blog.boards.개인회원목록;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
