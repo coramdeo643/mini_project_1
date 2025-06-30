@@ -36,8 +36,10 @@ spring:
   # 데이터 베이스 연결 설정 (H2 인메모리 데이터베이스)
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog?useSSl=false&serverTimezone=Asia/Seoul
-    username: root
+#    url: jdbc:mysql://localhost:3306/blog?useSSl=false&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/project?useSSl=false&serverTimezone=Asia/Seoul
+#    username: root
+    username: project
     password: asd1234
 
   #H2 데이터베이스 웹 콘솔 활성화 (개발용)
@@ -51,7 +53,8 @@ spring:
       # 2.5 이상 버전부터 명시를 해야 insert 처리 됨
       mode: always
       data-locations:
-        - classpath:db/data.sql
+#        - classpath:db/data.sql
+        - classpath:db/insert.sql
 
 
   # JPA 설정
