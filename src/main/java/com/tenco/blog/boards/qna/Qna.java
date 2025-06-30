@@ -17,12 +17,12 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 // @Table : 실제 데이터베이스 테이블 명을 지정할 때 사용
-@Table(name = "board_tb")
+@Table(name = "board_post")
 // @Entity JPA가 이 클래스를 데이터베이스 테이블과 맵핑하는 객체(entity)로 인식
 // 즉, @Entity 어노테이션이 있어야 JPA가 이 객체를 관리한다.
 @Entity
 
-public class Board {
+public class Qna {
 
     // @Id 이 필드가 기본키(Primary key)임을 나타냄
     @Id
