@@ -22,7 +22,8 @@ public class User {
     private String username;
     private String password;
 
-    public enum UserType {USER, COMPANY, ADMIN}
+    public enum UserType {PERSONAL, COMPANY, ADMIN}
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
@@ -45,12 +46,78 @@ public class User {
     private String companyAddress;
 
 
-    @Builder
-    public User(Long id, String username, String password, UserType userType, Timestamp createdAt) {
+    @Builder(builderMethodName = "personalBuilder")
+    public User(Long id, String username, String password, Timestamp createdAt,
+                String personalName, String personalPhone, String personalEmail) {
         this.id = id;
         this.username = username;
-        this.userType = userType;
+        this.userType = UserType.PERSONAL;
         this.password = password;
         this.createdAt = createdAt;
+        this.personalName = personalName;
+        this.personalPhone = personalPhone;
+        this.personalEmail = personalEmail;
     }
+
+    @Builder(builderMethodName = "companyBuilder")
+    public User(Long id, String username, String password, Timestamp createdAt,
+                String companyEmail, String companyPhone, String companyBusinessNo,
+                String companyIndustry, String companyName, String companyCeoName, String companyAddress) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.companyEmail = companyEmail;
+        this.companyPhone = companyPhone;
+        this.companyBusinessNo = companyBusinessNo;
+        this.companyIndustry = companyIndustry;
+        this.companyName = companyName;
+        this.companyCeoName = companyCeoName;
+        this.companyAddress = companyAddress;
+        this.userType = UserType.COMPANY;
+    }
+
+    @Builder(builderMethodName = "adminBuilder")
+    public User(Long id, String username, String password, Timestamp createdAt) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.userType = UserType.ADMIN;
+    }
+
+    public void updatePersonal(UserRequest.UpdatePersonalDTO updatePersonalDTO) {
+        if (updatePersonalDTO.getPassword() != null && !updatePersonalDTO.getPassword().trim().isEmpty()) {
+            this.password = updatePersonalDTO.getPassword();
+        }
+        if (updatePersonalDTO.getPersonalPhone() != null && !updatePersonalDTO.getPersonalPhone().trim().isEmpty()) {
+            this.personalPhone = updatePersonalDTO.getPersonalPhone();
+        }
+        if (updatePersonalDTO.getPersonalEmail() != null && updatePersonalDTO.getPersonalEmail().contains("@")) {
+            this.personalEmail = updatePersonalDTO.getPersonalEmail();
+        }
+
+    }
+
+    public void updateCompany(UserRequest.UpdateCompanyDTO updateCompanyDTO) {
+        if (updateCompanyDTO.getPassword() != null && !updateCompanyDTO.getPassword().trim().isEmpty()) {
+            this.password = updateCompanyDTO.getPassword();
+        }
+        if (updateCompanyDTO.getCompanyPhone() != null && !updateCompanyDTO.getCompanyPhone().trim().isEmpty()) {
+            this.companyPhone = updateCompanyDTO.getCompanyPhone();
+        }
+        if (updateCompanyDTO.getCompanyName() != null && !updateCompanyDTO.getCompanyName().trim().isEmpty()) {
+            this.companyName = updateCompanyDTO.getCompanyName();
+        }
+        if (updateCompanyDTO.getCompanyCeoName() != null && !updateCompanyDTO.getCompanyCeoName().trim().isEmpty()) {
+            this.companyCeoName = updateCompanyDTO.getCompanyCeoName();
+        }
+        if (updateCompanyDTO.getCompanyEmail() != null && updateCompanyDTO.getCompanyEmail().contains("@")) {
+            this.companyEmail = updateCompanyDTO.getCompanyEmail();
+        }
+        if (updateCompanyDTO.getCompanyAddress() != null && !updateCompanyDTO.getCompanyAddress().trim().isEmpty()) {
+            this.companyAddress = updateCompanyDTO.getCompanyAddress();
+        }
+    }
+
 }

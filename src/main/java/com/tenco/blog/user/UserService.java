@@ -18,14 +18,30 @@ public class UserService {
     /**
      * 회원가입 처리
      */
-    @Transactional // 메서드 레벨에서 쓰기 전용 트랜잭션 활성화
-    public User join(UserRequest.JoinDTO joinDTO) {
-        // 사용자 명 중복 체크
-        userJpaRepository.findByUsername(joinDTO.getUsername()).ifPresent(user1 -> {
-            throw new Exception400("이미 존재하는 사용자 명 입니다.");
+    @Transactional
+    public User joinPersonal(UserRequest.JoinPersonalDTO joinPersonalDTO) {
+        userJpaRepository.findByUsername(joinPersonalDTO.getUsername()).ifPresent(user1 -> {
+            throw new Exception400("이미 존재하는 사용자 명입니다.");
         });
-        return userJpaRepository.save(joinDTO.toEntity());
+        return userJpaRepository.save(joinPersonalDTO.toEntity());
     }
+
+    @Transactional
+    public User joinCompany(UserRequest.JoinCompanyDTO joinCompanyDTO) {
+        userJpaRepository.findByUsername(joinCompanyDTO.getUsername()).ifPresent(user1 -> {
+            throw new Exception400("이미 존재하는 사용자 명입니다.");
+        });
+        return userJpaRepository.save(joinCompanyDTO.toEntity());
+    }
+
+    @Transactional
+    public User joinAdmin(UserRequest.JoinAdminDTO joinAdminDTO) {
+        userJpaRepository.findByUsername(joinAdminDTO.getUsername()).ifPresent(user1 -> {
+            throw new Exception400("이미 존재하는 사용자 명입니다.");
+        });
+        return userJpaRepository.save(joinAdminDTO.toEntity());
+    }
+
 
     /**
      * 로그인 처리
@@ -51,12 +67,17 @@ public class UserService {
      * 회원 정보 수정 처리 (더티 체킹)
      */
     @Transactional
-    public User updateById(Long userId, UserRequest.UpdateDTO updateDTO) {
-        // 사용자 조회
-        // 수정된 User 반환 --> 세션 동기화 때문
+    public User updateById(Long userId, UserRequest.UpdatePersonalDTO updatePersonalDTO) {
         User user = findById(userId);
-        // user.update(updateDTO); // TODO 추후 추가
-        user.setPassword(updateDTO.getPassword());
+        user.updatePersonal(updatePersonalDTO);
+        return user;
+    }
+
+    @Transactional
+    public User updateById(Long userId, UserRequest.UpdateCompanyDTO updateCompanyDTO) {
+        User user = findById(userId);
+       user.updateCompany(updateCompanyDTO);
+        user.setPassword(updateCompanyDTO.getPassword());
         return user;
     }
 

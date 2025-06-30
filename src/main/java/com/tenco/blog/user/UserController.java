@@ -17,71 +17,129 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 
+
     /**
+     * p,c
      * 회원 정보 수정 화면 요청
      */
-    @GetMapping("/user/update-form")
-    public String updateForm(Model model, HttpSession session) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.findById(sessionUser.getId());
-        model.addAttribute("user", user);
-        return "user/update-form";
+    @GetMapping("/personal/update-form")
+    public String updateP(Model model, HttpSession session) {
+        User sessionPersonal = (User) session.getAttribute("sessionPersonal");
+        User personalUser = userService.findById(sessionPersonal.getId());
+        model.addAttribute("personalUser", personalUser);
+        return "personal/update-form";
+    }
+
+    @GetMapping("/company/update-form")
+    public String updateC(Model model, HttpSession session) {
+        User sessionCompany = (User) session.getAttribute("sessionCompany");
+        User companyUser = userService.findById(sessionCompany.getId());
+        model.addAttribute("companyUser", companyUser);
+        return "company/update-form";
     }
 
 
     /**
+     * p,c
      * 회원 정보 수정 기능 요청
      */
-    @PostMapping("/user/update")
-    public String update(UserRequest.UpdateDTO reqDTO,
-                         HttpSession session) {
-        // 1. 인증검사
-        // 2. 유효성 검사
-        // 3. 서비스 계층 -> 회원 정보 수정 기능 위임
-        // 4. 세션 동기화 처리
-        // 5. 리다이렉트 -> 회원 정보 화면 요청(새로운 request)
+    @PostMapping("/personal/update")
+    public String updatePersonal(UserRequest.UpdatePersonalDTO reqDTO,
+                                 HttpSession session) {
         reqDTO.validate();
-        User user = (User) session.getAttribute("sessionUser");
-        User updateUser = userService.updateById(user.getId(), reqDTO);
-        session.setAttribute("sessionUser", updateUser);
-        return "redirect:/user/update-form";
+        User sessionPersonal = (User) session.getAttribute("sessionPersonal");
+        User personalUser = userService.updateById(sessionPersonal.getId(), reqDTO);
+        session.setAttribute("personalUser", personalUser);
+        return "redirect:/personal/update-form";
+    }
+
+    @PostMapping("/company/update")
+    public String updateCompany(UserRequest.UpdateCompanyDTO reqDTO,
+                                HttpSession session) {
+        reqDTO.validate();
+        User sessionCompany = (User) session.getAttribute("sessionCompany");
+        User companyUser = userService.updateById(sessionCompany.getId(), reqDTO);
+        session.setAttribute("companyUser", companyUser);
+        return "redirect:/company/update-form";
     }
 
     /**
+     * p,c
      * 회원 가입 화면 요청
      */
-    @GetMapping("/join-form")
-    public String joinForm() {
-        return "user/join-form";
+    @GetMapping("/personal/join-form")
+    public String personalJoinForm() {
+        return "personal/join-form";
+    }
+
+    @GetMapping("/company/join-form")
+    public String companyJoinForm() {
+        return "company/join-form";
     }
 
     /**
      * 회원 가입 기능 요청
      */
-    @PostMapping("/join")
-    public String join(UserRequest.JoinDTO joinDTO) {
-        joinDTO.validate();
-        userService.join(joinDTO);
+    @PostMapping("/join/personal")
+    public String joinPersonal(UserRequest.JoinPersonalDTO dto) {
+        dto.personalValidate();
+        userService.joinPersonal(dto);
         return "redirect:/login-form";
     }
 
+    @PostMapping("/join/company")
+    public String joinCompany(UserRequest.JoinCompanyDTO dto) {
+        dto.companyValidate();
+        userService.joinCompany(dto);
+        return "redirect:/login-form";
+    }
 
-    /**
-     * 로그인 화면 요청
-     */
-    @GetMapping("/login-form")
-    public String loginForm() {
-        return "user/login-form";
+    @PostMapping("/join/admin")
+    public String joinAdmin(UserRequest.JoinAdminDTO dto) {
+        dto.adminValidate();
+        userService.joinAdmin(dto);
+        return "redirect:/login-form";
     }
 
     /**
+     * p,c
+     * 로그인 화면 요청
+     */
+    @GetMapping("/personal/login-form")
+    public String personalLoginForm() {
+        return "personal/login-form";
+    }
+
+    @GetMapping("/company/login-form")
+    public String companyLoginForm() {
+        return "company/login-form";
+    }
+
+    /**
+     * p.c.a
      * 로그인 요청
      */
-    @PostMapping("/login")
-    public String login(UserRequest.LoginDTO loginDTO, HttpSession session) {
+    @PostMapping("/personal/login")
+    public String personalLogin(UserRequest.LoginDTO loginDTO, HttpSession session) {
         loginDTO.validate();
         User user = userService.login(loginDTO);
-        session.setAttribute(Define.SESSION_USER, user);
+        session.setAttribute(Define.SESSION_PERSONAL, user);
+        return "redirect:/";
+    }
+
+    @PostMapping("/company/login")
+    public String companyLogin(UserRequest.LoginDTO loginDTO, HttpSession session) {
+        loginDTO.validate();
+        User user = userService.login(loginDTO);
+        session.setAttribute(Define.SESSION_COMPANY, user);
+        return "redirect:/";
+    }
+
+    @PostMapping("/admin/login")
+    public String adminLogin(UserRequest.LoginDTO loginDTO, HttpSession session) {
+        loginDTO.validate();
+        User user = userService.login(loginDTO);
+        session.setAttribute(Define.SESSION_ADMIN, user);
         return "redirect:/";
     }
 
