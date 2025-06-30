@@ -1,4 +1,4 @@
-package com.tenco.blog.boards.기업회원목록;
+package com.tenco.blog.boards.c_post_list;
 
 import com.tenco.blog.user.User;
 import lombok.Data;

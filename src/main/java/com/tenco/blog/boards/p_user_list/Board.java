@@ -1,4 +1,4 @@
-package com.tenco.blog.boards.개인회원목록;
+package com.tenco.blog.boards.p_user_list;
 
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.MyDateUtil;

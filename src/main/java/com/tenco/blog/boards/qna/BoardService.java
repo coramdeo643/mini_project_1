@@ -1,4 +1,4 @@
-package com.tenco.blog.boards.기업회원목록;
+package com.tenco.blog.boards.qna;
 
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;

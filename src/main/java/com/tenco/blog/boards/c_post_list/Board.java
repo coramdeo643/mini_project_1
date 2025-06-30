@@ -1,4 +1,4 @@
-package com.tenco.blog.boards.이력서;
+package com.tenco.blog.boards.c_post_list;
 
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.MyDateUtil;

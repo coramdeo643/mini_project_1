@@ -18,24 +18,39 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 사용자 이름 중복 방지를 위한 유니크 제약 조건 설정
     @Column(unique = true)
     private String username;
-
     private String password;
-    private String email;
 
-    // 엔티티가 영속화 될 때 자동으로 pc 현재 시간을 설정
+    public enum UserType {USER, COMPANY, ADMIN}
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+
     @CreationTimestamp
     private Timestamp createdAt;
 
-    // 객체 생성 시 가독성과 안정성 향상
+    // personal
+    private String personalName;
+    private String personalPhone;
+    private String personalEmail;
+
+    //company
+    private String companyEmail;
+    private String companyPhone;
+    private String companyBusinessNo;
+    private String companyIndustry;
+    private String companyName;
+    private String companyCeoName;
+    private String companyAddress;
+
+
     @Builder
-    public User(Long id, String username, String password, String email, Timestamp createdAt) {
+    public User(Long id, String username, String password, UserType userType, Timestamp createdAt) {
         this.id = id;
         this.username = username;
+        this.userType = userType;
         this.password = password;
-        this.email = email;
         this.createdAt = createdAt;
     }
 }

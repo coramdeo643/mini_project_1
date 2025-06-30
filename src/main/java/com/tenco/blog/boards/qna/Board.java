@@ -1,4 +1,4 @@
-package com.tenco.blog.boards.큐앤에이;
+package com.tenco.blog.boards.qna;
 
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.MyDateUtil;

@@ -1,8 +1,6 @@
 package com.tenco.blog.user;
 
-import com.tenco.blog._core.errors.exception.Exception400;
 import com.tenco.blog.utils.Define;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

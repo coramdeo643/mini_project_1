@@ -1,4 +1,4 @@
-package com.tenco.blog.boards.큐앤에이;
+package com.tenco.blog.boards.p_user_list;
 
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
