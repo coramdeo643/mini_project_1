@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Blog</title>
+    <title>saiYOU</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -14,13 +14,16 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Tencoding</a>
+        <a class="navbar-brand" href="/">saiYOU</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 {{^sessionUser}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/join-form">Q&A</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/join-form">회원가입</a>
                     </li>
@@ -30,10 +33,13 @@
                 {{/sessionUser}}
                 {{#sessionUser}}
                     <li class="nav-item">
-                        <a class="nav-link" href="/board/save-form">글쓰기</a>
+                        <span class="nav-link text-info">안녕하세요, {{sessionUser.username}}님!</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/update-form">회원정보보기</a>
+                        <a class="nav-link" href="/board/save-form">Q&A</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/update-form">마이페이지</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">로그아웃</a>
