@@ -29,7 +29,7 @@ public class BoardController {
     public String updateForm(@PathVariable(name = "id") Long boardId,
                              HttpServletRequest request, HttpSession session) {
         // 인증, 권한
-        User sessionUSer = (User) session.getAttribute(Define.SESSION_USER);
+        User sessionUSer = (User) session.getAttribute(Define.SESSION_PERSONAL);
         boardService.checkBoardOwner(boardId, sessionUSer.getId());
         request.setAttribute("board", boardService.findById(boardId));
         return "board/update-form";
