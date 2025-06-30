@@ -21,10 +21,10 @@ import java.util.List;
 // 모든 메서드를 읽기 전용 트랜잭션으로 실행(findAll, findById - select 조회 최적화)
 // 성능 최적화 (변경 감지 비활성화), 데이터 수정 방지
 // 데이터베이스 락(lock) 최소화 하여 동시성 성능 개선
-public class BoardService {
+public class PersonalPostService {
 
-    private static final Logger log = LoggerFactory.getLogger(BoardService.class);
-    private final BoardJpaRepository boardJpaRepository;
+    private static final Logger log = LoggerFactory.getLogger(PersonalPostService.class);
+    private final PersonalPostJpaRepository boardJpaRepository;
 
     /**
      * 게시글 저장
@@ -32,7 +32,7 @@ public class BoardService {
     // 메서드 레벨에서의 트랜잭션 선언
     // 데이터 수정이 필요하므로 읽기 전용 설정을 해제하고 쓰기 전용으로 변환
     @Transactional
-    public Board save(BoardRequest.SaveDTO saveDTO, User sessionUser) {
+    public PersonalPost save(PersonalPostRequest.SaveDTO saveDTO, User sessionUser) {
         // 1. 로그 기록 - 게시글 저장 요청 정보
         // 2. DTO를 Entity로 변환 (작성자 정보 포함)
         // 3. 데이터베이스에 게시글 저장
@@ -40,7 +40,7 @@ public class BoardService {
         // 5. 저장된 Board를 Controller로 반환
         log.info("게시글 저장 서비스 처리 시작 - 제목 {}, 작성자 {} ",
                 saveDTO.getTitle(), sessionUser.getUsername());
-        Board board = saveDTO.toEntity(sessionUser);
+        PersonalPost board = saveDTO.toEntity(sessionUser);
         boardJpaRepository.save(board);
         log.info("게시글 저장 완료 - id {}, 제목 {} ",
                 board.getId(), board.getTitle());
@@ -50,13 +50,13 @@ public class BoardService {
     /**
      * 게시글 목록 조회
      */
-    public List<Board> findAll() {
+    public List<PersonalPost> findAll() {
         // 1. 로그 기록
         // 2. 데이터 베이스 게시글 조회
         // 3. 로그 기록
         // 4. 조회된 게시글 목록 반환
         log.info("게시글 조회 서비스 처리 시작");
-        List<Board> boardList = boardJpaRepository.findAllJoinUser();
+        List<PersonalPost> boardList = boardJpaRepository.findAllJoinUser();
         log.info("게시글 목록 조회 완료 - 총 {} 개", boardList.size());
         return boardList;
     }
@@ -64,14 +64,14 @@ public class BoardService {
     /**
      * 게시글 상세 조회
      */
-    public Board findById(Long id) {
+    public PersonalPost findById(Long id) {
         // 1. 로그 기록
         // 2. 데이터 베이스에서 해당 board id로 조회 - WHERE
         // 3. 게시글이 없다면 404 에러 처리
         // 4. 조회 성공 시 로그 기록
         // 5. 조회된 게시글 반환
         log.info("게시글 상세 조회 서비스 시작 - id {}", id);
-        Board board = boardJpaRepository.findByIdJoinUser(id).orElseThrow(() -> {
+        PersonalPost board = boardJpaRepository.findByIdJoinUser(id).orElseThrow(() -> {
             log.warn("게시글 조회 실패 - id {}", id);
             return new Exception404("게시글을 찾을 수 없습니다.");
         });
@@ -83,7 +83,7 @@ public class BoardService {
      * 게시글 수정 하기 (권한 체크 포함)
      */
     @Transactional
-    public Board updateById(Long id, BoardRequest.UpdateDTO updateDTO, User sessionUser) {
+    public PersonalPost updateById(Long id, PersonalPostRequest.UpdateDTO updateDTO, User sessionUser) {
         // 1. 로그 기록
         // 2. 수정할 게시글 조회
         // 3. 권한 체크
@@ -92,7 +92,7 @@ public class BoardService {
         // 6. 로그 기록 - 수정 완료
         // 7. 수정된 게시글 반환
         log.info("게시글 수정하기 서비스 시작 - id {}", id);
-        Board board = boardJpaRepository.findById(id).orElseThrow(() -> {
+        PersonalPost board = boardJpaRepository.findById(id).orElseThrow(() -> {
             log.warn("게시글 조회 실패 - id {}", id);
             return new Exception404("해당 게시글이 존재하지 않습니다.");
         });
@@ -119,7 +119,7 @@ public class BoardService {
         // 5. 데이터 베이스 삭제 처리
         // 6. 삭제 완료 로그 기록
         log.info("게시글 삭제 서비스 시작 - id {}", id);
-        Board board = boardJpaRepository.findById(id).orElseThrow(() -> {
+        PersonalPost board = boardJpaRepository.findById(id).orElseThrow(() -> {
             return new Exception404("해당 게시글이 존재하지 않습니다.");
         });
         if (!board.isOwner(sessionUser.getId())) {
@@ -133,7 +133,7 @@ public class BoardService {
      * 게시글 소유자 확인 (수정 화면 요청 확인용)
      */
     public void checkBoardOwner(Long boardId, Long userId) {
-        Board board = findById(boardId);
+        PersonalPost board = findById(boardId);
         if (!board.isOwner(userId)) {
             throw new Exception403("본인이 작성한 게시글만 수정 가능 합니다.");
         }

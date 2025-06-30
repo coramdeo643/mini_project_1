@@ -1,7 +1,7 @@
 package com.tenco.blog.board;
 
-import com.tenco.blog.boards.p_post_list.Board;
-import com.tenco.blog.boards.p_post_list.BoardJpaRepository;
+import com.tenco.blog.boards.p_post_list.PersonalPost;
+import com.tenco.blog.boards.p_post_list.PersonalPostJpaRepository;
 import com.tenco.blog.user.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 public class BoardJpaRepositoryTest {
 
     @Autowired
-    private BoardJpaRepository boardJpaRepository;
+    private PersonalPostJpaRepository boardJpaRepository;
 
     @Autowired
     private TestEntityManager em;
@@ -29,7 +29,7 @@ public class BoardJpaRepositoryTest {
         em.persistAndFlush(testUser); // 즉시 사용자 저장
         System.out.println("user_id : " + testUser.getId());
 
-        Board board = Board.builder()
+        PersonalPost board = PersonalPost.builder()
                 .title("테스트 제목")
                 .content("테스트 내용")
                 .user(testUser)

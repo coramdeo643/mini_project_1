@@ -1,4 +1,4 @@
-package com.tenco.blog.boards.p_post_list;
+package com.tenco.blog.boards.p_user_list;
 
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.MyDateUtil;
@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 // 즉, @Entity 어노테이션이 있어야 JPA가 이 객체를 관리한다.
 @Entity
 
-public class Board {
+public class PersonalUser {
 
     // @Id 이 필드가 기본키(Primary key)임을 나타냄
     @Id

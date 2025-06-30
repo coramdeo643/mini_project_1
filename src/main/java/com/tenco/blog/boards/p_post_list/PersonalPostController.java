@@ -1,4 +1,4 @@
-package com.tenco.blog.boards.c_user_list;
+package com.tenco.blog.boards.p_post_list;
 
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
@@ -17,10 +17,10 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-public class BoardController {
+public class PersonalPostController {
 
-    private static final Logger log = LoggerFactory.getLogger(BoardController.class);
-    private final BoardService boardService;
+    private static final Logger log = LoggerFactory.getLogger(PersonalPostController.class);
+    private final PersonalPostService boardService;
 
     /**
      * 게시글 수정 화면 요청
@@ -38,7 +38,7 @@ public class BoardController {
 
     @PostMapping("/board/{id}/update-form")
     public String update(@PathVariable(name = "id") Long id,
-                         BoardRequest.UpdateDTO reqDTO,
+                         PersonalPostRequest.UpdateDTO reqDTO,
                          HttpSession session) {
         // 1. 인증 검사
         // 2. 데이터 유효성 검사
@@ -71,7 +71,7 @@ public class BoardController {
 
 
     @PostMapping("/board/save")
-    public String save(BoardRequest.SaveDTO reqDTO, HttpSession session) {
+    public String save(PersonalPostRequest.SaveDTO reqDTO, HttpSession session) {
         // 1. 인증 검사
         // 2. 유효성 검사
         // 3. Service 위임
@@ -84,7 +84,7 @@ public class BoardController {
 
     @GetMapping("/")
     public String index(Model model) {
-        List<Board> boardList = boardService.findAll();
+        List<PersonalPost> boardList = boardService.findAll();
         model.addAttribute("boardList", boardList);
         return "index";
     }

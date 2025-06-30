@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 // 즉, @Entity 어노테이션이 있어야 JPA가 이 객체를 관리한다.
 @Entity
 
-public class Board {
+public class CompanyPost {
 
     // @Id 이 필드가 기본키(Primary key)임을 나타냄
     @Id

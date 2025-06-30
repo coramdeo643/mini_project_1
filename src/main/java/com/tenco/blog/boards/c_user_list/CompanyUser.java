@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "company_profile_tb")
 @Entity
-public class Board {
+public class CompanyUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
