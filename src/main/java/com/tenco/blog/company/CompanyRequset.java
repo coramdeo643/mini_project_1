@@ -1,11 +1,11 @@
-package com.tenco.blog.user;
+package com.tenco.blog.company;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public class UserRequest {
+public class CompanyRequset {
 
     @Data
     @Builder
@@ -16,15 +16,25 @@ public class UserRequest {
         private String password;
         private String telephone;
         private String email;
+        private String company_number;
+        private String industry;
+        private String business_name;
+        private String ceo_name;
+        private String company_address;
 
         // JoinDTO 를 User Object 변환 하는 메서드 추가
         // 계층간 데이터 변환을 위해 명확하게 분리
-        public User toEntity() {
-            return User.builder()
+        public Company toEntity() {
+            return Company.builder()
                     .username(this.username)
                     .password(this.password)
                     .telephone(this.telephone)
                     .email(this.email)
+                    .company_number(this.company_number)
+                    .industry(this.industry)
+                    .business_name(this.business_name)
+                    .ceo_name(this.ceo_name)
+                    .company_address(this.company_address)
                     .build();
         }
 
@@ -44,6 +54,22 @@ public class UserRequest {
             if(email.contains("@") == false) {
                 throw new IllegalArgumentException("올바른 이메일 형식이 아닙니다.");
             }
+            if(company_number == null || company_number.trim().isEmpty()){
+                throw new IllegalArgumentException("사업자 번호를 입력해주세요");
+            }
+            if(industry == null || industry.trim().isEmpty()){
+                throw new IllegalArgumentException("업종을 입력해주세요");
+            }
+            if(business_name == null || business_name.trim().isEmpty()){
+                throw new IllegalArgumentException("회사명을 입력해주세요");
+            }
+            if(ceo_name == null || ceo_name.trim().isEmpty()){
+                throw new IllegalArgumentException("대표이름을 입력해주세요");
+            }
+            if(company_address == null || company_address.trim().isEmpty()){
+                throw new IllegalArgumentException("회사 주소를 입력해주세요");
+            }
+
         }
     }
 
@@ -90,5 +116,6 @@ public class UserRequest {
             }
         }
     }
+
 
 }

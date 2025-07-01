@@ -1,4 +1,4 @@
-package com.tenco.blog.user;
+package com.tenco.blog.company;
 
 import com.tenco.blog._core.errors.exception.Exception400;
 import com.tenco.blog._core.errors.exception.Exception404;
@@ -10,22 +10,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true) // 클래스에 읽기 전용
-public class UserService {
-    private static final Logger log = LoggerFactory.getLogger(UserService.class);
-    private final UserJpaRepository userJpaRepository;
+@Transactional(readOnly = true)
+public class CompanyService {
+    private static final Logger log = LoggerFactory.getLogger(CompanyService.class);
+    private final CompanyRepository companyRepository;
 
 
     /**
      * 회원가입 처리
      */
     @Transactional // 메서드 레벨에서 쓰기 전용 트랜잭션 활성화
-    public User join(UserRequest.JoinDTO joinDTO){
+    public Company join(CompanyRequset.JoinDTO joinDTO){
         // 1. 사용자 명 중복 체크
-        userJpaRepository.findByUsername(joinDTO.getUsername())
+        companyRepository.findByUsername(joinDTO.getUsername())
                 .ifPresent(user1 -> {
-                throw new Exception400("이미 존재하는 사용자 명입니다.");
-        });
+                    throw new Exception400("이미 존재하는 사용자 명입니다.");
+                });
 //        User user = userJpaRepository.findByUsername(joinDTO.getUsername()).orElseThrow(() -> {
 //           return new Exception400("이미 존재하는 사용자 명입니다.");
 //        });
@@ -33,15 +33,15 @@ public class UserService {
 //        User user = joinDTO.toEntity();
 //        User savedUser = userJpaRepository.save(user);
 //        return user;
-        return userJpaRepository.save(joinDTO.toEntity());
+        return companyRepository.save(joinDTO.toEntity());
     }
 
     /**
      * 로그인 처리
      */
-    public User login(UserRequest.LoginDTO loginDTO){
+    public Company login(CompanyRequset.LoginDTO loginDTO){
 
-        return  userJpaRepository
+        return  companyRepository
                 .findByUsernameAndPassword(loginDTO.getUsername(),loginDTO.getPassword())
                 .orElseThrow(() -> {
                     return new Exception400("사용자명 또는 비밀번호가 틀렸어요");
@@ -51,8 +51,8 @@ public class UserService {
     /**
      * 사용자 정보 조회
      */
-    public User findById(Long id ){
-        return userJpaRepository.findById(id).orElseThrow(() -> {
+    public Company findById(Long id ){
+        return companyRepository.findById(id).orElseThrow(() -> {
             log.info("사용자 조회 실패 ID {}" ,id);
             return new Exception404("사용자를 찾을 수 없습니다");
         });
@@ -62,13 +62,13 @@ public class UserService {
      *  회원 정보 수정 처리 (더티 체킹)
      */
     @Transactional
-    public User updateById(Long userId, UserRequest.UpdateDTO updateDTO){
+    public Company updateById(Long userId, CompanyRequset.UpdateDTO updateDTO){
         // 1.
         // 2. 사용자 조회
         // 3. 수정된 User 반환 왜? ----. 세션 동기화 때문!!1
-        User user = findById(userId);
+        Company company = findById(userId);
         //user.update(updateDTO); TODO 추후 추가
-        user.setPassword(updateDTO.getPassword());
-        return user;
+        company.setPassword(updateDTO.getPassword());
+        return company;
     }
 }
