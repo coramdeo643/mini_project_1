@@ -19,9 +19,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(loginInterceptor)
                 // 인터셉터가 동작할 URI 패턴을 지정
-                .addPathPatterns("/board/**", "/user/**")
+                .addPathPatterns("/com/tenco/blog/qna/**", "/user/**")
                 // 인터셉터에서 제외할 URI 패턴 설정
-                .excludePathPatterns("/board/{id:\\d+}");
+                .excludePathPatterns("/com/tenco/blog/qna/{id:\\d+}");
                 // \\d+ 는 정규 표현식으로 1개 이상의 숫자를 의미
                 // /board/1. /board/22
     }

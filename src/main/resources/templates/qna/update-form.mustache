@@ -4,20 +4,20 @@
     <div class="card">
         <div class="card-header"><b>글수정하기 화면입니다</b></div>
         <div class="card-body">
-            <form action="{{QnA.id}}" method="post">
+            <form action="/qna/{{qna.id}}/update-form" method="post">
                 <div class="mb-3">
                     <input type="text" class="form-control"
-                           placeholder="Enter username" name="username" value="{{QnA.user.username}}" >
+                           placeholder="Enter username" name="username" value="{{qna.user.username}}" >
                 </div>
 
                 <div class="mb-3">
                     <input type="text" class="form-control"
-                           placeholder="Enter title" name="title" value="{{QnA.title}}">
+                           placeholder="Enter title" name="title" value="{{qna.title}}">
                 </div>
 
                 <div class="mb-3">
                 <textarea name="content" cols="" rows="5"  class="form-control">
-                    {{QnA.content}}
+                    {{qna.content}}
                 </textarea>
                 </div>
                 <button class="btn btn-primary form-control" >글수정하기완료</button>

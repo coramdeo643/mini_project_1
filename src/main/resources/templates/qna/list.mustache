@@ -1,11 +1,9 @@
 {{> layout/header}}
 
 <div class="container p-5">
-
-    <!--
-        {{! qnaList}} (머스태치 주석)
-        #BoardList 리스트가 존재하고 비어있지 않으면 반복 실행
-     -->
+    <div style="margin:1rem 0" class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="/qna/save-form" class="btn btn-primary">글쓰기</a>
+    </div>
 
     {{#qnaList}}
         <div class="card mb-3">
