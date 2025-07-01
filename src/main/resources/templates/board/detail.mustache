@@ -4,10 +4,8 @@
 
     <!-- 수정삭제버튼 -->
     <div class="d-flex justify-content-end">
-        <!-- 페이지 이동 요청 -->
-        <!-- a 태그는 링크 이동용, url로 이동하므로 get 요청 -->
+    <!--페이지 이동 요청 -->
         <a href="/board/{{board.id}}/update-form" class="btn btn-warning me-1">수정</a>
-        <!-- post 로 데이터 전송 /  method="delete"는 지원하지 않음, 삭제 동작도 post로 처리 -->
         <form action="/board/{{board.id}}/delete" method="post">
             <button class="btn btn-danger">삭제</button>
         </form>
@@ -19,7 +17,7 @@
     <!-- 게시글내용 -->
     <div>
         <h2><b>{{board.title}}</b></h2>
-        <hr/>
+        <hr />
         <div class="m-4 p-2">
             {{board.content}}
         </div>

@@ -36,15 +36,49 @@
                         <span class="nav-link text-info">안녕하세요, {{sessionUser.username}}님!</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/board/save-form">Q&A</a>
+                        <a class="nav-link" href="/board/save-form">이력서 등록</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/update-form">마이페이지</a>
+                        <a class="nav-link" href="/user/update-form">이력서 리스트</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">로그아웃</a>
                     </li>
                 {{/sessionUser}}
+                {{#companyUser}}
+                    <li class="nav-item">
+                        <span class="nav-link text-info">안녕하세요, {{companyUser.username}}님!</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/board/save-form">공고 등록</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/update-form">내 공고</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">로그아웃</a>
+                    </li>
+                {{/companyUser}}
+                {{#adminUser}}
+                    <li class="nav-item">
+                        <span class="nav-link text-info">안녕하세요, 관리자님!</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/board/save-form">기업회원1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/update-form">기업회원2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/update-form">개인회원1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/update-form">개인회원2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">로그아웃</a>
+                    </li>
+                {{/adminUser}}
             </ul>
         </div>
     </div>

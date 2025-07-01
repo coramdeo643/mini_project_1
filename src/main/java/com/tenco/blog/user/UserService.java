@@ -25,8 +25,8 @@ public class UserService {
         // 1. 사용자 명 중복 체크
         userJpaRepository.findByUsername(joinDTO.getUsername())
                 .ifPresent(user1 -> {
-                    throw new Exception400("이미 존재하는 사용자 명입니다.");
-                });
+                throw new Exception400("이미 존재하는 사용자 명입니다.");
+        });
 //        User user = userJpaRepository.findByUsername(joinDTO.getUsername()).orElseThrow(() -> {
 //           return new Exception400("이미 존재하는 사용자 명입니다.");
 //        });

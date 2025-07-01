@@ -3,22 +3,20 @@
 <div class="container p-5">
     <!-- 로그인 유형 선택 버튼 -->
     <div class="text-center mb-4">
-        <button class="btn btn-outline-primary me-2" onclick="showForm('personal')">👤 개인 회원 로그인</button>
+        <button class="btn btn-outline-primary me-2" onclick="showForm('user')">👤 개인 회원 로그인</button>
         <button class="btn btn-outline-success" onclick="showForm('company')">🏢 기업 회원 로그인</button>
     </div>
 
     <!-- 개인 회원 로그인 폼 -->
-    <div id="personal" class="card" style="display: block;">
+    <div id="user-login" class="card" style="display: block;">
         <div class="card-header text-center"><b>👤 개인 회원 로그인</b></div>
         <div class="card-body">
-            <form action="/user/login-form/personal/login" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter username" name="username"
-                           value="user_kim">
+                    <input type="text" class="form-control" placeholder="Enter username" name="username" value="ssar">
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Enter password" name="password"
-                           value="user_pass_hash_1">
+                    <input type="password" class="form-control" placeholder="Enter password" name="password" value="1234">
                 </div>
                 <input type="hidden" name="role" value="USER">
                 <button type="submit" class="btn btn-primary form-control">로그인</button>
@@ -27,17 +25,15 @@
     </div>
 
     <!-- 기업 회원 로그인 폼 -->
-    <div id="company" class="card" style="display: none;">
+    <div id="company-login" class="card" style="display: none;">
         <div class="card-header text-center"><b>🏢 기업 회원 로그인</b></div>
         <div class="card-body">
-            <form action="/user/login-form/company/login" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="/company/login" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter company ID" name="username"
-                           value="company_alpha">
+                    <input type="text" class="form-control" placeholder="Enter company ID" name="username" value="ssar">
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Enter password" name="password"
-                           value="company_pass_hash_1">
+                    <input type="password" class="form-control" placeholder="Enter password" name="password" value="1234">
                 </div>
                 <button type="submit" class="btn btn-success form-control">로그인</button>
             </form>
@@ -45,15 +41,14 @@
     </div>
 </div>
 
-
 <script>
     function showForm(type) {
-        if (type === 'personal') {
-            document.getElementById('personal').style.display = 'block';
-            document.getElementById('company').style.display = 'none';
+        if (type === 'user') {
+            document.getElementById('user-login').style.display = 'block';
+            document.getElementById('company-login').style.display = 'none';
         } else {
-            document.getElementById('personal').style.display = 'none';
-            document.getElementById('company').style.display = 'block';
+            document.getElementById('user-login').style.display = 'none';
+            document.getElementById('company-login').style.display = 'block';
         }
     }
 </script>

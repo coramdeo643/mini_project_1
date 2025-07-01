@@ -1,10 +1,11 @@
 server:
   servlet:
     encoding:
-      charset: UTF-8
+      charset: utf-8
       force: true
   port: 5000
 
+# 로그 레벨의 개념
 # ERROR > WARN > INFO > DEBUG > TRACE
 logging:
   level:

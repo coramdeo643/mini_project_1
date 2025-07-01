@@ -1,10 +1,10 @@
 -- User 테이블 데이터 (5명의 사용자)
-INSERT INTO user_tb (username, password, email, created_at) VALUES
-('admin', '1234', 'admin@blog.com', NOW()),
-('ssar', '1234', 'ssar@nate.com', NOW()),
-('cos', '1234', 'cos@gmail.com', NOW()),
-('hong', '1234', 'hong@naver.com', NOW()),
-('kim', '1234', 'kim@daum.net', NOW());
+INSERT INTO user_tb (username, password, email, created_at, role) VALUES
+('admin', '1234', 'admin@blog.com', NOW(),'USER'),
+('ssar', '1234', 'ssar@nate.com', NOW(),'USER'),
+('cos', '1234', 'cos@gmail.com', NOW(),'USER'),
+('hong', '1234', 'hong@naver.com', NOW(),'ADMIN'),
+('kim', '1234', 'kim@daum.net', NOW(),'COMPANY');
 
 -- 2단계: Board 테이블 데이터 (10개의 게시글)
 -- 주의: user_id는 위에서 생성된 사용자의 id를 참조

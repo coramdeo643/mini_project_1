@@ -14,11 +14,11 @@ import java.sql.Timestamp;
 @Table(name = "user_tb")
 @Entity
 public class User {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     // 사용자 이름 중복 방지를 위한 유니크 제약 설정
     @Column(unique = true)
     private String username;
