@@ -38,7 +38,6 @@ public class UserController {
         return "company/update-form";
     }
 
-
     /**
      * p,c
      * 회원 정보 수정 기능 요청
@@ -67,67 +66,55 @@ public class UserController {
      * p,c
      * 회원 가입 화면 요청
      */
-    @GetMapping("/personal/join-form")
-    public String personalJoinForm() {
-        return "personal/join-form";
+    @GetMapping("/join-form")
+    public String joinForm() {
+        return "user/join-form";  // user/join-form.html 또는 .jsp
     }
 
-    @GetMapping("/company/join-form")
-    public String companyJoinForm() {
-        return "company/join-form";
-    }
 
     /**
      * 회원 가입 기능 요청
      */
-    @PostMapping("/join/personal")
+    @PostMapping("/user/join-form/personal/join")
     public String joinPersonal(UserRequest.JoinPersonalDTO dto) {
         dto.personalValidate();
         userService.joinPersonal(dto);
         return "redirect:/login-form";
     }
 
-    @PostMapping("/join/company")
+    @PostMapping("/user/join-form/company/join")
     public String joinCompany(UserRequest.JoinCompanyDTO dto) {
         dto.companyValidate();
         userService.joinCompany(dto);
         return "redirect:/login-form";
     }
 
-    @PostMapping("/join/admin")
-    public String joinAdmin(UserRequest.JoinAdminDTO dto) {
-        dto.adminValidate();
-        userService.joinAdmin(dto);
-        return "redirect:/login-form";
-    }
 
     /**
-     * p,c
      * 로그인 화면 요청
      */
-    @GetMapping("/personal/login-form")
-    public String personalLoginForm() {
-        return "personal/login-form";
-    }
-
-    @GetMapping("/company/login-form")
-    public String companyLoginForm() {
-        return "company/login-form";
+    // 로그인 폼 진입 (단일 페이지)
+    @GetMapping("/login-form")
+    public String loginForm() {
+        return "user/login-form";  // 위의 HTML이 위치한 뷰 경로
     }
 
     /**
      * p.c.a
      * 로그인 요청
      */
-    @PostMapping("/personal/login")
+    // 개인 로그인 요청 처리
+    @PostMapping("/user/login-form/personal/login")
     public String personalLogin(UserRequest.LoginDTO loginDTO, HttpSession session) {
+        // 로그인 로직 처리 후 리다이렉트 또는 에러 핸들링
         loginDTO.validate();
         User user = userService.login(loginDTO);
         session.setAttribute(Define.SESSION_PERSONAL, user);
         return "redirect:/";
     }
 
-    @PostMapping("/company/login")
+    // 기업 로그인 요청 처리
+    @PostMapping("/user/login-form/company/login")
     public String companyLogin(UserRequest.LoginDTO loginDTO, HttpSession session) {
         loginDTO.validate();
         User user = userService.login(loginDTO);
@@ -135,7 +122,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("/admin/login")
+    @PostMapping("/user/login-form/admin/login")
     public String adminLogin(UserRequest.LoginDTO loginDTO, HttpSession session) {
         loginDTO.validate();
         User user = userService.login(loginDTO);

@@ -101,40 +101,17 @@ public class UserRequest {
             if (companyCeoName == null || companyCeoName.trim().isEmpty()) {
                 throw new IllegalArgumentException("기업 대표 이름은 필수입니다");
             }
-            if (companyIndustry == null || !companyIndustry.trim().isEmpty()) {
+            // 아래 두 줄을 이렇게 수정
+            if (companyIndustry == null || companyIndustry.trim().isEmpty()) {
                 throw new IllegalArgumentException("업종은 필수입니다");
             }
-            if (companyAddress == null || !companyAddress.trim().isEmpty()) {
+            if (companyAddress == null || companyAddress.trim().isEmpty()) {
                 throw new IllegalArgumentException("기업 주소는 필수입니다");
             }
+
         }
     }
 
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class JoinAdminDTO { // 관리자 생성용
-        private String username;
-        private String password;
-
-        public User toEntity() {
-            return User.adminBuilder()
-                    .username(this.username)
-                    .password(this.password)
-                    .build();
-        }
-
-        public void adminValidate() {
-            if (username == null || username.trim().isEmpty()) {
-                throw new IllegalArgumentException("사용자 명은 필수입니다");
-            }
-            if (password == null || password.trim().isEmpty()) {
-                throw new IllegalArgumentException("비밀번호는 필수입니다");
-            }
-        }
-
-    }
 
     // 로그인 용 DTO
     @Data

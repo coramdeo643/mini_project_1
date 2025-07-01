@@ -34,14 +34,6 @@ public class UserService {
         return userJpaRepository.save(joinCompanyDTO.toEntity());
     }
 
-    @Transactional
-    public User joinAdmin(UserRequest.JoinAdminDTO joinAdminDTO) {
-        userJpaRepository.findByUsername(joinAdminDTO.getUsername()).ifPresent(user1 -> {
-            throw new Exception400("이미 존재하는 사용자 명입니다.");
-        });
-        return userJpaRepository.save(joinAdminDTO.toEntity());
-    }
-
 
     /**
      * 로그인 처리
@@ -76,10 +68,9 @@ public class UserService {
     @Transactional
     public User updateById(Long userId, UserRequest.UpdateCompanyDTO updateCompanyDTO) {
         User user = findById(userId);
-       user.updateCompany(updateCompanyDTO);
+        user.updateCompany(updateCompanyDTO);
         user.setPassword(updateCompanyDTO.getPassword());
         return user;
     }
-
 
 }

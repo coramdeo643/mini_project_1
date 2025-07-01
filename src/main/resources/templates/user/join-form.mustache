@@ -3,28 +3,32 @@
 <div class="container p-5">
     <!-- 로그인 유형 선택 버튼 -->
     <div class="text-center mb-4">
-        <button class="btn btn-outline-primary me-2" onclick="showForm('user')">👤 개인 회원 가입</button>
+        <button class="btn btn-outline-primary me-2" onclick="showForm('personal')">👤 개인 회원 가입</button>
         <button class="btn btn-outline-success" onclick="showForm('company')">🏢 기업 회원 가입</button>
     </div>
 
     <!-- 요청을 하면 localhost:8080/join POST로 요청됨
     username=사용자입력값&password=사용자값&email=사용자입력값 -->
 
-    <div id="user-join" class="card" style="display: block;">
+    <div id="personal" class="card" style="display: block;">
         <div class="card-header text-center"><b>👤 회원가입을 해주세요</b></div>
         <div class="card-body">
-            <form action="/join" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="/user/join-form/personal/join" method="post" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="userType" value="personal">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="아이디를 입력하세요" name="username" >
+                    <input type="text" class="form-control" placeholder="아이디를 입력하세요" name="username">
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="password" >
+                    <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="password">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="전화번호를 입력하세요" name="telephone" >
+                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="personalName">
                 </div>
                 <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="이메일를 입력하세요" name="email">
+                    <input type="text" class="form-control" placeholder="전화번호를 입력하세요" name="personalPhone">
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="이메일를 입력하세요" name="personalEmail">
                 </div>
                 <button type="submit" class="btn btn-primary form-control">회원가입</button>
             </form>
@@ -34,36 +38,37 @@
         </div>
     </div>
 
-    <div id="company-join" class="card" style="display: none;">
+    <div id="company" class="card" style="display: none;">
         <div class="card-header text-center"><b>🏢 회원가입을 해주세요</b></div>
         <div class="card-body">
-            <form action="/join" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="/user/join-form/company/join" method="post" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="userType" value="company">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="아이디를 입력하세요" name="username" >
+                    <input type="text" class="form-control" placeholder="아이디를 입력하세요" name="username">
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="password" >
+                    <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="password">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="전화번호를 입력하세요" name="telephone" >
+                    <input type="text" class="form-control" placeholder="전화번호를 입력하세요" name="companyPhone">
                 </div>
                 <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="이메일를 입력하세요" name="email">
+                    <input type="email" class="form-control" placeholder="이메일를 입력하세요" name="companyEmail">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="사업자등록번호를 입력하세요" name="username" >
+                    <input type="text" class="form-control" placeholder="사업자등록번호를 입력하세요" name="companyBusinessNo">
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="업종을 입력하세요" name="password" >
+                    <input type="text" class="form-control" placeholder="업종을 입력하세요" name="companyIndustry">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="회사명을 입력하세요" name="telephone" >
+                    <input type="text" class="form-control" placeholder="회사명을 입력하세요" name="companyName">
                 </div>
                 <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="대표자명을 입력하세요" name="email">
+                    <input type="text" class="form-control" placeholder="대표자명을 입력하세요" name="companyCeoName">
                 </div>
                 <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="회사주소를 입력하세요" name="email">
+                    <input type="text" class="form-control" placeholder="회사주소를 입력하세요" name="companyAddress">
                 </div>
                 <button type="submit" class="btn btn-success form-control">회원가입</button>
             </form>
@@ -76,12 +81,12 @@
 
 <script>
     function showForm(type) {
-        if (type === 'user') {
-            document.getElementById('user-join').style.display = 'block';
-            document.getElementById('company-join').style.display = 'none';
+        if (type === 'personal') {
+            document.getElementById('personal').style.display = 'block';
+            document.getElementById('company').style.display = 'none';
         } else {
-            document.getElementById('user-join').style.display = 'none';
-            document.getElementById('company-join').style.display = 'block';
+            document.getElementById('personal').style.display = 'none';
+            document.getElementById('company').style.display = 'block';
         }
     }
 </script>
