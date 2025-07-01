@@ -1,12 +1,9 @@
 {{> layout/header}}
 
 <div class="container p-5">
-
-    <!--
-        {{! boardList}} (머스태치 주석)
-        #BoardList 리스트가 존재하고 비어있지 않으면 반복 실행
-     -->
-
+    <div style="margin:1rem 0" class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="/ppost/save-form" class="btn btn-primary">글쓰기</a>
+    </div>
     {{#boardList}}
         <div class="card mb-3">
             <div class="card-body">
