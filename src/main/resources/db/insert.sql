@@ -1,23 +1,7 @@
-INSERT INTO `user_tb` (username, password, user_type) VALUES
-('admin_user', 'admin_password_hash', 'ADMIN'),
-('user_kim', 'user_pass_hash_1', 'PERSONAL'),
-('user_lee', 'user_pass_hash_2', 'PERSONAL'),
-('user_park', 'user_pass_hash_3', 'PERSONAL'),
-('user_choi', 'user_pass_hash_4', 'PERSONAL'),
-('user_jung', 'user_pass_hash_5', 'PERSONAL'),
-('user_kang', 'user_pass_hash_6', 'PERSONAL'),
-('user_yoon', 'user_pass_hash_7', 'PERSONAL'),
-('user_lim', 'user_pass_hash_8', 'PERSONAL'),
-('user_oh', 'user_pass_hash_9', 'PERSONAL'),
-('user_seo', 'user_pass_hash_10', 'PERSONAL'),
-
-('company_alpha', 'company_pass_hash_1', 'COMPANY'),
-('company_beta', 'company_pass_hash_2', 'COMPANY'),
-('company_gamma', 'company_pass_hash_3', 'COMPANY'),
-('company_delta', 'company_pass_hash_4', 'COMPANY'),
-('company_epsilon', 'company_pass_hash_5', 'COMPANY'),
-('company_zeta', 'company_pass_hash_6', 'COMPANY'),
-('company_eta', 'company_pass_hash_7', 'COMPANY'),
-('company_theta', 'company_pass_hash_8', 'COMPANY'),
-('company_iota', 'company_pass_hash_9', 'COMPANY'),
-('company_kappa', 'company_pass_hash_10', 'COMPANY');
+-- User 테이블 데이터 (5명의 사용자)
+INSERT INTO user_tb (username, password, email, created_at, role) VALUES
+('admin', '1234', 'admin@blog.com', NOW(),'USER'),
+('ssar', '1234', 'ssar@nate.com', NOW(),'USER'),
+('cos', '1234', 'cos@gmail.com', NOW(),'USER'),
+('hong', '1234', 'hong@naver.com', NOW(),'ADMIN'),
+('kim', '1234', 'kim@daum.net', NOW(),'COMPANY');

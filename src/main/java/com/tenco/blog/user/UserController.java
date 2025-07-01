@@ -1,6 +1,10 @@
 package com.tenco.blog.user;
 
+import com.tenco.blog._core.errors.exception.Exception400;
+import com.tenco.blog._core.errors.exception.Exception401;
+import com.tenco.blog.board.BoardController;
 import com.tenco.blog.utils.Define;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -13,128 +17,80 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 @Controller
 public class UserController {
-
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private static final Logger log = LoggerFactory.getLogger(BoardController.class);
     private final UserService userService;
 
+    // 주소 설계 : http://localhost:8080/user/update-form
+    @GetMapping("/user/update-form")
+    public String updateForm(Model model, HttpSession session) {
 
-    /**
-     * p,c
-     * 회원 정보 수정 화면 요청
-     */
-    @GetMapping("/personal/update-form")
-    public String updateP(Model model, HttpSession session) {
-        User sessionPersonal = (User) session.getAttribute("sessionPersonal");
-        User personalUser = userService.findById(sessionPersonal.getId());
-        model.addAttribute("personalUser", personalUser);
-        return "personal/update-form";
-    }
-
-    @GetMapping("/company/update-form")
-    public String updateC(Model model, HttpSession session) {
-        User sessionCompany = (User) session.getAttribute("sessionCompany");
-        User companyUser = userService.findById(sessionCompany.getId());
-        model.addAttribute("companyUser", companyUser);
-        return "company/update-form";
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.findById(sessionUser.getId());
+        model.addAttribute("user", user);
+        return "user/update-form";
     }
 
     /**
-     * p,c
-     * 회원 정보 수정 기능 요청
+     * 회원 수정 기능 요청
      */
-    @PostMapping("/personal/update")
-    public String updatePersonal(UserRequest.UpdatePersonalDTO reqDTO,
-                                 HttpSession session) {
+    @PostMapping("/user/update")
+    public String update(UserRequest.UpdateDTO reqDTO,
+                         HttpSession session, Model model) {
+        // 1. 인증검사
+        // 2. 우효성 검사
+        // 3. 서비스 계층 -> 회원 수정 기능 위임
+        // 4. 세션 동기화 처리
+        // 5. 리다이렉트 - > 회원 정보 화면 요청(새로운 request)요청
         reqDTO.validate();
-        User sessionPersonal = (User) session.getAttribute("sessionPersonal");
-        User personalUser = userService.updateById(sessionPersonal.getId(), reqDTO);
-        session.setAttribute("personalUser", personalUser);
-        return "redirect:/personal/update-form";
+        User user = (User)session.getAttribute("sessionUser");
+        User Updateuser = userService.updateById(user.getId(),reqDTO);
+        return "redirect:/user/update-form"; // 아스키코드만 그리고 공백도 안됨
+
     }
 
-    @PostMapping("/company/update")
-    public String updateCompany(UserRequest.UpdateCompanyDTO reqDTO,
-                                HttpSession session) {
-        reqDTO.validate();
-        User sessionCompany = (User) session.getAttribute("sessionCompany");
-        User companyUser = userService.updateById(sessionCompany.getId(), reqDTO);
-        session.setAttribute("companyUser", companyUser);
-        return "redirect:/company/update-form";
-    }
 
-    /**
-     * p,c
-     * 회원 가입 화면 요청
-     */
     @GetMapping("/join-form")
-    public String joinForm() {
-        return "user/join-form";  // user/join-form.html 또는 .jsp
+    public String join_form() {
+        log.info("회원 가입 요청 폼");
+        return "user/join-form";
     }
 
-
     /**
-     * 회원 가입 기능 요청
+     *
+     *회원 가입 기능 요청
      */
-    @PostMapping("/user/join-form/personal/join")
-    public String joinPersonal(UserRequest.JoinPersonalDTO dto) {
-        dto.personalValidate();
-        userService.joinPersonal(dto);
+    @PostMapping("/join")
+    public String join(UserRequest.JoinDTO joinDTO) {
+        joinDTO.validate();
+        userService.join(joinDTO);
         return "redirect:/login-form";
     }
 
-    @PostMapping("/user/join-form/company/join")
-    public String joinCompany(UserRequest.JoinCompanyDTO dto) {
-        dto.companyValidate();
-        userService.joinCompany(dto);
-        return "redirect:/login-form";
-    }
-
-
     /**
-     * 로그인 화면 요청
+     *로그인 화면 요청
      */
-    // 로그인 폼 진입 (단일 페이지)
     @GetMapping("/login-form")
     public String loginForm() {
-        return "user/login-form";  // 위의 HTML이 위치한 뷰 경로
+        return "user/login-form";
     }
+
 
     /**
-     * p.c.a
-     * 로그인 요청
+     *로그인 요청
      */
-    // 개인 로그인 요청 처리
-    @PostMapping("/user/login-form/personal/login")
-    public String personalLogin(UserRequest.LoginDTO loginDTO, HttpSession session) {
-        // 로그인 로직 처리 후 리다이렉트 또는 에러 핸들링
+    @PostMapping("/login")
+    public String login(UserRequest.LoginDTO loginDTO, HttpSession session) {
         loginDTO.validate();
-        User user = userService.login(loginDTO);
-        session.setAttribute(Define.SESSION_PERSONAL, user);
+        User user =  userService.login(loginDTO);
+        session.setAttribute(Define.SESSIONUSER_USER,user);
         return "redirect:/";
     }
-
-    // 기업 로그인 요청 처리
-    @PostMapping("/user/login-form/company/login")
-    public String companyLogin(UserRequest.LoginDTO loginDTO, HttpSession session) {
-        loginDTO.validate();
-        User user = userService.login(loginDTO);
-        session.setAttribute(Define.SESSION_COMPANY, user);
-        return "redirect:/";
-    }
-
-    @PostMapping("/user/login-form/admin/login")
-    public String adminLogin(UserRequest.LoginDTO loginDTO, HttpSession session) {
-        loginDTO.validate();
-        User user = userService.login(loginDTO);
-        session.setAttribute(Define.SESSION_ADMIN, user);
-        return "redirect:/";
-    }
-
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
+
 
 }
