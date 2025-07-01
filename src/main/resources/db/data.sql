@@ -64,14 +64,6 @@ INSERT INTO board_tb (title, content, user_id, created_at) VALUES
 
 -- hong 사용자가 작성한 게시글 (1개)
 INSERT INTO qna_tb (title, content, user_id, created_at) VALUES
-('첫 번째 질문', '안녕하세요! 두 번째 게시글 입니다.', 4, NOW());
-
--- kim 사용자가 작성한 게시글 (1개)
-INSERT INTO qna_tb (title, content, user_id, created_at) VALUES
-('두 번째 질문', '안녕하세요! 두 번째 게시글 입니다.', 2, NOW());
-
--- ppost sample
-INSERT INTO ppost_tb (title, content, user_id, created_at) VALUES
 ('[구직자] 면접 결과는 언제쯤 알 수 있을까요?', '지난주 금요일에 면접을 봤는데, 결과 발표는 보통 얼마나 걸리나요?', 1, NOW()),
 ('[채용기업] 이력서에 기재된 프로젝트에 대해 궁금합니다.', '김OO 지원자님, 이력서에 작성하신 XXX 프로젝트의 역할에 대해 좀 더 자세히 설명해주실 수 있을까요?', 2, NOW()),
 ('[구직자] 경력직 채용 절차는 어떻게 되나요?', '현재 이직을 준비 중인데, 경력직 채용 프로세스에 대해 궁금합니다.', 2, NOW()),
@@ -84,3 +76,11 @@ INSERT INTO ppost_tb (title, content, user_id, created_at) VALUES
 ('[채용기업] 특정 프로젝트에 대한 추가 설명 요청합니다.', '이력서에 명시된 "OOO 프로젝트"에 대해 더 상세한 설명을 부탁드립니다.', 5, NOW()),
 ('[구직자] 온보딩 프로세스는 어떻게 진행되나요?', '입사 후 신입 직원을 위한 온보딩 프로그램이 있는지 궁금합니다.', 2, NOW()),
 ('[채용기업] 합류하게 되시면 어떤 기여를 하고 싶으신가요?', '저희 회사에 합류하신다면 어떤 부분에서 기여하고 싶은지 궁금합니다.', 5, NOW());
+
+-- ppost sample
+INSERT INTO ppost_tb (title, content, user_id, created_at) VALUES
+('이력서_1', '개발 언어: Java, Spring Boot | 경력: 백엔드 개발 1년차 (게시판 CRUD 기능 구현 경험)', 2, NOW()),
+('이력서_2', '개발 언어: Java, Spring Boot, MySQL | 경력: 백엔드 개발 2년차 (RESTful API 및 DB 연동 프로젝트 경험)', 2, NOW()),
+('이력서_3', '개발 언어: Java, Spring Boot, Python, HTML/CSS/JS | 경력: 풀스택 개발 3년차 (JPA 활용 및 간단한 프론트엔드 연동)', 2, NOW()),
+('이력서_4', '개발 언어: Java, Spring Cloud, Kafka, Docker | 경력: 백엔드 개발 4년차 (마이크로서비스 아키텍처 및 분산 시스템 이해)', 2, NOW()),
+('이력서_5', '개발 언어: Java, Spring Cloud, Kotlin, AWS | 경력: 백엔드 개발 5년차 (클라우드 기반 대용량 트래픽 처리 시스템 설계 및 리팩토링 참여)', 2, NOW());
