@@ -59,7 +59,7 @@ public class QnAController {
         // 4. 메인 페이지로 리다이렉트 처리
         User sessionUser = (User) session.getAttribute("sessionUser");
         qnaService.deleteById(id, sessionUser);
-        return "redirect:/";
+        return "redirect:/qna/list";
     }
 
     @GetMapping("/qna/save-form")
@@ -75,7 +75,7 @@ public class QnAController {
         reqDTO.validate();
         User sessionUser = (User)session.getAttribute("sessionUser");
         qnaService.save(reqDTO, sessionUser);
-        return "redirect:/";
+        return "redirect:/qna/list";
     }
 
     @GetMapping("/qna/list")
