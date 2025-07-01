@@ -8,7 +8,7 @@
     </div>
 
     <!-- 개인 회원 로그인 폼 -->
-    <div id="user-login" class="card" style="display: block;">
+    <div id="user-login" class="card" >
         <div class="card-header text-center"><b>👤 개인 회원 로그인</b></div>
         <div class="card-body">
             <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
@@ -23,34 +23,6 @@
             </form>
         </div>
     </div>
-
-    <!-- 기업 회원 로그인 폼 -->
-    <div id="company-login" class="card" style="display: none;">
-        <div class="card-header text-center"><b>🏢 기업 회원 로그인</b></div>
-        <div class="card-body">
-            <form action="/company/login" method="post" enctype="application/x-www-form-urlencoded">
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter company ID" name="username" value="ssar">
-                </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Enter password" name="password" value="1234">
-                </div>
-                <button type="submit" class="btn btn-success form-control">로그인</button>
-            </form>
-        </div>
-    </div>
 </div>
-
-<script>
-    function showForm(type) {
-        if (type === 'user') {
-            document.getElementById('user-login').style.display = 'block';
-            document.getElementById('company-login').style.display = 'none';
-        } else {
-            document.getElementById('user-login').style.display = 'none';
-            document.getElementById('company-login').style.display = 'block';
-        }
-    }
-</script>
 
 {{> layout/footer}}

@@ -1,10 +1,9 @@
-package com.tenco.blog.user;
+package com.tenco.blog.company;
 
-import com.tenco.blog._core.errors.exception.Exception400;
-import com.tenco.blog._core.errors.exception.Exception401;
 import com.tenco.blog.board.BoardController;
+import com.tenco.blog.user.User;
+import com.tenco.blog.user.UserRequest;
 import com.tenco.blog.utils.Define;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -16,25 +15,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
 @Controller
-public class UserController {
+public class CompanyController {
     private static final Logger log = LoggerFactory.getLogger(BoardController.class);
-    private final UserService userService;
+    private final CompanyService companyService;
+
 
     // 주소 설계 : http://localhost:8080/user/update-form
-    @GetMapping("/user/update-form")
+    @GetMapping("/company/update-form")
     public String updateForm(Model model, HttpSession session) {
-
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        User user = userService.findById(sessionUser.getId());
-        model.addAttribute("user", user);
-        return "user/update-form";
+        //TODO "sessionUser" 나중에 확인
+        Company companyUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
+        Company Company = companyService.findById(companyUser.getId());
+        model.addAttribute("user", Company);
+        return "company/update-form";
     }
 
     /**
      * 회원 수정 기능 요청
      */
-    @PostMapping("/user/update")
-    public String update(UserRequest.UpdateDTO reqDTO,
+    @PostMapping("/company/update")
+    public String update(CompanyRequset.UpdateDTO reqDTO,
                          HttpSession session, Model model) {
         // 1. 인증검사
         // 2. 우효성 검사
@@ -42,55 +42,57 @@ public class UserController {
         // 4. 세션 동기화 처리
         // 5. 리다이렉트 - > 회원 정보 화면 요청(새로운 request)요청
         reqDTO.validate();
-        User user = (User)session.getAttribute("sessionUser");
-        User Updateuser = userService.updateById(user.getId(),reqDTO);
-        return "redirect:/user/update-form"; // 아스키코드만 그리고 공백도 안됨
+        Company company = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
+        Company Updatecompany = companyService.updateById(company.getId(),reqDTO);
+        return "redirect:/company/update-form"; // 아스키코드만 그리고 공백도 안됨
 
     }
 
 
-    @GetMapping("user/join-form")
+    @GetMapping("company/join-form")
     public String join_form() {
         log.info("회원 가입 요청 폼");
-        return "user/join-form";
+        return "company/join-form";
     }
 
     /**
      *
      *회원 가입 기능 요청
      */
-    @PostMapping("user/join")
-    public String join(UserRequest.JoinDTO joinDTO) {
+    @PostMapping("company/join")
+    public String join(CompanyRequset.JoinDTO joinDTO) {
         joinDTO.validate();
-        userService.join(joinDTO);
-        return "redirect:/user/login-form";
+        companyService.join(joinDTO);
+        return "redirect:/company/login-form";
     }
 
     /**
      *로그인 화면 요청
      */
-    @GetMapping("user/login-form")
+    @GetMapping("company/login-form")
     public String loginForm() {
-        return "user/login-form";
+        return "company/login-form";
     }
 
 
     /**
      *로그인 요청
      */
-    @PostMapping("user/login")
-    public String login(UserRequest.LoginDTO loginDTO, HttpSession session) {
+    @PostMapping("/company/login")
+    public String login(CompanyRequset.LoginDTO loginDTO, HttpSession session) {
         loginDTO.validate();
-        User user =  userService.login(loginDTO);
-        session.setAttribute(Define.SESSIONUSER_USER,user);
+        Company company =  companyService.login(loginDTO);
+        session.setAttribute(Define.SESSIONUSER_USER,company);
         return "redirect:/";
     }
 
-    @GetMapping("user/logout")
+    @GetMapping("company/logout")
     public String logout(HttpSession session) {
-       session.invalidate();
+        session.invalidate();
         return "redirect:/";
     }
 
 
 }
+
+
