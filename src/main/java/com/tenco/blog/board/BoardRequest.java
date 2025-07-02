@@ -25,8 +25,8 @@ public class BoardRequest {
         // (User) <-- toEntity() 호출할 때 세션에서 가져와서 넣어 주면 됨
         public Board toEntity(Company company) {
             return Board.builder()
-                    .businessName(company.getBusiness_name())
-                    .ceoName(company.getCeo_name())
+                    .businessName(company.getBusinessName())
+                    .ceoName(company.getCeoName())
                     .industry(company.getIndustry())
                     .title(this.title)
                     .company(company)
@@ -36,10 +36,10 @@ public class BoardRequest {
 
         public void validate() {
             if(title == null || title.trim().isEmpty()) {
-                throw new IllegalArgumentException("제목은 필수야");
+                throw new IllegalArgumentException("제목은 필수입니다.");
             }
             if(content == null || content.trim().isEmpty()) {
-                throw new IllegalArgumentException("내용은 필수야");
+                throw new IllegalArgumentException("내용은 필수입니다.");
             }
         }
     }
@@ -56,10 +56,10 @@ public class BoardRequest {
         // 유효성 검사
         public void validate() {
             if(title == null || title.trim().isEmpty()) {
-                throw new IllegalArgumentException("제목은 필수야");
+                throw new IllegalArgumentException("제목은 필수입니다.");
             }
             if(content == null || content.trim().isEmpty()) {
-                throw new IllegalArgumentException("내용은 필수야");
+                throw new IllegalArgumentException("내용은 필수입니다.");
             }
         }
     }

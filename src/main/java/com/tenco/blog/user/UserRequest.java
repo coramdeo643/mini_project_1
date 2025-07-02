@@ -14,6 +14,7 @@ public class UserRequest {
     public static class JoinDTO {
         private String username;
         private String password;
+        private String name;
         private String telephone;
         private String email;
 
@@ -23,6 +24,7 @@ public class UserRequest {
             return User.builder()
                     .username(this.username)
                     .password(this.password)
+                    .name(this.name)
                     .telephone(this.telephone)
                     .email(this.email)
                     .build();
@@ -36,6 +38,9 @@ public class UserRequest {
             }
             if(password == null || password.trim().isEmpty()){
                 throw new IllegalArgumentException("비밀번호는 필수입니다.");
+            }
+            if(name == null || name.trim().isEmpty()){
+                throw new IllegalArgumentException("이름은 필수입니다.");
             }
             if(telephone == null || telephone.trim().isEmpty()){
                 throw new IllegalArgumentException("전화번호를 입력해주세요");
@@ -60,10 +65,10 @@ public class UserRequest {
         // 유효성 검사
         public void validate() {
             if (username == null || username.trim().isEmpty()){
-                throw new IllegalArgumentException("야 사용자 입력해");
+                throw new IllegalArgumentException("사용자 명은 필수입니다.");
             }
             if (password == null || password.trim().isEmpty()){
-                throw new IllegalArgumentException("야 비번 입력해");
+                throw new IllegalArgumentException("비밀번호는 필수입니다.");
             }
         }
 
@@ -74,6 +79,7 @@ public class UserRequest {
     public static class UpdateDTO{
         private String password;
         private String email;
+        private String telephone;
         // username <- 유니크 설정 함
 
         // toEntity (더티체킹 사용)
@@ -87,6 +93,9 @@ public class UserRequest {
             // 간단한 이메일 형식 검증 (정규화 표현식)
             if(email.contains("@") == false) {
                 throw new IllegalArgumentException("올바른 이메일 형식이 아닙니다.");
+            }
+            if(telephone == null || telephone.trim().isEmpty()){
+                throw new IllegalArgumentException("전화번호는 필수입니다.");
             }
         }
     }

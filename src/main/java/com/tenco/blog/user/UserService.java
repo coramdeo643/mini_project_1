@@ -19,20 +19,12 @@ public class UserService {
     /**
      * 회원가입 처리
      */
-    @Transactional // 메서드 레벨에서 쓰기 전용 트랜잭션 활성화
+    @Transactional
     public User join(UserRequest.JoinDTO joinDTO){
-        // 1. 사용자 명 중복 체크
         userJpaRepository.findByUsername(joinDTO.getUsername())
                 .ifPresent(user1 -> {
                 throw new Exception400("이미 존재하는 사용자 명입니다.");
         });
-//        User user = userJpaRepository.findByUsername(joinDTO.getUsername()).orElseThrow(() -> {
-//           return new Exception400("이미 존재하는 사용자 명입니다.");
-//        });
-
-//        User user = joinDTO.toEntity();
-//        User savedUser = userJpaRepository.save(user);
-//        return user;
         return userJpaRepository.save(joinDTO.toEntity());
     }
 
@@ -63,12 +55,8 @@ public class UserService {
      */
     @Transactional
     public User updateById(Long userId, UserRequest.UpdateDTO updateDTO){
-        // 1.
-        // 2. 사용자 조회
-        // 3. 수정된 User 반환 왜? ----. 세션 동기화 때문!!1
         User user = findById(userId);
-        //user.update(updateDTO); TODO 추후 추가
-        user.setPassword(updateDTO.getPassword());
+        user.update(updateDTO);
         return user;
     }
 }
