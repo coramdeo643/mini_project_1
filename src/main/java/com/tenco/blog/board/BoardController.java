@@ -1,7 +1,6 @@
 package com.tenco.blog.board;
 
 import com.tenco.blog.company.Company;
-import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -80,7 +79,7 @@ public class BoardController {
 
     @GetMapping("/")
     public String index(Model model) {
-        List<Board> boardList =  boardService.findAll();
+        List<Board> boardList = boardService.findAll();
         model.addAttribute("boardList", boardList);
         return "index";
     }

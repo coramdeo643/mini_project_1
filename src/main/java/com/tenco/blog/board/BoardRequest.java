@@ -1,8 +1,6 @@
 package com.tenco.blog.board;
 
 import com.tenco.blog.company.Company;
-import com.tenco.blog.user.User;
-import jakarta.persistence.Column;
 import lombok.Data;
 
 /**
@@ -35,10 +33,10 @@ public class BoardRequest {
         }
 
         public void validate() {
-            if(title == null || title.trim().isEmpty()) {
+            if (title == null || title.trim().isEmpty()) {
                 throw new IllegalArgumentException("제목은 필수입니다.");
             }
-            if(content == null || content.trim().isEmpty()) {
+            if (content == null || content.trim().isEmpty()) {
                 throw new IllegalArgumentException("내용은 필수입니다.");
             }
         }
@@ -55,10 +53,10 @@ public class BoardRequest {
 
         // 유효성 검사
         public void validate() {
-            if(title == null || title.trim().isEmpty()) {
+            if (title == null || title.trim().isEmpty()) {
                 throw new IllegalArgumentException("제목은 필수입니다.");
             }
-            if(content == null || content.trim().isEmpty()) {
+            if (content == null || content.trim().isEmpty()) {
                 throw new IllegalArgumentException("내용은 필수입니다.");
             }
         }

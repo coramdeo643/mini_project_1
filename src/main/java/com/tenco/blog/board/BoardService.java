@@ -3,9 +3,6 @@ package com.tenco.blog.board;
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
 import com.tenco.blog.company.Company;
-import com.tenco.blog.user.User;
-import com.tenco.blog.utils.Define;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +42,7 @@ public class BoardService {
         boardJpaRepository.save(board);
         log.info("게시글 저장 완료 - ID {} , 제목 {}",
                 board.getId(), board.getTitle());
-        return  board;
+        return board;
     }
 
     /**
@@ -81,7 +78,7 @@ public class BoardService {
     }
 
     /**
-     *  게시글 수정(권한 체크 포함)
+     * 게시글 수정(권한 체크 포함)
      */
     @Transactional
     public Board updateById(Long id, BoardRequest.UpdateDTO updateDTO,
@@ -99,7 +96,7 @@ public class BoardService {
             return new Exception404("해당 게시글이 존재하지 않습니다");
         });
 
-        if(!board.isOwner(sessionUser.getId())) {
+        if (!board.isOwner(sessionUser.getId())) {
             throw new Exception403("본인이 작성한 게시글만 수정 가능");
         }
 
@@ -126,18 +123,18 @@ public class BoardService {
         Board board = boardJpaRepository.findById(id).orElseThrow(() -> {
             return new Exception404("삭제하려는 게시글이 없습니다");
         });
-        if(!board.isOwner(sessionUser.getId())) {
+        if (!board.isOwner(sessionUser.getId())) {
             throw new Exception403("본인이 작성한 게시글만 삭제할 수 있습니다");
         }
         boardJpaRepository.deleteById(id);
     }
 
     /**
-     *  게시글 소유자 확인 (수정 화면 요청 확인용)
+     * 게시글 소유자 확인 (수정 화면 요청 확인용)
      */
     public void checkBoardOwner(Long boardId, Long userId) {
         Board board = findById(boardId);
-        if(!board.isOwner(userId)) {
+        if (!board.isOwner(userId)) {
             throw new Exception403("본인 게시글만 수정할 수 있습니다.");
         }
     }
