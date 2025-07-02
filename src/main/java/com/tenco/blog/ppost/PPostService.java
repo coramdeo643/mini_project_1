@@ -11,31 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Board 관련 비즈니스 로직을 처리하는 Service 계층
- */
 @RequiredArgsConstructor
 @Service // IoC 대상
 @Transactional(readOnly = true)
-// 모든 메서드를 일기 전용 트랜잭션으로 실행(findAll, findById 최적화)
-// 성능 최적화 (변경 감지 비활성화), 데이터 수정 방지 ()
-// 데이터이스 락(lock) 최소화 하여 동시성 성능 개선
 public class PPostService {
-
     private static final Logger log = LoggerFactory.getLogger(PPostService.class);
     private final PPostJpaRepository PPostJpaRepository;
 
     /**
      * 게시글 저장
      */
-    // 메서드 레벨에서의 트랜잭선 선언
     @Transactional // 데이 수정이 필요하는 읽지 전용 설정을 해제하고 쓰기 전용로 변환
     public PPost save(PPostRequest.SaveDTO saveDTO, User sessionUser) {
-        // 1. 로그 기록 - 게시글 저장 요청 정보
-        // 2. DTO를 Entity로 변환(작성자 정보 포함)
-        // 3. 데이터베이스에 게시글 저장
-        // 4. 저장 완료 로그 기록
-        // 5. 저장된 Board 를 Controller 로 반환
         log.info("게시글 저장 서비스 처리 시작 - 제목 {} , 작성자 {}",
                 saveDTO.getTitle(), sessionUser.getUsername());
         PPost PPost = saveDTO.toEntity(sessionUser);
