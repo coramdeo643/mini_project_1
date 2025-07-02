@@ -1,6 +1,7 @@
 package com.tenco.blog.board;
 
 import com.tenco.blog.company.Company;
+import com.tenco.blog.company.CompanyService;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ public class BoardController {
 
     private static final Logger log = LoggerFactory.getLogger(BoardController.class);
     private final BoardService boardService;
+    private final CompanyService companyService;
 
     /**
      * 게시글 수정 화면 요청
@@ -58,11 +60,16 @@ public class BoardController {
         // 4. 메인 페이지로 리다이렉트 처리
         Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
         boardService.deleteById(id, sessionUser);
-        return "redirect:/";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/board/save-form")
-    public String saveForm() {
+    public String saveForm(HttpSession session, Model model) {
+
+        // 1. 로그인한 유저 정보
+        Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
+        Company company = companyService.findById(sessionUser.getId());
+        model.addAttribute("company", company);
         return "board/save-form";
     }
 
@@ -74,7 +81,7 @@ public class BoardController {
         reqDTO.validate();
         Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
         boardService.save(reqDTO, sessionUser);
-        return "redirect:/";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/")
@@ -82,6 +89,13 @@ public class BoardController {
         List<Board> boardList = boardService.findAll();
         model.addAttribute("boardList", boardList);
         return "index";
+    }
+
+    @GetMapping("/board/list")
+    public String list(Model model) {
+        List<Board> boardList = boardService.findAll();
+        model.addAttribute("boardList", boardList);
+        return "board/list";
     }
 
     @GetMapping("/board/{id}")
