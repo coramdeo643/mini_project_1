@@ -1,6 +1,8 @@
 package com.tenco.blog.board;
 
+import com.tenco.blog.company.Company;
 import com.tenco.blog.user.User;
+import jakarta.persistence.Column;
 import lombok.Data;
 
 /**
@@ -12,15 +14,22 @@ public class BoardRequest {
     // 게시글 저장 DTO
     @Data
     public static class SaveDTO {
+        private String businessName;
+        private String ceoName;
+        private String industry;
         private String title;
         private String content;
+
         // username 제거 : 세션에서 가져올 예정
 
         // (User) <-- toEntity() 호출할 때 세션에서 가져와서 넣어 주면 됨
-        public Board toEntity(User user) {
+        public Board toEntity(Company company) {
             return Board.builder()
+                    .businessName(company.getBusiness_name())
+                    .ceoName(company.getCeo_name())
+                    .industry(company.getIndustry())
                     .title(this.title)
-                    .user(user)
+                    .company(company)
                     .content(this.content)
                     .build();
         }
