@@ -1,12 +1,12 @@
 {{> layout/header}}
 
 <div class="container p-5">
-
+    <div style="margin:1rem 0" class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="/board/save-form" class="btn btn-primary">글쓰기</a>
+    </div>
     {{#boardList}}
         <div class="card mb-3">
             <div class="card-body">
-                <!-- {{! title}} 은 현재 Board 객체읭 title 멤버 변수에 값을 출력한다.
-                        머스태치는 자동으로 getTitle()메서드를 호출한 것이다.-->
                 <h4 class="card-title mb-3">{{title}}</h4>
                 <p> 기업명 : {{company.businessName}}&nbsp|&nbsp{{time}}</p>
                 <a href="/board/{{id}}" class="btn btn-primary">상세보기</a>
