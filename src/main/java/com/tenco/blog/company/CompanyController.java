@@ -77,13 +77,6 @@ public class CompanyController {
         return "redirect:/";
     }
 
-    @GetMapping("/company/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
-
-
 }
 
 
