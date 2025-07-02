@@ -59,7 +59,7 @@ public class UserController {
      *
      *회원 가입 기능 요청
      */
-    @PostMapping("user/join")
+    @PostMapping("/user/join")
     public String join(UserRequest.JoinDTO joinDTO) {
         joinDTO.validate();
         userService.join(joinDTO);
@@ -69,7 +69,7 @@ public class UserController {
     /**
      *로그인 화면 요청
      */
-    @GetMapping("user/login-form")
+    @GetMapping("/user/login-form")
     public String loginForm() {
         return "user/login-form";
     }
@@ -78,7 +78,7 @@ public class UserController {
     /**
      *로그인 요청
      */
-    @PostMapping("user/login")
+    @PostMapping("/user/login")
     public String login(UserRequest.LoginDTO loginDTO, HttpSession session) {
         loginDTO.validate();
         User user =  userService.login(loginDTO);
@@ -86,7 +86,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("user/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
        session.invalidate();
         return "redirect:/";

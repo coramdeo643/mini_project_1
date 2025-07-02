@@ -6,6 +6,17 @@ INSERT INTO user_tb (username, password, email, created_at) VALUES
 ('hong', '1234', 'hong@naver.com', NOW()),
 ('kim', '1234', 'kim@daum.net', NOW());
 
+INSERT INTO company_tb (
+    username, password, telephone, email, company_number,
+    industry, business_name, ceo_name, company_address
+) VALUES
+('samsung_hr', 'pass1234', '010-1234-5678', 'hr@samsung.com', '110-86-00123', '전자', '삼성전자', '이재용', '서울시 강남구 삼성로 123'),
+('lg_recruit', 'lgpw2024', '010-9876-5432', 'recruit@lg.com', '110-86-00456', '화학', 'LG화학', '구광모', '서울시 영등포구 여의대로 1'),
+('hyundai_corp', 'hy123456', '010-4567-7890', 'info@hyundai.com', '110-86-00789', '자동차', '현대자동차', '정의선', '서울시 서초구 헌릉로 12'),
+('naver_careers', 'naver9876', '010-2222-3333', 'careers@naver.com', '110-86-00999', 'IT', '네이버', '최수연', '경기도 성남시 판교로 100'),
+('kakao_hr', 'kakao2024', '010-3333-4444', 'hr@kakao.com', '110-86-00888', '모바일', '카카오', '홍은택', '제주도 제주시 첨단로 1');
+
+
 -- 2단계: Board 테이블 데이터 (10개의 게시글)
 -- 주의: user_id는 위에서 생성된 사용자의 id를 참조
 

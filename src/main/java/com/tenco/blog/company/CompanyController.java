@@ -25,8 +25,8 @@ public class CompanyController {
     public String updateForm(Model model, HttpSession session) {
         //TODO "sessionUser" 나중에 확인
         Company companyUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
-        Company Company = companyService.findById(companyUser.getId());
-        model.addAttribute("user", Company);
+        Company company = companyService.findById(companyUser.getId());
+        model.addAttribute("company", company);
         return "company/update-form";
     }
 
@@ -59,7 +59,7 @@ public class CompanyController {
      *
      *회원 가입 기능 요청
      */
-    @PostMapping("company/join")
+    @PostMapping("/company/join")
     public String join(CompanyRequset.JoinDTO joinDTO) {
         joinDTO.validate();
         companyService.join(joinDTO);
@@ -69,7 +69,7 @@ public class CompanyController {
     /**
      *로그인 화면 요청
      */
-    @GetMapping("company/login-form")
+    @GetMapping("/company/login-form")
     public String loginForm() {
         return "company/login-form";
     }
@@ -85,13 +85,6 @@ public class CompanyController {
         session.setAttribute(Define.SESSIONUSER_USER,company);
         return "redirect:/";
     }
-
-    @GetMapping("company/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
-
 
 }
 

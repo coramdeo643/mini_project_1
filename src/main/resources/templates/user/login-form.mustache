@@ -1,24 +1,17 @@
 {{> layout/header}}
 
 <div class="container p-5">
-    <!-- 로그인 유형 선택 버튼 -->
-    <div class="text-center mb-4">
-        <button class="btn btn-outline-primary me-2" onclick="showForm('user')">👤 개인 회원 로그인</button>
-        <button class="btn btn-outline-success" onclick="showForm('company')">🏢 기업 회원 로그인</button>
-    </div>
-
     <!-- 개인 회원 로그인 폼 -->
     <div id="user-login" class="card" >
         <div class="card-header text-center"><b>👤 개인 회원 로그인</b></div>
         <div class="card-body">
-            <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="/user/login" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Enter username" name="username" value="ssar">
                 </div>
                 <div class="mb-3">
                     <input type="password" class="form-control" placeholder="Enter password" name="password" value="1234">
                 </div>
-                <input type="hidden" name="role" value="USER">
                 <button type="submit" class="btn btn-primary form-control">로그인</button>
             </form>
         </div>
