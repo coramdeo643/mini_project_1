@@ -2,6 +2,7 @@ package com.tenco.blog.board;
 
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
+import com.tenco.blog.company.Company;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpSession;
@@ -32,7 +33,7 @@ public class BoardService {
      */
     // 메서드 레벨에서의 트랜잭선 선언
     @Transactional // 데이 수정이 필요하는 읽지 전용 설정을 해제하고 쓰기 전용로 변환
-    public Board save(BoardRequest.SaveDTO saveDTO, User sessionUser) {
+    public Board save(BoardRequest.SaveDTO saveDTO, Company sessionUser) {
         // 1. 로그 기록 - 게시글 저장 요청 정보
         // 2. DTO를 Entity로 변환(작성자 정보 포함)
         // 3. 데이터베이스에 게시글 저장
@@ -84,7 +85,7 @@ public class BoardService {
      */
     @Transactional
     public Board updateById(Long id, BoardRequest.UpdateDTO updateDTO,
-                            User sessionUser) {
+                            Company sessionUser) {
         // 1. 로그 기록
         // 2. 수정하려는 게시글 조회
         // 3. 권한 체크
@@ -114,7 +115,7 @@ public class BoardService {
      * 게시글 삭제 (권한 체크)
      */
     @Transactional
-    public void deleteById(Long id, User sessionUser) {
+    public void deleteById(Long id, Company sessionUser) {
         // 1. 로그 기록
         // 2. 삭제 하려는 게시글 조회
         // 3. 권한 체크

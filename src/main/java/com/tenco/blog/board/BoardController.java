@@ -1,5 +1,6 @@
 package com.tenco.blog.board;
 
+import com.tenco.blog.company.Company;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,17 +26,17 @@ public class BoardController {
     /**
      * 게시글 수정 화면 요청
      */
-    @GetMapping("/com/tenco/blog/qna/{id}/update-form")
+    @GetMapping("/board/{id}/update-form")
     public String updateForm(@PathVariable(name = "id") Long boardId,
                              HttpServletRequest request, HttpSession session) {
-        User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+        Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
         boardService.checkBoardOwner(boardId, sessionUser.getId());
-        request.setAttribute("com/tenco/blog/qna", boardService.findById(boardId));
-        return "com/tenco/blog/qna/update-form";
+        request.setAttribute("board", boardService.findById(boardId));
+        return "board/update-form";
     }
 
 
-    @PostMapping("/com/tenco/blog/qna/{id}/update-form")
+    @PostMapping("/board/{id}/update-form")
     public String update(@PathVariable(name = "id") Long boardId,
                          BoardRequest.UpdateDTO reqDTO,
                          HttpSession session) {
@@ -44,35 +45,35 @@ public class BoardController {
         // 3. 수정 요청 위임
         // 4. 리다이렉트 처리
         reqDTO.validate();
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
         boardService.updateById(boardId, reqDTO, sessionUser);
 
         return "redirect:/board/" + boardId;
     }
 
-    @PostMapping("/com/tenco/blog/qna/{id}/delete")
+    @PostMapping("/board/{id}/delete")
     public String delete(@PathVariable(name = "id") Long id, HttpSession session) {
         // 1. 인증 검사
         // 2. 세션에서 로그인 한 사용자 정보 추출
         // 3. 서비스 위임
         // 4. 메인 페이지로 리다이렉트 처리
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
         boardService.deleteById(id, sessionUser);
         return "redirect:/";
     }
 
-    @GetMapping("/com/tenco/blog/qna/save-form")
+    @GetMapping("/board/save-form")
     public String saveForm() {
-        return "com/tenco/blog/qna/save-form";
+        return "board/save-form";
     }
 
-    @PostMapping("/com/tenco/blog/qna/save")
+    @PostMapping("/board/save")
     public String save(BoardRequest.SaveDTO reqDTO, HttpSession session) {
         // 1. 인증검사
         // 2. 유효성 검사
         // 3. 서비스 계층 위임
         reqDTO.validate();
-        User sessionUser = (User)session.getAttribute("sessionUser");
+        Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
         boardService.save(reqDTO, sessionUser);
         return "redirect:/";
     }
@@ -84,9 +85,9 @@ public class BoardController {
         return "index";
     }
 
-    @GetMapping("/com/tenco/blog/qna/{id}")
+    @GetMapping("/board/{id}")
     public String detail(@PathVariable(name = "id") Long id, Model model) {
-        model.addAttribute("com/tenco/blog/qna", boardService.findById(id));
-        return "com/tenco/blog/qna/detail";
+        model.addAttribute("board", boardService.findById(id));
+        return "board/detail";
     }
 }
