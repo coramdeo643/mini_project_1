@@ -19,27 +19,20 @@ public class CompanyService {
     /**
      * 회원가입 처리
      */
-    @Transactional // 메서드 레벨에서 쓰기 전용 트랜잭션 활성화
-    public Company join(CompanyRequset.JoinDTO joinDTO){
-        // 1. 사용자 명 중복 체크
+    @Transactional
+    public Company join(CompanyRequest.JoinDTO joinDTO){
         companyRepository.findByUsername(joinDTO.getUsername())
                 .ifPresent(user1 -> {
                     throw new Exception400("이미 존재하는 사용자 명입니다.");
                 });
-//        User user = userJpaRepository.findByUsername(joinDTO.getUsername()).orElseThrow(() -> {
-//           return new Exception400("이미 존재하는 사용자 명입니다.");
-//        });
-
-//        User user = joinDTO.toEntity();
-//        User savedUser = userJpaRepository.save(user);
-//        return user;
+//
         return companyRepository.save(joinDTO.toEntity());
     }
 
     /**
      * 로그인 처리
      */
-    public Company login(CompanyRequset.LoginDTO loginDTO){
+    public Company login(CompanyRequest.LoginDTO loginDTO){
 
         return  companyRepository
                 .findByUsernameAndPassword(loginDTO.getUsername(),loginDTO.getPassword())
@@ -62,13 +55,10 @@ public class CompanyService {
      *  회원 정보 수정 처리 (더티 체킹)
      */
     @Transactional
-    public Company updateById(Long userId, CompanyRequset.UpdateDTO updateDTO){
-        // 1.
-        // 2. 사용자 조회
-        // 3. 수정된 User 반환 왜? ----. 세션 동기화 때문!!1
+    public Company updateById(Long userId, CompanyRequest.UpdateDTO updateDTO){
+
         Company company = findById(userId);
-        //user.update(updateDTO); TODO 추후 추가
-        company.setPassword(updateDTO.getPassword());
+        company.update(updateDTO);
         return company;
     }
 }

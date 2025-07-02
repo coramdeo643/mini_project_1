@@ -23,7 +23,6 @@ public class UserController {
     // 주소 설계 : http://localhost:8080/user/update-form
     @GetMapping("/user/update-form")
     public String updateForm(Model model, HttpSession session) {
-
         User sessionUser = (User) session.getAttribute("sessionUser");
         User user = userService.findById(sessionUser.getId());
         model.addAttribute("user", user);
@@ -35,22 +34,18 @@ public class UserController {
      */
     @PostMapping("/user/update")
     public String update(UserRequest.UpdateDTO reqDTO,
-                         HttpSession session, Model model) {
-        // 1. 인증검사
-        // 2. 우효성 검사
-        // 3. 서비스 계층 -> 회원 수정 기능 위임
-        // 4. 세션 동기화 처리
-        // 5. 리다이렉트 - > 회원 정보 화면 요청(새로운 request)요청
+                         HttpSession session) {
+
         reqDTO.validate();
         User user = (User)session.getAttribute("sessionUser");
-        User Updateuser = userService.updateById(user.getId(),reqDTO);
-        return "redirect:/user/update-form"; // 아스키코드만 그리고 공백도 안됨
+        User updateUser = userService.updateById(user.getId(),reqDTO);
+        return "redirect:/user/update-form";
 
     }
 
 
-    @GetMapping("user/join-form")
-    public String join_form() {
+    @GetMapping("/user/join-form")
+    public String joinForm() {
         log.info("회원 가입 요청 폼");
         return "user/join-form";
     }
@@ -86,7 +81,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/user/logout")
     public String logout(HttpSession session) {
        session.invalidate();
         return "redirect:/";
