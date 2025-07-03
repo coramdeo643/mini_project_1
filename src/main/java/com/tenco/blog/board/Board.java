@@ -42,6 +42,9 @@ public class Board {
     @CreationTimestamp
     private Timestamp createdAt;
 
+    @Transient
+    private boolean isBoardOwner;
+
     public boolean isOwner(Long checkUserId) {
         return this.company.getId().equals(checkUserId);
     }

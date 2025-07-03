@@ -23,7 +23,7 @@ public class CompanyController {
     public String updateForm(Model model, HttpSession session) {
         Company companyUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
         Company Company = companyService.findById(companyUser.getId());
-        model.addAttribute("user", Company);
+        model.addAttribute("company", Company);
         return "company/update-form";
     }
 
@@ -36,7 +36,8 @@ public class CompanyController {
         reqDTO.validate();
         Company company = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
         Company updateCompany = companyService.updateById(company.getId(), reqDTO);
-        return "redirect:/company/update-form";
+        session.setAttribute("updateCompany",updateCompany);
+        return "redirect:/company/login-form";
 
     }
 
@@ -74,6 +75,12 @@ public class CompanyController {
         loginDTO.validate();
         Company company = companyService.login(loginDTO);
         session.setAttribute(Define.SESSIONUSER_COMPANY, company);
+        return "redirect:/";
+    }
+
+    @GetMapping("/company/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/";
     }
 

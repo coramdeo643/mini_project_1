@@ -1,7 +1,11 @@
 package com.tenco.blog.board;
 
+import com.tenco.blog._core.errors.exception.Exception404;
 import com.tenco.blog.company.Company;
 import com.tenco.blog.company.CompanyService;
+import com.tenco.blog.ppost.PPost;
+import com.tenco.blog.ppost.PPostService;
+import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.swing.event.HyperlinkEvent;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,6 +28,8 @@ public class BoardController {
     private static final Logger log = LoggerFactory.getLogger(BoardController.class);
     private final BoardService boardService;
     private final CompanyService companyService;
+    private final PPostService pPostService;
+    private final BoardJpaRepository boardJpaRepository;
 
     /**
      * 게시글 수정 화면 요청
@@ -85,22 +92,45 @@ public class BoardController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
-        List<Board> boardList = boardService.findAll();
-        model.addAttribute("boardList", boardList);
+    public String index(Model model, HttpSession session) {
+        Object companyUser = session.getAttribute("companyUser");
+
+        if (companyUser != null) {
+            // 기업회원인 경우
+            List<PPost> ppostList = pPostService.findAll();
+            model.addAttribute("ppostList", ppostList);
+            model.addAttribute("isCompanyUser", true);
+        } else {
+            // 일반 사용자 or 비로그인
+            List<Board> boardList = boardService.findAll();
+            model.addAttribute("boardList", boardList);
+            model.addAttribute("isCompanyUser", false);
+        }
         return "index";
     }
 
-    @GetMapping("/board/list")
-    public String list(Model model) {
-        List<Board> boardList = boardService.findAll();
-        model.addAttribute("boardList", boardList);
-        return "board/list";
-    }
 
     @GetMapping("/board/{id}")
-    public String detail(@PathVariable(name = "id") Long id, Model model) {
-        model.addAttribute("board", boardService.findById(id));
+    public String detail(@PathVariable(name = "id") Long id, Model model, HttpSession session) {
+        Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
+        Board board = boardService.findByIdWithBoard(id, sessionUser);
+        model.addAttribute("board", board);
         return "board/detail";
     }
+
+
+    @GetMapping("/board/my-list")
+    public String myBoardList(HttpSession session, Model model) {
+        Company company = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
+        if (company == null) {
+            return "redirect:/company/login-form";
+        }
+        Long companyId = company.getId();
+        List<Board> companyBoardList = boardJpaRepository.findByCompanyId(companyId);
+
+        model.addAttribute("companyBoardList", companyBoardList);
+        return "board/my-list";
+    }
+
+
 }

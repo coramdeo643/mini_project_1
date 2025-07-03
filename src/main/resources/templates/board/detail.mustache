@@ -3,14 +3,15 @@
 <div class="container p-5">
 
     <!-- 수정삭제버튼 -->
-    <div class="d-flex justify-content-end">
-    <!--페이지 이동 요청 -->
-        <a href="/board/{{board.id}}/update-form" class="btn btn-warning me-1">수정</a>
-        <form action="/board/{{board.id}}/delete" method="post">
-            <button class="btn btn-danger">삭제</button>
-        </form>
-    </div>
-
+    {{#board.boardOwner}}
+        <div class="d-flex justify-content-end">
+            <!--페이지 이동 요청 -->
+            <a href="/board/{{board.id}}/update-form" class="btn btn-warning me-1">수정</a>
+            <form action="/board/{{board.id}}/delete" method="post">
+                <button class="btn btn-danger">삭제</button>
+            </form>
+        </div>
+    {{/board.boardOwner}}
 
     <!-- 게시글내용 -->
     <div>
@@ -20,7 +21,7 @@
             <b>대표자명</b> : {{board.company.ceoName}} &nbsp;&nbsp;
             <b>업종</b> : {{board.company.industry}} &nbsp;&nbsp;
         </div>
-        <hr />
+        <hr/>
         <div class="m-4 p-2" style="white-space: pre-line;">
             {{board.content}}
         </div>

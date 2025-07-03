@@ -3,6 +3,7 @@ package com.tenco.blog.board;
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
 import com.tenco.blog.company.Company;
+import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -138,5 +139,17 @@ public class BoardService {
             throw new Exception403("본인 게시글만 수정할 수 있습니다.");
         }
     }
+
+
+    public Board findByIdWithBoard(Long id, Company sessionUser) {
+        Board board = boardJpaRepository.findByIdJoinUser(id).orElseThrow(
+                () -> new Exception404("게시글을 찾을 수 없습니다."));
+        if (sessionUser != null) {
+            boolean isBoardOwner = board.isOwner(sessionUser.getId());
+            board.setBoardOwner(isBoardOwner);
+        }
+        return board;
+    }
+
 
 }
