@@ -1,0 +1,17 @@
+{{> layout/header}}
+
+<!--내가 구독한 기업의 채용공고목록-->
+
+<div class="container p-5">
+    {{#userSubBoardList}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title mb-3">{{title}}</h4>
+                <p> 기업명 : {{company.businessName}}&nbsp|&nbsp{{time}}</p>
+                <a href="/board/{{id}}" class="btn btn-primary">상세보기</a>
+            </div>
+        </div>
+    {{/userSubBoardList}}
+</div>
+
+{{> layout/footer}}

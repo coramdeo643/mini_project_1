@@ -16,11 +16,16 @@
     <!-- 게시글내용 -->
     <div>
         <h2><b>{{board.title}}</b></h2>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-start">
             <b>기업명</b> : {{board.company.businessName}} &nbsp;&nbsp;
             <b>대표자명</b> : {{board.company.ceoName}} &nbsp;&nbsp;
             <b>업종</b> : {{board.company.industry}} &nbsp;&nbsp;
         </div>
+        <form action="/user-sub/save" method="post">
+            <input type="hidden" name="companyId" value="{{board.company.id}}">
+            <input type="hidden" name="boardId" value="{{board.id}}">
+            <button class="btn btn-primary btn-sm p-1 mt-1" onclick="return confirm('구독하시겠습니까?')">❤️관심기업</button>
+        </form>
         <hr/>
         <div class="m-4 p-2" style="white-space: pre-line;">
             {{board.content}}

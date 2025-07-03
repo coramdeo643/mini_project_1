@@ -151,5 +151,12 @@ public class BoardService {
         return board;
     }
 
+    public List<Board> findBoardsBySubscribedUserId(Long id) {
+        log.info("구독기업채용공고 조회 시작");
+        List<Board> userSubBoardList = boardJpaRepository.findBoardsBySubscribedUserId(id);
+        log.info("Total {} posts found", userSubBoardList.size());
+        return userSubBoardList;
+    }
+
 
 }

@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -23,30 +24,44 @@ public class UserSubController {
 	private static final Logger log = LoggerFactory.getLogger(UserSubController.class);
 	private final UserSubService userSubService;
 
-	@PostMapping("/usersub/{id}/delete")
+	// 삭제 기능
+	@PostMapping("/user-sub/{id}/delete")
 	public String delete(@PathVariable(name = "id") Long id, HttpSession session) {
 		User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+		if (sessionUser == null) {
+			return "redirect:/login-form";
+		}
 		userSubService.deleteById(id, sessionUser);
-		return "redirect:/usersub/list";
+		return "redirect:/user-sub/" + sessionUser.getId() + "/list";
 	}
 
-	@GetMapping("/usersub/save-form")
-	public String saveForm() {
-		return "usersub/save-form";
+//	// 구독화면?
+//	@GetMapping("/user-sub/save-form")
+//	public String saveForm() {
+//		return "user-sub/save-form";
+//	}
+
+	// 구독하기 기능
+	@PostMapping("/user-sub/save")
+	public String save(UserSubRequest.SaveDTO reqDTO,
+					   HttpSession session) {
+		log.info("subscription start");
+		User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+		if (sessionUser == null) {
+			return "redirect:/login-form";
+		}
+		userSubService.save(reqDTO, sessionUser);
+		log.info("subscription finished!");
+		return "redirect:/board/" + reqDTO.getBoardId();
 	}
 
-	@PostMapping("/usersub/save")
-	public String save(UserSubRequest.SaveDTO reqDTO, HttpSession session) {
-		User sessionUser = (User)session.getAttribute(Define.SESSIONUSER_USER);
-		Company sessionCompany = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
-		userSubService.save(reqDTO, sessionUser, sessionCompany);
-		return "redirect:/usersub/list";
-	}
-
-	@GetMapping("/usersub/list")
-	public String index(Model model) {
-		List<UserSub> userSubList =  userSubService.findAll();
-		model.addAttribute("boardList", userSubList);
-		return "usersub/list";
+	// 구독기업 목록 화면
+	@GetMapping("/user-sub/{id}/list")
+	public String index(@PathVariable(name = "id") Long id,
+						Model model,
+						HttpSession session) {
+		List<UserSub> userSubList = userSubService.findAllByUserAndCompanyId(id);
+		model.addAttribute("userSubList", userSubList);
+		return "user-sub/list";
 	}
 }

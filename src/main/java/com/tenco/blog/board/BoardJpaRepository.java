@@ -32,5 +32,12 @@ public interface BoardJpaRepository extends JpaRepository<Board, Long> {
     @Query("SELECT b FROM Board b JOIN FETCH b.company c WHERE c.id = :id")
     List<Board> findByCompanyId(@Param("id") Long id);
 
+    // 내가 구독한 기업의 채용공고를 조회하자
+    @Query("SELECT b FROM Board b " +
+            "JOIN FETCH b.company c " +
+            "JOIN UserSub us ON b.company.id = us.company.id " +
+            "WHERE us.user.id = :userId ORDER BY b.id DESC")
+    List<Board> findBoardsBySubscribedUserId(@Param("userId") Long userId);
+
 
 }

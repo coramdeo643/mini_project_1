@@ -132,5 +132,16 @@ public class BoardController {
         return "board/my-list";
     }
 
+    @GetMapping("/user-sub/board-list")
+    public String userSubBoardList(HttpSession session, Model model) {
+        User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+        if (sessionUser == null) {
+            return "redirect:/login-form";
+        }
+        List<Board> userSubBoardList = boardService.findBoardsBySubscribedUserId(sessionUser.getId());
+        model.addAttribute("userSubBoardList", userSubBoardList);
+        return "user-sub/board-list";
+    }
+
 
 }

@@ -236,3 +236,11 @@ INSERT INTO ppost_tb (title, content, user_id, created_at) VALUES
 ('이력서_3', '개발 언어: Java, Spring Boot, Python, HTML/CSS/JS | 경력: 풀스택 개발 3년차 (JPA 활용 및 간단한 프론트엔드 연동)', 1, NOW()),
 ('이력서_4', '개발 언어: Java, Spring Cloud, Kafka, Docker | 경력: 백엔드 개발 4년차 (마이크로서비스 아키텍처 및 분산 시스템 이해)', 3, NOW()),
 ('이력서_5', '개발 언어: Java, Spring Cloud, Kotlin, AWS | 경력: 백엔드 개발 5년차 (클라우드 기반 대용량 트래픽 처리 시스템 설계 및 리팩토링 참여)', 4, NOW());
+
+-- user_sub sample
+INSERT INTO user_sub (user_id, company_id, created_at) VALUES
+(2, 1, NOW()),(2, 2, NOW()),(2, 3, NOW()),(2, 4, NOW()),
+(3, 2, NOW()),(3, 3, NOW()),(3, 4, NOW()),(3, 5, NOW()),
+(5, 1, NOW()),(5, 2, NOW()),(5, 3, NOW()),(5, 4, NOW()),
+(1, 2, NOW()),(1, 3, NOW()),(1, 4, NOW()),(1, 5, NOW()),
+(4, 1, NOW()),(4, 2, NOW()),(4, 4, NOW()),(4, 5, NOW());
