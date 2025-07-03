@@ -51,7 +51,7 @@ public class UserController {
     /**
      * 회원 가입 기능 요청
      */
-    @PostMapping("/user/join")
+    @PostMapping("/join")
     public String join(UserRequest.JoinDTO joinDTO) {
         joinDTO.validate();
         userService.join(joinDTO);
