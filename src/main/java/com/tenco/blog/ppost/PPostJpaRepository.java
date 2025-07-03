@@ -1,6 +1,7 @@
 package com.tenco.blog.ppost;
 
 
+import com.tenco.blog.board.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,5 +16,9 @@ public interface PPostJpaRepository extends JpaRepository<PPost, Long> {
 
     @Query("SELECT p FROM PPost p JOIN FETCH p.user u WHERE p.id = :id")
     Optional<PPost> findByIdJoinUser(@Param("id")Long id);
+
+    // 유저 아이디로 게시글 전부 가져오기
+    @Query("SELECT p FROM PPost p JOIN FETCH p.user u WHERE u.id = :id")
+    List<PPost> findByUserId(@Param("id") Long id);
 
 }

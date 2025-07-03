@@ -22,7 +22,7 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
-    private String name;
+    private String personalName;
     private String telephone;
     private String email;
     //now()
@@ -32,11 +32,11 @@ public class User {
 
     //객체 생성시 가독성과 안정성 향상
     @Builder
-    public User(Long id, String username, String password, String name, String telephone, String email, Timestamp createdAt) {
+    public User(Long id, String username, String password, String personalName, String telephone, String email, Timestamp createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.name = name;
+        this.personalName = personalName;
         this.email = email;
         this.telephone = telephone;
         this.createdAt = createdAt;

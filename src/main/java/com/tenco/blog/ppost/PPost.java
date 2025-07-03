@@ -39,6 +39,9 @@ public class PPost {
     @CreationTimestamp
     private Timestamp createdAt; // created_at (스네이크 케이스로 자동 변환)
 
+    @Transient
+    private boolean isPPostOwner;
+
     // 게시글에 소유자를 직접 확인하는 기능을 만들자
     public boolean isOwner(Long checkUserId){
         return this.user.getId().equals(checkUserId);

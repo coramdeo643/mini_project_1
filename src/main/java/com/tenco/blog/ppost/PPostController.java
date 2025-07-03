@@ -1,5 +1,7 @@
 package com.tenco.blog.ppost;
 
+import com.tenco.blog.board.Board;
+import com.tenco.blog.company.Company;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +23,7 @@ public class PPostController {
 
     private static final Logger log = LoggerFactory.getLogger(PPostController.class);
     private final PPostService PPostService;
+    private final PPostJpaRepository PPostJpaRepository;
 
     /**
      * 게시글 수정 화면 요청
@@ -88,5 +91,17 @@ public class PPostController {
     public String detail(@PathVariable(name = "id") Long id, Model model) {
         model.addAttribute("ppost", PPostService.findById(id));
         return "ppost/detail";
+    }
+
+    @GetMapping("/ppost/my-list")
+    public String myBoardList(HttpSession session, Model model) {
+        User user = (User) session.getAttribute(Define.SESSIONUSER_USER);
+        if (user == null) {
+            return "redirect:/user/login-form";
+        }
+        Long userId = user.getId();
+        List<PPost> userPPostList = PPostJpaRepository.findByUserId(userId);
+        model.addAttribute("userPPostList", userPPostList);
+        return "ppost/my-list";
     }
 }

@@ -2,6 +2,8 @@ package com.tenco.blog.ppost;
 
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
+import com.tenco.blog.board.Board;
+import com.tenco.blog.company.Company;
 import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -126,4 +128,13 @@ public class PPostService {
         }
     }
 
+    public PPost findByIdWithPPost(Long id, User sessionUser) {
+        PPost ppost = PPostJpaRepository.findByIdJoinUser(id).orElseThrow(
+                () -> new Exception404("게시글을 찾을 수 없습니다."));
+        if (sessionUser != null) {
+            boolean isPPostOwner = ppost.isOwner(sessionUser.getId());
+            ppost.setPPostOwner(isPPostOwner);
+        }
+        return ppost;
+    }
 }
