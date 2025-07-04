@@ -20,18 +20,15 @@ public class UserSubService {
 
 	@Transactional
 	public UserSub save(UserSubRequest.SaveDTO saveDTO, User sUser) {
-		log.info("{},{}", saveDTO.getUser(), saveDTO.getCompany());
+		log.info("{},{}", sUser.getId(), saveDTO.getCompanyId());
+		if (userSubJpaRepository.existsByCompanyIdAndUserId(saveDTO.getCompanyId(), sUser.getId())) {
+			throw new Exception403("이미 구독했습니다.");
+		}
 		UserSub userSub = saveDTO.toEntity(sUser);
 		userSubJpaRepository.save(userSub);
 		return userSub;
 	}
 
-//	public List<UserSub> findAll() {
-//		log.info("구독목록 조회 서비스 처리 시작");
-//		List<UserSub> userSubList = userSubJpaRepository.findAllJoinUser();
-//		log.info("구독 목록 조회 완료 - 총 {} 개", userSubList.size());
-//		return userSubList;
-//	}
 	public List<UserSub> findAllByUserAndCompanyId(Long id) {
 		log.info("구독목록 조회 서비스 처리 시작");
 		List<UserSub> userSubList = userSubJpaRepository.findAllByUserAndCompanyId(id);
