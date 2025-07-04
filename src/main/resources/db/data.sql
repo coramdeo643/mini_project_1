@@ -1,7 +1,7 @@
 -- User 테이블 데이터 (5명의 사용자)
 INSERT INTO user_tb (username, password, personal_name, email, created_at) VALUES
 ('min', '1234', '안은민','admin@blog.com', NOW()),
-('ssar', '1234', '현미','ssar@nate.com', NOW()),
+('ssar', '1234', '이현미','ssar@nate.com', NOW()),
 ('park25', '1234', '박주찬','cos@gmail.com', NOW()),
 ('hmh2025', '1234','황민현', 'hong@naver.com', NOW()),
 ('kim777', '1234', '김은지', 'kim@daum.net', NOW());
@@ -10,11 +10,11 @@ INSERT INTO company_tb (
     username, password, telephone, email, company_number,
     industry, business_name, ceo_name, company_address
 ) VALUES
-('samsung_hr', 'pass1234', '010-1234-5678', 'hr@samsung.com', '110-86-00123', '전자', '삼성전자', '이재용', '서울시 강남구 삼성로 123'),
-('lg_recruit', 'lgpw2024', '010-9876-5432', 'recruit@lg.com', '110-86-00456', '화학', 'LG화학', '구광모', '서울시 영등포구 여의대로 1'),
+('samsung_hr', 'pass1234', '010-1234-5678', 'hr@samsung.com', '110-86-00123', '전자', '삼성전자', '이재용', '경기 수원시 영통구 삼성로 129'),
+('lg_recruit', 'lgpw2024', '010-9876-5432', 'recruit@lg.com', '110-86-00456', '화학', 'LG화학', '구광모', '서울 영등포구 여의대로 128'),
 ('hyundai_corp', 'hy123456', '010-4567-7890', 'info@hyundai.com', '110-86-00789', '자동차', '현대자동차', '정의선', '서울시 서초구 헌릉로 12'),
-('naver_careers', 'naver9876', '010-2222-3333', 'careers@naver.com', '110-86-00999', 'IT', '네이버', '최수연', '경기도 성남시 판교로 100'),
-('kakao_hr', 'kakao2024', '010-3333-4444', 'hr@kakao.com', '110-86-00888', '모바일', '카카오', '홍은택', '제주도 제주시 첨단로 1');
+('naver_careers', 'naver9876', '010-2222-3333', 'careers@naver.com', '110-86-00999', 'IT', '네이버', '최수연', '경기 성남시 분당구 정자일로 95'),
+('kakao_hr', 'kakao2024', '010-3333-4444', 'hr@kakao.com', '110-86-00888', '모바일', '카카오', '홍은택', '제주특별자치도 제주시 첨단로 242');
 
 
 -- 삼성전자 (company_id = 1)
@@ -252,3 +252,83 @@ INSERT INTO company_sub (user_id, company_id, created_at) VALUES
 (5, 1, NOW()),(5, 2, NOW()),(5, 3, NOW()),(5, 4, NOW()),
 (1, 2, NOW()),(1, 3, NOW()),(1, 4, NOW()),(1, 5, NOW()),
 (4, 1, NOW()),(4, 2, NOW()),(4, 4, NOW()),(4, 5, NOW());
+
+-- reply_tb 샘플 데이터 (각 게시글당 3개의 댓글)
+
+-- Board 1: 삼성전자 - 클라우드 인프라 엔지니어
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('AWS, Azure 경험자 우대하는군요. 지원해봐야겠습니다.', 1, 2, NOW()),
+('3년 경력이면 신입은 어렵겠네요. 좋은 분 찾아가시길 바랍니다.', 1, 3, NOW()),
+('혹시 채용 프로세스 기간이 어느 정도 걸릴까요?', 1, 5, NOW());
+
+-- Board 2: 삼성전자 - AI 연구개발 엔지니어
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('코딩 테스트는 어떤 언어로 진행되나요?', 2, 1, NOW()),
+('계약직이군요. 정규직 전환 가능성도 있는지 궁금합니다.', 2, 4, NOW()),
+('AI 분야에 관심이 많은데, 좋은 기회네요.', 2, 5, NOW());
+
+-- Board 3: 삼성전자 - 프론트엔드 개발자
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('React, Vue 둘 다 다룰 줄 알아야 하나요?', 3, 2, NOW()),
+('과제 전형은 어떤 형식으로 진행되는지 알 수 있을까요?', 3, 3, NOW()),
+('서울 강남 근무라니 위치가 좋네요.', 3, 1, NOW());
+
+-- Board 4: LG화학 - 데이터 엔지니어
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('빅데이터 처리 경험이 중요한 것 같네요. 지원합니다.', 4, 4, NOW()),
+('LG화학의 데이터팀 분위기는 어떤가요?', 4, 5, NOW()),
+('급여는 협의라고 되어있는데, 대략적인 레인지가 궁금합니다.', 4, 2, NOW());
+
+-- Board 5: LG화학 - 사이버 보안 전문가
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('6개월 계약직이면 프로젝트성 업무인가요?', 5, 1, NOW()),
+('보안 관련 자격증이 있으면 우대되나요? (예: CISSP)', 5, 3, NOW()),
+('침해 대응 경험이 있는데, 지원해봐야겠어요.', 5, 4, NOW());
+
+-- Board 6: 현대자동차 - 자율주행 소프트웨어 개발자
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('현대차 자율주행 기술에 관심 많습니다. 좋은 공고네요.', 6, 5, NOW()),
+('기술 면접에서는 주로 어떤 내용을 질문하시나요?', 6, 2, NOW()),
+('울산 근무군요. 기숙사나 주거 지원이 있는지 궁금합니다.', 6, 1, NOW());
+
+-- Board 7: 현대자동차 - 모바일 앱 개발자
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('Android와 iOS 둘 다 개발 경험이 있어야 유리한가요?', 7, 3, NOW()),
+('과제 제출은 보통 어떤 종류의 과제가 나오나요?', 7, 4, NOW()),
+('현대차의 커넥티드카 서비스 앱 개발인가요?', 7, 5, NOW());
+
+-- Board 8: 네이버 - 검색엔진 개발자
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('네이버 검색팀이라니! 꿈의 직장이네요.', 8, 1, NOW()),
+('코딩 테스트 난이도가 높다고 들었는데, 어떤 유형의 문제가 나오나요?', 8, 2, NOW()),
+('대규모 분산 시스템 경험이 필수적이겠네요.', 8, 4, NOW());
+
+-- Board 9: 네이버 - 데이터 사이언티스트
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('네이버의 데이터를 다뤄볼 수 있다니 좋은 기회네요.', 9, 5, NOW()),
+('계약직 후 정규직 전환 심사가 있는지 궁금합니다.', 9, 3, NOW()),
+('머신러닝 모델링 경험이 있는데, 지원해봐야겠습니다.', 9, 1, NOW());
+
+-- Board 10: 네이버 - 서비스 기획자
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('네이버의 서비스 기획자는 어떤 툴을 주로 사용하나요? (Figma, Sketch 등)', 10, 2, NOW()),
+('UX/UI 개선 프로젝트 경험이 있는데, 잘 맞을 것 같습니다.', 10, 4, NOW()),
+('면접은 몇 차례 진행되나요?', 10, 5, NOW());
+
+-- Board 11: 카카오 - 백엔드 개발자
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('카카오 기술 스택이 Spring Boot군요. 지원합니다!', 11, 1, NOW()),
+('코딩 테스트는 프로그래머스 플랫폼으로 진행되나요?', 11, 3, NOW()),
+('팀 문화가 자유롭다고 들었는데, 사실인가요?', 11, 5, NOW());
+
+-- Board 12: 카카오 - 프론트엔드 개발자
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('Vue.js, React 둘 다 사용하는 팀인가요, 아니면 프로젝트별로 다른가요?', 12, 2, NOW()),
+('카카오 프론트엔드 개발팀의 기술 블로그 잘 보고 있습니다.', 12, 4, NOW()),
+('2년 경력인데 지원 가능할까요?', 12, 1, NOW());
+
+-- Board 13: 카카오 - 데브옵스 엔지니어
+INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
+('제주도 근무라니! 환경이 정말 좋겠네요.', 13, 5, NOW()),
+('CI/CD 파이프라인 구축 경험이 있는데, 좋은 기회 같습니다.', 13, 3, NOW()),
+('주로 사용하는 클라우드 서비스는 AWS인가요?', 13, 4, NOW());
