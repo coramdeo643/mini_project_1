@@ -137,4 +137,12 @@ public class PPostService {
         }
         return ppost;
     }
+
+    public List<PPost> findPostsBySubscribedUserId(Long id) {
+        log.info("구독기업채용공고 조회 시작");
+        List<PPost> companySubPpostList = PPostJpaRepository.findPostsBySubscribedUserId(id);
+        log.info("Total {} posts found", companySubPpostList.size());
+        return companySubPpostList;
+    }
+
 }

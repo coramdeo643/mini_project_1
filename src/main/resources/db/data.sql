@@ -244,3 +244,11 @@ INSERT INTO user_sub (user_id, company_id, created_at) VALUES
 (5, 1, NOW()),(5, 2, NOW()),(5, 3, NOW()),(5, 4, NOW()),
 (1, 2, NOW()),(1, 3, NOW()),(1, 4, NOW()),(1, 5, NOW()),
 (4, 1, NOW()),(4, 2, NOW()),(4, 4, NOW()),(4, 5, NOW());
+
+-- user_sub sample
+INSERT INTO company_sub (user_id, company_id, created_at) VALUES
+(2, 1, NOW()),(2, 4, NOW()),
+(3, 2, NOW()),(3, 3, NOW()),(3, 4, NOW()),(3, 5, NOW()),
+(5, 1, NOW()),(5, 2, NOW()),(5, 3, NOW()),(5, 4, NOW()),
+(1, 2, NOW()),(1, 3, NOW()),(1, 4, NOW()),(1, 5, NOW()),
+(4, 1, NOW()),(4, 2, NOW()),(4, 4, NOW()),(4, 5, NOW());

@@ -2,7 +2,6 @@ package com.tenco.blog.UserSub;
 
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
-import com.tenco.blog.company.Company;
 import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
