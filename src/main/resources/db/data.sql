@@ -1,10 +1,10 @@
 -- User 테이블 데이터 (5명의 사용자)
 INSERT INTO user_tb (username, password, personal_name, email, created_at) VALUES
-('amin', '1234', '안은민','admin@blog.com', NOW()),
-('ssar', '1234', '이유진','ssar@nate.com', NOW()),
-('cos', '1234', '박주찬','cos@gmail.com', NOW()),
-('hong', '1234','황민현', 'hong@naver.com', NOW()),
-('kim', '1234', '김은지', 'kim@daum.net', NOW());
+('min', '1234', '안은민','admin@blog.com', NOW()),
+('ssar', '1234', '현미','ssar@nate.com', NOW()),
+('park25', '1234', '박주찬','cos@gmail.com', NOW()),
+('hmh2025', '1234','황민현', 'hong@naver.com', NOW()),
+('kim777', '1234', '김은지', 'kim@daum.net', NOW());
 
 INSERT INTO company_tb (
     username, password, telephone, email, company_number,
