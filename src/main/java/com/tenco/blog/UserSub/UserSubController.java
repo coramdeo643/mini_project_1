@@ -1,8 +1,5 @@
 package com.tenco.blog.UserSub;
 
-import com.tenco.blog.company.Company;
-import com.tenco.blog.ppost.PPost;
-import com.tenco.blog.ppost.PPostRequest;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpSession;
@@ -10,13 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -32,14 +24,9 @@ public class UserSubController {
 			return "redirect:/login-form";
 		}
 		userSubService.deleteById(id, sessionUser);
-		return "redirect:/user-sub/" + sessionUser.getId() + "/list";
+		//return "redirect:/user-sub/" + sessionUser.getId() + "/list";
+		return "redirect:/user-sub/board-list";
 	}
-
-//	// 구독화면?
-//	@GetMapping("/user-sub/save-form")
-//	public String saveForm() {
-//		return "user-sub/save-form";
-//	}
 
 	// 구독하기 기능
 	@PostMapping("/user-sub/save")
@@ -53,15 +40,5 @@ public class UserSubController {
 		userSubService.save(reqDTO, sessionUser);
 		log.info("subscription finished!");
 		return "redirect:/board/" + reqDTO.getBoardId();
-	}
-
-	// 구독기업 목록 화면
-	@GetMapping("/user-sub/{id}/list")
-	public String index(@PathVariable(name = "id") Long id,
-						Model model,
-						HttpSession session) {
-		List<UserSub> userSubList = userSubService.findAllByUserAndCompanyId(id);
-		model.addAttribute("userSubList", userSubList);
-		return "user-sub/list";
 	}
 }

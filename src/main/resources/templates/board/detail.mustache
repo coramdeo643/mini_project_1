@@ -17,9 +17,9 @@
     <div>
         <h2><b>{{board.title}}</b></h2>
         <div class="d-flex justify-content-start">
-            <b>기업명</b> : {{board.company.businessName}} &nbsp;&nbsp;
-            <b>대표자명</b> : {{board.company.ceoName}} &nbsp;&nbsp;
-            <b>업종</b> : {{board.company.industry}} &nbsp;&nbsp;
+            <b>기업명</b>&nbsp;: {{board.company.businessName}} &nbsp;&nbsp;
+            <b>대표자명</b>&nbsp;: {{board.company.ceoName}} &nbsp;&nbsp;
+            <b>업종</b>&nbsp;: {{board.company.industry}} &nbsp;&nbsp;
         </div>
         <form action="/user-sub/save" method="post">
             <input type="hidden" name="companyId" value="{{board.company.id}}">
