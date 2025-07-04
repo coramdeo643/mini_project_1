@@ -20,7 +20,10 @@ public class CompanySubService {
 
 	@Transactional
 	public CompanySub save(CompanySubRequest.SaveDTO saveDTO, Company sCompany) {
-		log.info("{},{}", saveDTO.getUser(), saveDTO.getCompany());
+		log.info("d{},{}", sCompany.getId(), saveDTO.getUserId());
+		if (companySubJpaRepository.existsByCompanyIdAndUserId(sCompany.getId(), saveDTO.getUserId())) {
+			throw new Exception403("이미 구독했습니다.");
+		}
 		CompanySub cSub = saveDTO.toEntity(sCompany);
 		companySubJpaRepository.save(cSub);
 		return cSub;
@@ -29,9 +32,6 @@ public class CompanySubService {
 	public List<CompanySub> findAllByUserAndCompanyId(Long id) {
 		log.info("구독목록 조회 서비스 처리 시작");
 		List<CompanySub> companySubList = companySubJpaRepository.findAllByUserAndCompanyId(id);
-		if (companySubList.isEmpty()) {
-			throw new Exception404("해당 사용자의 구독 정보를 찾을 수 없습니다.");
-		}
 		log.info("구독 목록 조회 완료 - 총 {} 개", companySubList.size());
 		return companySubList;
 	}

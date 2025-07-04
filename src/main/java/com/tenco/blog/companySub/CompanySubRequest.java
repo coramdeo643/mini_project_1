@@ -11,12 +11,13 @@ public class CompanySubRequest {
     public static class SaveDTO {
         private User user;
         private Company company;
+        private Long userId;
         private Long companyId;
-        private Long boardId;
+        private Long ppostId;
         public CompanySub toEntity(Company sessionC) {
             return CompanySub.builder()
                     .company(sessionC)
-                    .user(User.builder().id(this.user.getId()).build())
+                    .user(User.builder().id(this.userId).build())
                     .build();
         }
     }

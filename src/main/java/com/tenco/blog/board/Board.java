@@ -19,39 +19,39 @@ import java.sql.Timestamp;
 @Table(name = "board_tb")
 @Entity
 public class Board {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(updatable = false) // 수정 불가
-    private String businessName;
+	@Column(updatable = false) // 수정 불가
+	private String businessName;
 
-    @Column(updatable = false)
-    private String ceoName;
+	@Column(updatable = false)
+	private String ceoName;
 
-    @Column(updatable = false)
-    private String industry;
+	@Column(updatable = false)
+	private String industry;
 
-    private String title;
-    private String content;
+	private String title;
+	private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
-    private Company company;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_id")
+	private Company company;
 
-    @CreationTimestamp
-    private Timestamp createdAt;
+	@CreationTimestamp
+	private Timestamp createdAt;
 
-    @Transient
-    private boolean isBoardOwner;
+	@Transient
+	private boolean isBoardOwner;
 
-    public boolean isOwner(Long checkUserId) {
-        return this.company.getId().equals(checkUserId);
-    }
+	public boolean isOwner(Long checkUserId) {
+		return this.company.getId().equals(checkUserId);
+	}
 
-    public String getTime() {
-        return MyDateUtil.timestampFormat(createdAt);
-    }
+	public String getTime() {
+		return MyDateUtil.timestampFormat(createdAt);
+	}
 
 
 }

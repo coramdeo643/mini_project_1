@@ -21,11 +21,15 @@
             <b>대표자명</b>&nbsp;: {{board.company.ceoName}} &nbsp;&nbsp;
             <b>업종</b>&nbsp;: {{board.company.industry}} &nbsp;&nbsp;
         </div>
-        <form action="/user-sub/save" method="post">
-            <input type="hidden" name="companyId" value="{{board.company.id}}">
-            <input type="hidden" name="boardId" value="{{board.id}}">
-            <button class="btn btn-primary btn-sm p-1 mt-1" onclick="return confirm('구독하시겠습니까?')">❤️관심기업</button>
-        </form>
+        <!--관심기업 버튼-->
+        {{#sessionUser}}
+            <form action="/user-sub/save" method="post">
+                <input type="hidden" name="companyId" value="{{board.company.id}}">
+                <input type="hidden" name="boardId" value="{{board.id}}">
+                <button class="btn btn-primary btn-sm p-1 mt-1" onclick="return confirm('구독하시겠습니까?')">❤️관심기업
+                </button>
+            </form>
+        {{/sessionUser}}
         <hr/>
         <div class="m-4 p-2" style="white-space: pre-line;">
             {{board.content}}

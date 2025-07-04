@@ -39,6 +39,6 @@ public class CompanySubController {
 		}
 		companySubService.save(reqDTO, sessionC);
 		log.info("subscription finished!");
-		return "redirect:/ppost/" + reqDTO.getBoardId();
+		return "redirect:/ppost/" + reqDTO.getPpostId();
 	}
 }
