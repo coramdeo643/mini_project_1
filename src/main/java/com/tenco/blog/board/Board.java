@@ -42,6 +42,10 @@ public class Board {
 	@JoinColumn(name = "company_id")
 	private Company company;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "skill_id")
+	private Skill skill;
+
 	@CreationTimestamp
 	private Timestamp createdAt;
 
