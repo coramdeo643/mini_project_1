@@ -1,0 +1,44 @@
+{{> layout/header}}
+
+<div class="container p-5">
+
+    <!-- 댓글목록 -->
+    <div class="card-footer">
+        <b>지원공고 목록</b>
+    </div>
+    <div class="list-group">
+        {{#applicationResourceList}}
+            <!-- 댓글아이템 -->
+            {{#board}}
+            <div class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <div class="ms-3">공고 : {{title}}</div>
+            {{/board}}
+            <div class="ms-3">합격여부 :{{status}}</div>
+        </div>
+            <div class="d-flex">
+                <!-- 지원 취소 -->
+                <form action="/application/{{id}}/delete" method="post" class="me-1">
+
+                    <button type="submit" class="btn btn-success btn-sm"
+                            onclick="return confirm('정말 입사지원을 취소 하시겠습니까?')">지원 취소</button>
+                </form>
+            </div>
+        </div>
+
+        </div>
+
+
+        {{/applicationResourceList}}
+
+        {{^applicationResourceList}}
+            <div class="card-body text-center">
+                <p class="text-muted mb-0" >아직 지원한 공고가 없습니다</p>
+            </div>
+        {{/applicationResourceList}}
+    </div>
+</div>
+</div>
+
+{{> layout/footer}}

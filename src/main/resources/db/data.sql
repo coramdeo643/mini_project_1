@@ -27,7 +27,6 @@ INSERT INTO skill_tb (id, name) VALUES
 (1, 'Java'), (2, 'Spring Boot'), (3, 'MySQL'), (4, 'JavaScript'), (5, 'Linux'), (6, 'React'), (7, 'Vue.js'),
 (8, 'Node.js'), (9, 'Python'), (10, 'Docker');
 
-
 -- 2. 의존성 있는 테이블 데이터 (Board, PPost, Qna)
 -- [수정] board_tb INSERT 문을 실제 테이블 구조에 맞게 수정하고, 모든 데이터를 활성화
 INSERT INTO board_tb (title, content, company_id, created_at) VALUES
@@ -44,6 +43,11 @@ INSERT INTO board_tb (title, content, company_id, created_at) VALUES
 ('백엔드 개발자', '채용직무: 백엔드 개발자...', 5, '2025-07-02'),
 ('프론트엔드 개발자', '채용직무: 프론트엔드 개발자...', 5, '2025-07-03'),
 ('데브옵스 엔지니어', '채용직무: 데브옵스 엔지니어...', 5, '2025-07-03');
+
+INSERT INTO application_tb (user_id, company_id, board_id, status, created_at) VALUES
+(2, 1, 1, 'PENDING', NOW()),
+(5, 4, 7, 'PENDING', NOW()),
+(4, 5, 10, 'PENDING', NOW());
 
 -- [수정] ppost_tb INSERT 문을 실제 테이블 구조에 맞게 수정
 INSERT INTO ppost_tb (title, content, user_id, created_at) VALUES

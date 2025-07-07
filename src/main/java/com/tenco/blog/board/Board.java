@@ -1,6 +1,7 @@
 package com.tenco.blog.board;
 
 
+import com.tenco.blog.application.Application;
 import com.tenco.blog.company.Company;
 import com.tenco.blog.reply.Reply;
 import com.tenco.blog.skill.BoardSkill;
@@ -69,5 +70,9 @@ public class Board {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "board", cascade = CascadeType.REMOVE)
 	List<Reply> replies = new ArrayList<>(); // List 선언과 동시에 초기화
 
+
+    @OrderBy("id DESC") // 정렬 옵션 설정
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board",cascade = CascadeType.REMOVE) // mappedBy를 pk를 가지면 안된다.
+    List<Application> applications = new ArrayList<>(); //List 선언과 동시에 초기화 왜냐면 reply이 있기전에 list가 있어야 해서
 
 }
