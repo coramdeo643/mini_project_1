@@ -32,8 +32,7 @@ INSERT INTO ppost_skill_tb (ppost_id, skill_id) VALUES
 (9, 8), (9, 3), (9, 10), (10, 4), (10, 5), (10, 6), (11, 1), (11, 2), (11, 3), (12, 4), (12, 5), (12, 6),
 (13, 9), (13, 10), (13, 2);
 
--- 삼성전자 (company_id = 1)
-INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company_id, created_at) VALUES
+INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company_id, board_skill_id, created_at) VALUES
 ('삼성전자', '이재용', 'IT', '클라우드 인프라 엔지니어',
 '채용직무: 클라우드 인프라 엔지니어
 채용지역: 서울
@@ -46,7 +45,7 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 3명
 급여: 협의
 채용일정: 서류전형 - 면접 - 최종합격
-지원마감일: 2025-08-31', 1, '2025-05-05'),
+지원마감일: 2025-08-31', 1, 1, '2025-05-05'),
 
 ('삼성전자', '이재용', 'IT', 'AI 연구개발 엔지니어',
 '채용직무: AI 연구개발 엔지니어
@@ -60,7 +59,7 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 2명
 급여: 연봉 6,000만원 이상 협의
 채용일정: 서류전형 - 코딩 테스트 - 면접 - 최종합격
-지원마감일: 2025-09-15', 1, '2025-05-20'),
+지원마감일: 2025-09-15', 1, 2, '2025-05-20'),
 
 ('삼성전자', '이재용', 'IT', '프론트엔드 개발자',
 '채용직무: 프론트엔드 개발자
@@ -74,11 +73,8 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 4명
 급여: 연봉 5,000만원 이상
 채용일정: 서류전형 - 과제 - 면접 - 최종합격
-지원마감일: 2025-08-25', 1, '2025-06-10');
+지원마감일: 2025-08-25', 1, 3, '2025-06-10'),
 
-
--- LG화학 (company_id = 2)
-INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company_id, created_at) VALUES
 ('LG화학', '구광모', 'IT', '데이터 엔지니어',
 '채용직무: 데이터 엔지니어
 채용지역: 서울
@@ -91,7 +87,7 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 2명
 급여: 협의
 채용일정: 서류전형 - 면접 - 최종합격
-지원마감일: 2025-09-05', 2, '2025-05-25'),
+지원마감일: 2025-09-05', 2, 4, '2025-05-25'),
 
 ('LG화학', '구광모', 'IT', '사이버 보안 전문가',
 '채용직무: 사이버 보안 전문가
@@ -105,11 +101,8 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 1명
 급여: 연봉 4,500만원 협의
 채용일정: 서류전형 - 면접 - 최종합격
-지원마감일: 2025-08-30', 2, '2025-06-05');
+지원마감일: 2025-08-30', 2, 5, '2025-06-05'),
 
-
--- 현대자동차 (company_id = 3)
-INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company_id, created_at) VALUES
 ('현대자동차', '정의선', 'IT', '자율주행 소프트웨어 개발자',
 '채용직무: 자율주행 소프트웨어 개발자
 채용지역: 울산
@@ -122,7 +115,7 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 3명
 급여: 연봉 6,000만원 이상
 채용일정: 서류전형 - 기술 면접 - 최종합격
-지원마감일: 2025-09-10', 3, '2025-06-15'),
+지원마감일: 2025-09-10', 3, 6, '2025-06-15'),
 
 ('현대자동차', '정의선', 'IT', '모바일 앱 개발자',
 '채용직무: 모바일 앱 개발자
@@ -136,11 +129,8 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 2명
 급여: 협의
 채용일정: 서류전형 - 과제 제출 - 면접
-지원마감일: 2025-08-28', 3, '2025-06-20');
+지원마감일: 2025-08-28', 3, 7, '2025-06-20'),
 
-
--- 네이버 (company_id = 4)
-INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company_id, created_at) VALUES
 ('네이버', '최수연', 'IT', '검색엔진 개발자',
 '채용직무: 검색엔진 개발자
 채용지역: 경기 성남시
@@ -153,7 +143,7 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 3명
 급여: 연봉 5,500만원 이상
 채용일정: 서류전형 - 코딩 테스트 - 면접
-지원마감일: 2025-09-01', 4, '2025-06-25'),
+지원마감일: 2025-09-01', 4, 8, '2025-06-25'),
 
 ('네이버', '최수연', 'IT', '데이터 사이언티스트',
 '채용직무: 데이터 사이언티스트
@@ -167,7 +157,7 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 1명
 급여: 협의
 채용일정: 서류전형 - 면접
-지원마감일: 2025-09-15', 4, '2025-06-28'),
+지원마감일: 2025-09-15', 4, 9, '2025-06-28'),
 
 ('네이버', '최수연', 'IT', '서비스 기획자',
 '채용직무: 서비스 기획자
@@ -181,11 +171,8 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 2명
 급여: 협의
 채용일정: 서류전형 - 면접
-지원마감일: 2025-08-25', 4, '2025-07-01');
+지원마감일: 2025-08-25', 4, 10, '2025-07-01'),
 
-
--- 카카오 (company_id = 5)
-INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company_id, created_at) VALUES
 ('카카오', '홍은택', 'IT', '백엔드 개발자',
 '채용직무: 백엔드 개발자
 채용지역: 서울
@@ -198,7 +185,7 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 3명
 급여: 연봉 5,000만원 이상
 채용일정: 서류전형 - 코딩 테스트 - 면접
-지원마감일: 2025-09-05', 5, '2025-07-02'),
+지원마감일: 2025-09-05', 5, 11, '2025-07-02'),
 
 ('카카오', '홍은택', 'IT', '프론트엔드 개발자',
 '채용직무: 프론트엔드 개발자
@@ -212,7 +199,7 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 2명
 급여: 협의
 채용일정: 서류전형 - 면접
-지원마감일: 2025-08-30', 5, '2025-07-03'),
+지원마감일: 2025-08-30', 5, 12, '2025-07-03'),
 
 ('카카오', '홍은택', 'IT', '데브옵스 엔지니어',
 '채용직무: 데브옵스 엔지니어
@@ -226,7 +213,8 @@ INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company
 채용인원: 1명
 급여: 협의
 채용일정: 서류전형 - 면접
-지원마감일: 2025-09-10', 5, '2025-07-03');
+지원마감일: 2025-09-10', 5, 13, '2025-07-03');
+
 
 -- qna 리스트
 -- hong 사용자가 작성한 게시글 (1개)
