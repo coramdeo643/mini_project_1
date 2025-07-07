@@ -3,6 +3,7 @@ package com.tenco.blog.board;
 
 import com.tenco.blog.company.Company;
 import com.tenco.blog.reply.Reply;
+import com.tenco.blog.skill.BoardSkill;
 import com.tenco.blog.skill.Skill;
 import com.tenco.blog.utils.MyDateUtil;
 import jakarta.persistence.*;
@@ -44,8 +45,8 @@ public class Board {
 	private Company company;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "skill_id")
-	private Skill skill;
+	@JoinColumn(name = "board_skill_id")
+	private BoardSkill boardSkill;
 
 	@CreationTimestamp
 	private Timestamp createdAt;
