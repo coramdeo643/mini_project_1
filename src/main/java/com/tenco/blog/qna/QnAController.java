@@ -22,10 +22,10 @@ import java.util.List;
 @Controller
 public class QnAController {
 
-    private static final Logger log = LoggerFactory.getLogger(QnAController.class);
-    private final QnAService qnaService;
+	private static final Logger log = LoggerFactory.getLogger(QnAController.class);
+	private final QnAService qnaService;
 
-//    /**
+	//    /**
 //     * 게시글 수정 화면 요청
 //     */
 //    @GetMapping("/qna/{id}/update-form")
@@ -93,74 +93,74 @@ public class QnAController {
 //        return "/qna/detail";
 //    }
 //======================================================
-    private final HttpSession session; // 세션 주입
+	private final HttpSession session; // 세션 주입
 
-    // 세션에서 현재 로그인한 주체(User 또는 Company)를 가져오는 헬퍼 메서드
-    private Object getSessionPrincipal() {
-        Object user = session.getAttribute(Define.SESSIONUSER_USER);
-        if (user != null) {
-            return user;
-        }
-        return session.getAttribute(Define.SESSIONUSER_COMPANY);
-    }
+	// 세션에서 현재 로그인한 주체(User 또는 Company)를 가져오는 헬퍼 메서드
+	private Object getSessionPrincipal() {
+		Object user = session.getAttribute(Define.SESSIONUSER_USER);
+		if (user != null) {
+			return user;
+		}
+		return session.getAttribute(Define.SESSIONUSER_COMPANY);
+	}
 
-    @GetMapping("/qna/{id}/update-form")
-    public String updateForm(@PathVariable Long id, Model model) {
-        Object sessionPrincipal = getSessionPrincipal();
-        // 서비스에서 DTO를 받아 소유권 확인 후 뷰에 전달
-        QnARequest.DetailDTO dto = qnaService.findById(id, sessionPrincipal);
-        if (!dto.isOwner()) {
-            throw new Exception403("수정할 권한이 없습니다.");
-        }
-        model.addAttribute("qna", dto);
-        return "qna/update-form";
-    }
+	@GetMapping("/qna/{id}/update-form")
+	public String updateForm(@PathVariable Long id, Model model) {
+		Object sessionPrincipal = getSessionPrincipal();
+		// 서비스에서 DTO를 받아 소유권 확인 후 뷰에 전달
+		QnARequest.DetailDTO dto = qnaService.findById(id, sessionPrincipal);
+		if (!dto.isOwner()) {
+			throw new Exception403("수정할 권한이 없습니다.");
+		}
+		model.addAttribute("qna", dto);
+		return "qna/update-form";
+	}
 
-    @PostMapping("/qna/{id}/update-form") // update-form 대신 update로 변경 권장
-    public String update(@PathVariable Long id, QnARequest.UpdateDTO reqDTO) {
-        reqDTO.validate();
-        Object sessionPrincipal = getSessionPrincipal();
-        qnaService.updateById(id, reqDTO, sessionPrincipal);
-        return "redirect:/qna/" + id;
-    }
+	@PostMapping("/qna/{id}/update-form") // update-form 대신 update로 변경 권장
+	public String update(@PathVariable Long id, QnARequest.UpdateDTO reqDTO) {
+		reqDTO.validate();
+		Object sessionPrincipal = getSessionPrincipal();
+		qnaService.updateById(id, reqDTO, sessionPrincipal);
+		return "redirect:/qna/" + id;
+	}
 
-    @PostMapping("/qna/{id}/delete")
-    public String delete(@PathVariable Long id) {
-        Object sessionPrincipal = getSessionPrincipal();
-        qnaService.deleteById(id, sessionPrincipal);
-        return "redirect:/qna/list";
-    }
+	@PostMapping("/qna/{id}/delete")
+	public String delete(@PathVariable Long id) {
+		Object sessionPrincipal = getSessionPrincipal();
+		qnaService.deleteById(id, sessionPrincipal);
+		return "redirect:/qna/list";
+	}
 
-    @GetMapping("/qna/save-form")
-    public String saveForm() {
-        // 로그인 여부 확인
-        if (getSessionPrincipal() == null) {
-            throw new Exception401("로그인이 필요합니다.");
-        }
-        return "qna/save-form";
-    }
+	@GetMapping("/qna/save-form")
+	public String saveForm() {
+		// 로그인 여부 확인
+		if (getSessionPrincipal() == null) {
+			throw new Exception401("로그인이 필요합니다.");
+		}
+		return "qna/save-form";
+	}
 
-    @PostMapping("/qna/save")
-    public String save(QnARequest.SaveDTO reqDTO) {
-        reqDTO.validate();
-        Object sessionPrincipal = getSessionPrincipal();
-        qnaService.save(reqDTO, sessionPrincipal);
-        return "redirect:/qna/list";
-    }
+	@PostMapping("/qna/save")
+	public String save(QnARequest.SaveDTO reqDTO) {
+		reqDTO.validate();
+		Object sessionPrincipal = getSessionPrincipal();
+		qnaService.save(reqDTO, sessionPrincipal);
+		return "redirect:/qna/list";
+	}
 
-    @GetMapping("/qna/list")
-    public String list(Model model) {
-        List<QnA> qnaList = qnaService.findAll();
-        model.addAttribute("qnaList", qnaList);
-        return "qna/list";
-    }
+	@GetMapping("/qna/list")
+	public String list(Model model) {
+		List<QnA> qnaList = qnaService.findAll();
+		model.addAttribute("qnaList", qnaList);
+		return "qna/list";
+	}
 
-    @GetMapping("/qna/{id}")
-    public String detail(@PathVariable Long id, Model model) {
-        Object sessionPrincipal = getSessionPrincipal();
-        QnARequest.DetailDTO dto = qnaService.findById(id, sessionPrincipal);
-        model.addAttribute("qna", dto);
-        return "qna/detail";
-    }
+	@GetMapping("/qna/{id}")
+	public String detail(@PathVariable Long id, Model model) {
+		Object sessionPrincipal = getSessionPrincipal();
+		QnARequest.DetailDTO dto = qnaService.findById(id, sessionPrincipal);
+		model.addAttribute("qna", dto);
+		return "qna/detail";
+	}
 
 }
