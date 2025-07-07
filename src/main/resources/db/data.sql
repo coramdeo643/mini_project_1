@@ -17,8 +17,20 @@ INSERT INTO company_tb (
 ('kakao_hr', 'kakao2024', '010-3333-4444', 'hr@kakao.com', '110-86-00888', '모바일', '카카오', '홍은택', '제주특별자치도 제주시 첨단로 242');
 
 INSERT INTO skill_tb (id, name) VALUES
-(1, 'Java'), (2, 'Spring Boot'), (3, 'MySQL'), (4, 'JavaScript'), (5, 'MySQL'), (6, 'React'), (7, 'Vue.js'),
+(1, 'Java'), (2, 'Spring Boot'), (3, 'MySQL'), (4, 'JavaScript'), (5, 'Linux'), (6, 'React'), (7, 'Vue.js'),
 (8, 'Node.js'), (9, 'Python'), (10, 'Docker');
+
+INSERT INTO board_skill_tb (board_id, skill_id) VALUES
+(1, 9), (1, 10), (1, 2), (2, 8), (2, 1), (2, 10), (3, 5), (3, 6), (3, 4), (4, 3), (4, 8), (4, 10),
+(5, 9), (5, 8), (5, 1), (6, 8), (6, 1), (6, 10), (7, 4), (7, 5), (7, 1), (8, 1), (8, 3), (8, 8),
+(9, 8), (9, 3), (9, 10), (10, 4), (10, 5), (10, 6), (11, 1), (11, 2), (11, 3), (12, 4), (12, 5), (12, 6),
+(13, 9), (13, 10), (13, 2);
+
+INSERT INTO ppost_skill_tb (ppost_id, skill_id) VALUES
+(1, 9), (1, 10), (1, 2), (2, 8), (2, 1), (2, 10), (3, 5), (3, 6), (3, 4), (4, 3), (4, 8), (4, 10),
+(5, 9), (5, 8), (5, 1), (6, 8), (6, 1), (6, 10), (7, 4), (7, 5), (7, 1), (8, 1), (8, 3), (8, 8),
+(9, 8), (9, 3), (9, 10), (10, 4), (10, 5), (10, 6), (11, 1), (11, 2), (11, 3), (12, 4), (12, 5), (12, 6),
+(13, 9), (13, 10), (13, 2);
 
 -- 삼성전자 (company_id = 1)
 INSERT INTO board_tb (business_name, ceo_name, industry, title, content, company_id, created_at) VALUES

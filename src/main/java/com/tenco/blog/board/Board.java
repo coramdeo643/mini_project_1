@@ -3,6 +3,7 @@ package com.tenco.blog.board;
 
 import com.tenco.blog.company.Company;
 import com.tenco.blog.reply.Reply;
+import com.tenco.blog.skill.Skill;
 import com.tenco.blog.utils.MyDateUtil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
