@@ -233,12 +233,12 @@ INSERT INTO qna_tb (title, content, user_id, created_at) VALUES
 ('[채용기업] 합류하게 되시면 어떤 기여를 하고 싶으신가요?', '저희 회사에 합류하신다면 어떤 부분에서 기여하고 싶은지 궁금합니다.', 5, NOW());
 
 -- ppost sample
-INSERT INTO ppost_tb (title, content, user_id, created_at) VALUES
-('이력서_1', '개발 언어: Java, Spring Boot | 경력: 백엔드 개발 1년차 (게시판 CRUD 기능 구현 경험)', 2, NOW()),
-('이력서_2', '개발 언어: Java, Spring Boot, MySQL | 경력: 백엔드 개발 2년차 (RESTful API 및 DB 연동 프로젝트 경험)', 2, NOW()),
-('이력서_3', '개발 언어: Java, Spring Boot, Python, HTML/CSS/JS | 경력: 풀스택 개발 3년차 (JPA 활용 및 간단한 프론트엔드 연동)', 1, NOW()),
-('이력서_4', '개발 언어: Java, Spring Cloud, Kafka, Docker | 경력: 백엔드 개발 4년차 (마이크로서비스 아키텍처 및 분산 시스템 이해)', 3, NOW()),
-('이력서_5', '개발 언어: Java, Spring Cloud, Kotlin, AWS | 경력: 백엔드 개발 5년차 (클라우드 기반 대용량 트래픽 처리 시스템 설계 및 리팩토링 참여)', 4, NOW());
+INSERT INTO ppost_tb (title, content, user_id, ppost_skill_id, created_at) VALUES
+('이력서_1', '개발 언어: Java, Spring Boot | 경력: 백엔드 개발 1년차 (게시판 CRUD 기능 구현 경험)', 2, 1, NOW()),
+('이력서_2', '개발 언어: Java, Spring Boot, MySQL | 경력: 백엔드 개발 2년차 (RESTful API 및 DB 연동 프로젝트 경험)', 2, 2, NOW()),
+('이력서_3', '개발 언어: Java, Spring Boot, Python, HTML/CSS/JS | 경력: 풀스택 개발 3년차 (JPA 활용 및 간단한 프론트엔드 연동)', 1, 3, NOW()),
+('이력서_4', '개발 언어: Java, Spring Cloud, Kafka, Docker | 경력: 백엔드 개발 4년차 (마이크로서비스 아키텍처 및 분산 시스템 이해)', 3, 4, NOW()),
+('이력서_5', '개발 언어: Java, Spring Cloud, Kotlin, AWS | 경력: 백엔드 개발 5년차 (클라우드 기반 대용량 트래픽 처리 시스템 설계 및 리팩토링 참여)', 4, 5, NOW());
 
 -- user_sub sample
 INSERT INTO user_sub (user_id, company_id, created_at) VALUES
