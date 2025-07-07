@@ -28,6 +28,12 @@
         {{/companyUser}}
         <!--TODO 관심등록했으면 다시 눌러서 취소되도록? 현재 관심등록 중인지 아닌지 알수있도록?-->
         <hr/>
+        <!-- board.boardSkills 리스트를 반복 -->
+        {{#ppost.pPostSkills}}
+            <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
+            <span class="badge bg-secondary me-1">{{skill.name}}</span>
+        {{/ppost.pPostSkills}}
+
         <div class="m-4 p-2">{{ppost.content}}
         </div>
     </div>
