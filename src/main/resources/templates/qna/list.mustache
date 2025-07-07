@@ -4,10 +4,12 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>💬 Q&A 목록</h2>
         {{#sessionUser}}
-            {{#companyUser}}
-                    <a href="/qna/save-form" class="btn btn-primary">글쓰기</a>
-            {{/companyUser}}
+            <a href="/qna/save-form" class="btn btn-primary">글쓰기</a>
         {{/sessionUser}}
+        {{#companyUser}}
+            <a href="/qna/save-form" class="btn btn-primary">글쓰기</a>
+        {{/companyUser}}
+
     </div>
 
     {{#qnaList}}
