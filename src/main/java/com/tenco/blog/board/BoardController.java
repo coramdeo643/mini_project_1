@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -145,4 +146,13 @@ public class BoardController {
 		model.addAttribute("userSubList", userSubList);
 		return "user-sub/board-list";
 	}
+
+
+	@GetMapping("/board/filter")
+	public String filterBySkill(@RequestParam("skill") String skillName, Model model) {
+		List<Board> boardList = boardJpaRepository.findBySkillName(skillName);
+		model.addAttribute("boardList", boardList);
+		return "index"; // 머스태치 페이지 이름
+	}
+
 }

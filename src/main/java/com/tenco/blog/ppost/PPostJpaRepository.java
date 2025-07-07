@@ -1,6 +1,7 @@
 package com.tenco.blog.ppost;
 
 
+import com.tenco.blog.board.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,5 +28,8 @@ public interface PPostJpaRepository extends JpaRepository<PPost, Long> {
 			"WHERE cs.company.id = :companyId ORDER BY p.id DESC")
 	List<PPost> findPostsBySubscribedUserId(@Param("companyId") Long companyId);
 
+	// BoardRepository
+	@Query("SELECT p FROM PPost p JOIN p.pPostSkills ps JOIN ps.skill s WHERE s.name = :skillName")
+	List<PPost> findBySkillName(@Param("skillName") String skillName);
 
 }

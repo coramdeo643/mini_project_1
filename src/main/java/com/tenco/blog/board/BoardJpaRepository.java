@@ -39,5 +39,9 @@ public interface BoardJpaRepository extends JpaRepository<Board, Long> {
 			"WHERE us.user.id = :userId ORDER BY b.id DESC")
 	List<Board> findBoardsBySubscribedUserId(@Param("userId") Long userId);
 
+	// BoardRepository
+	@Query("SELECT b FROM Board b JOIN b.boardSkills bs JOIN bs.skill s WHERE s.name = :skillName")
+	List<Board> findBySkillName(@Param("skillName") String skillName);
+
 
 }

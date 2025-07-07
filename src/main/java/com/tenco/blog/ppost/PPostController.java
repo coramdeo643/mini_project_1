@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -122,4 +123,11 @@ public class PPostController {
         return "user-sub/ppost-list";
     }
 
+    @GetMapping("ppost/filter")
+    public String filterBySkill(@RequestParam("skill")String skillName, Model model) {
+        List<PPost> ppostList = PPostJpaRepository.findBySkillName(skillName);
+        model.addAttribute("ppostList", ppostList);
+        model.addAttribute("isCompanyUser", true);
+        return "index";
+    }
 }
