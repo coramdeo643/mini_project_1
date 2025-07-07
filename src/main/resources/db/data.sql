@@ -23,6 +23,11 @@ INSERT INTO company_tb (
 ('naver_careers', 'naver9876', '010-2222-3333', 'careers@naver.com', '110-86-00999', 'IT', '네이버', '최수연', '경기 성남시 분당구 정자일로 95'),
 ('kakao_hr', 'kakao2024', '010-3333-4444', 'hr@kakao.com', '110-86-00888', '모바일', '카카오', '홍은택', '제주특별자치도 제주시 첨단로 242');
 
+INSERT INTO application_tb (user_id, company_id, board_id, status, created_at) VALUES
+(2, 1, 1, 'PENDING', NOW()),
+(5, 4, 7, 'PENDING', NOW()),
+(4, 5, 10, 'PENDING', NOW());
+
 INSERT INTO skill_tb (id, name) VALUES
 (1, 'Java'), (2, 'Spring Boot'), (3, 'MySQL'), (4, 'JavaScript'), (5, 'Linux'), (6, 'React'), (7, 'Vue.js'),
 (8, 'Node.js'), (9, 'Python'), (10, 'Docker');
