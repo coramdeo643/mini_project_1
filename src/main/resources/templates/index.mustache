@@ -10,6 +10,13 @@
                         머스태치는 자동으로 getTitle()메서드를 호출한 것이다.-->
                 <h4 class="card-title mb-3">{{title}}</h4>
                 <p> 기업명 : {{company.businessName}}&nbsp|&nbsp{{time}}</p>
+                <div class="mb-3">
+                    <!-- board.boardSkills 리스트를 반복 -->
+                    {{#boardSkills}}
+                        <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
+                        <span class="badge bg-secondary me-1">{{skill.name}}</span>
+                    {{/boardSkills}}
+                </div>
                 <a href="/board/{{id}}" class="btn btn-primary">상세보기</a>
             </div>
         </div>
@@ -24,6 +31,13 @@
                         머스태치는 자동으로 getTitle()메서드를 호출한 것이다.-->
                     <h4 class="card-title mb-3">{{title}}</h4>
                     <p> 작성자 : {{user.username}}&nbsp|&nbsp{{time}}</p>
+                    <div class="mb-3">
+                        <!-- board.boardSkills 리스트를 반복 -->
+                        {{#pPostSkills}}
+                            <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
+                            <span class="badge bg-secondary me-1">{{skill.name}}</span>
+                        {{/pPostSkills}}
+                    </div>
                     <a href="/ppost/{{id}}" class="btn btn-primary">상세보기</a>
                 </div>
             </div>
