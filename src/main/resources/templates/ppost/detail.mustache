@@ -3,7 +3,7 @@
 <div class="container p-5">
 
     <!-- 수정삭제버튼 -->
-    {{#ppost.pPostOwner}}
+    {{#ppost.PPostOwner}}
         <div class="d-flex justify-content-end">
             <!--페이지 이동 요청 -->
             <a href="/ppost/{{ppost.id}}/update-form" class="btn btn-warning me-1">수정</a>
@@ -11,7 +11,7 @@
                 <button class="btn btn-danger">삭제</button>
             </form>
         </div>
-    {{/ppost.pPostOwner}}
+    {{/ppost.PPostOwner}}
 
     <!-- 게시글내용 -->
     <div>

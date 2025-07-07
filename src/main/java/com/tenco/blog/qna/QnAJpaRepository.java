@@ -1,6 +1,5 @@
 package com.tenco.blog.qna;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -8,24 +7,31 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * 게시글 관련 데이터베이스 접근을 담당
- * 기본적인 CRUD를 제공
- */
-// @Repository 생략 가능 --->JpaRepository 안에 선언되어 있음
 public interface QnAJpaRepository extends JpaRepository<QnA, Long> {
 
-    // 기본 CRUD 추가적인 기능은 직접 선언해주어야한다.
-
-    // 게시글과 사용자 정보가 포함된 엔티티르 만들어 주어야 한다. (게시글 List 용)
     @Query("SELECT q FROM QnA q JOIN FETCH q.user u ORDER BY q.id DESC")
     List<QnA> findAllJoinUser();
-    // JOIN FETCH 는 모든 Board 엔티티와 연관된 User를 한방 쿼리로 가져 옴
-    // LAZY 전략이라서 N+1 방지를 할 수 있다.
-    // :게시글 10개가 있다면 지연 로딩 1(Board 조회) + 10(User 조회) = 11번 쿼리가 발생
-
-    // 게시글 ID 로 한방에 유저 정보도 가져오기  - JOIN FETCH 사용하면 됨
     @Query("SELECT q FROM QnA q JOIN FETCH q.user u WHERE q.id = :id")
     Optional<QnA> findByIdJoinUser(@Param("id")Long id);
 
+    /**
+     * [수정] QnA 목록 조회 시, 작성자인 User와 Company 정보를 함께 가져옵니다.
+     * LEFT JOIN을 사용하여 개인 또는 기업 회원이 작성한 모든 글을 포함합니다.
+     */
+    @Query("SELECT q FROM QnA q " +
+            "LEFT JOIN FETCH q.user u " +
+            "LEFT JOIN FETCH q.company c " +
+            "ORDER BY q.id DESC")
+    List<QnA> findAllWithAuthors();
+
+    /**
+     * [수정] QnA 상세 조회 시, 작성자인 User와 Company 정보를 함께 가져옵니다.
+     * @param id QnA의 ID
+     * @return User 또는 Company 정보가 포함된 QnA Optional 객체
+     */
+    @Query("SELECT q FROM QnA q " +
+            "LEFT JOIN FETCH q.user u " +
+            "LEFT JOIN FETCH q.company c " +
+            "WHERE q.id = :id")
+    Optional<QnA> findByIdWithAuthors(@Param("id") Long id);
 }

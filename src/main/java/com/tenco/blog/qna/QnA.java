@@ -1,6 +1,7 @@
 package com.tenco.blog.qna;
 
 
+import com.tenco.blog.company.Company;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.MyDateUtil;
 import jakarta.persistence.*;
@@ -31,19 +32,37 @@ public class QnA {
     @JoinColumn(name = "user_id") // 외래키 컬럼 명시
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
     @CreationTimestamp
     private Timestamp createdAt; // created_at (스네이크 케이스로 자동 변환)
 
-    // 게시글에 소유자를 직접 확인하는 기능을 만들자
-    public boolean isOwner(Long checkUserId) {
-        return this.user.getId().equals(checkUserId);
+    @Transient
+    private boolean isQnAOwner;
+
+    public boolean isOwner(Object sessionPrincipal) {
+        if (sessionPrincipal == null) {
+            return false; // 로그인하지 않았으면 무조건 false
+        }
+
+        if (sessionPrincipal instanceof User) {
+            User sessionUser = (User) sessionPrincipal;
+            // 이 글의 작성자가 User이고, 그 ID가 세션 User의 ID와 일치하는지 확인
+            return this.user != null && this.user.getId().equals(sessionUser.getId());
+        }
+
+        if (sessionPrincipal instanceof Company) {
+            Company sessionCompany = (Company) sessionPrincipal;
+            // 이 글의 작성자가 Company이고, 그 ID가 세션 Company의 ID와 일치하는지 확인
+            return this.company != null && this.company.getId().equals(sessionCompany.getId());
+        }
+
+        return false;
     }
-
-
     // 머스태치에서 표현할 시간을 포맷기능을(행위) 스스로 만들자
     public String getTime() {
         return MyDateUtil.timestampFormat(createdAt);
     }
-
-
 }

@@ -2,6 +2,7 @@ package com.tenco.blog.qna;
 
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
+import com.tenco.blog.company.Company;
 import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -28,17 +29,26 @@ public class QnAService {
     /**
      * 게시글 저장
      */
-    // 메서드 레벨에서의 트랜잭선 선언
-    @Transactional // 데이 수정이 필요하는 읽지 전용 설정을 해제하고 쓰기 전용로 변환
-    public QnA save(QnARequest.SaveDTO saveDTO, User sessionUser) {
-        // 1. 로그 기록 - 게시글 저장 요청 정보
-        // 2. DTO를 Entity로 변환(작성자 정보 포함)
-        // 3. 데이터베이스에 게시글 저장
-        // 4. 저장 완료 로그 기록
-        // 5. 저장된 Board 를 Controller 로 반환
-        log.info("게시글 저장 서비스 처리 시작 - 제목 {} , 작성자 {}",
-                saveDTO.getTitle(), sessionUser.getUsername());
-        QnA qna = saveDTO.toEntity(sessionUser);
+//    @Transactional
+//    public QnA save(QnARequest.SaveDTO saveDTO, User sessionUser) {
+//        log.info("게시글 저장 서비스 처리 시작 - 제목 {} , 작성자 {}",
+//                saveDTO.getTitle(), sessionUser.getUsername());
+//        QnA qna = saveDTO.toEntity(sessionUser);
+//        qnaJpaRepository.save(qna);
+//        log.info("게시글 저장 완료 - ID {} , 제목 {}",
+//                qna.getId(), qna.getTitle());
+//        return qna;
+//    }
+    @Transactional
+    public QnA save(QnARequest.SaveDTO saveDTO, Object session) {
+        QnA qna = new QnA();
+        if (session instanceof User) {
+            User sessionUser = (User) session;
+            qna = saveDTO.toEntity(sessionUser);
+        } else if (session instanceof Company) {
+            Company sessionCompany = (Company) session;
+            qna = saveDTO.toEntity(sessionCompany);
+        }
         qnaJpaRepository.save(qna);
         log.info("게시글 저장 완료 - ID {} , 제목 {}",
                 qna.getId(), qna.getTitle());
@@ -49,12 +59,8 @@ public class QnAService {
      * 게시글 목록 조회
      */
     public List<QnA> findAll() {
-        // 1. 로그 기록
-        // 2. 데이베이스 게시글 조회
-        // 3. 로그 기록
-        // 4. 조회된 게시글 목록 반환
         log.info("게시글 조회 서비스 처리 시작");
-        List<QnA> qnaList = qnaJpaRepository.findAllJoinUser();
+        List<QnA> qnaList = qnaJpaRepository.findAllWithAuthors();
         log.info("게시글 목록 조회 완료 - 총 {} 개", qnaList.size());
         return qnaList;
     }
@@ -69,7 +75,7 @@ public class QnAService {
         // 4. 조회 성공시 로그 기록
         // 5. 조회된 게시글 반환
         log.info("게시글 상세 조회 서비스 시작 - ID {}", id);
-        QnA qna = qnaJpaRepository.findByIdJoinUser(id).orElseThrow(() -> {
+        QnA qna = qnaJpaRepository.findByIdWithAuthors(id).orElseThrow(() -> {
             log.warn("게시글 조회 실패 - ID {}", id);
             return new Exception404("게시글을 찾을 수 없습니다");
         });
@@ -137,6 +143,50 @@ public class QnAService {
         if (!qna.isOwner(userId)) {
             throw new Exception403("본인 게시글만 수정할 수 있습니다.");
         }
+    }
+
+    /**
+     * [수정] 게시글 상세 조회 (DTO 반환)
+     */
+    public QnARequest.DetailDTO findById(Long id, Object sessionPrincipal) {
+        log.info("게시글 상세 조회 서비스 시작 - ID {}", id);
+        QnA qna = qnaJpaRepository.findByIdWithAuthors(id)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다"));
+        log.info("게시글 상세 조회 완료 - 제목 {}", qna.getTitle());
+        return new QnARequest.DetailDTO(qna, sessionPrincipal);
+    }
+
+    /**
+     * [수정] 게시글 수정 (통합 권한 체크)
+     */
+    @Transactional
+    public void updateById(Long id, QnARequest.UpdateDTO updateDTO, Object sessionPrincipal) {
+        log.info("게시글 수정 서비스 시작 - 게시글 ID {}", id);
+        QnA qna = qnaJpaRepository.findById(id)
+                .orElseThrow(() -> new Exception404("해당 게시글이 존재하지 않습니다"));
+
+        if (!qna.isOwner(sessionPrincipal)) {
+            throw new Exception403("본인이 작성한 게시글만 수정 가능합니다.");
+        }
+
+        qna.setTitle(updateDTO.getTitle());
+        qna.setContent(updateDTO.getContent());
+        log.info("게시글 수정 완료 - 게시글 ID {}, 게시글 제목 {}", id, qna.getTitle());
+    }
+
+    /**
+     * [수정] 게시글 삭제 (통합 권한 체크)
+     */
+    @Transactional
+    public void deleteById(Long id, Object sessionPrincipal) {
+        log.info("게시글 삭제 서비스 시작 - ID {}", id);
+        QnA qna = qnaJpaRepository.findById(id)
+                .orElseThrow(() -> new Exception404("삭제하려는 게시글이 없습니다"));
+
+        if (!qna.isOwner(sessionPrincipal)) {
+            throw new Exception403("본인이 작성한 게시글만 삭제할 수 있습니다.");
+        }
+        qnaJpaRepository.deleteById(id);
     }
 
 }
