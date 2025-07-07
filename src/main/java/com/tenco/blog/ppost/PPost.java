@@ -1,6 +1,7 @@
 package com.tenco.blog.ppost;
 
 
+import com.tenco.blog.skill.PPostSkill;
 import com.tenco.blog.skill.Skill;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.MyDateUtil;
@@ -32,8 +33,8 @@ public class PPost {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "skill_id")
-    private Skill skill;
+    @JoinColumn(name = "ppost_skill_id")
+    private PPostSkill pPostSkill;
 
     @CreationTimestamp
     private Timestamp createdAt;

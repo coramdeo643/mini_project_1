@@ -1,5 +1,6 @@
 package com.tenco.blog.skill;
 
+import com.tenco.blog.board.Board;
 import com.tenco.blog.ppost.PPost;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "ppost_skill_tb")
 @Entity
 public class PPostSkill {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ppost_id")
