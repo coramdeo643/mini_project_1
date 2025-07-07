@@ -1,0 +1,46 @@
+{{> layout/header}}
+
+<div class="container p-5">
+    <!-- 상단 버튼 -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📋 내 이력서 목록</h2>
+        <a href="/ppost/save-form" class="btn btn-primary">✏️ 이력서 등록</a>
+    </div>
+
+    <!-- 이력서 리스트 -->
+    {{#userPPostList}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <p class="card-text text-muted">
+                    작성자 : {{user.personalName}}&nbsp|&nbsp{{time}}
+                </p>
+                <div class="mb-3">
+                    <!-- board.boardSkills 리스트를 반복 -->
+                    {{#pPostSkills}}
+                        <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
+                        <span class="badge bg-secondary me-1">{{skill.name}}</span>
+                    {{/pPostSkills}}
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="/ppost/{{id}}" class="btn btn-sm btn-outline-primary">상세보기</a>
+                    <a href="/ppost/{{id}}/update-form" class="btn btn-sm btn-outline-secondary">수정</a>
+                    <form action="/ppost/{{id}}/delete" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {{/userPPostList}}
+
+    <!-- 이력서가 없는 경우 -->
+    {{^userPPostList}}
+        <div class="text-center text-muted mt-5">
+            <p>등록된 이력서가 없습니다.</p>
+            <a href="/ppost/save-form" class="btn btn-outline-primary">+ 첫 이력서 등록하기</a>
+        </div>
+    {{/userPPostList}}
+</div>
+
+{{> layout/footer}}

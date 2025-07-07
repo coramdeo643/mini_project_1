@@ -1,0 +1,47 @@
+{{> layout/header}}
+<!--내가 구독한 구직자의 이력서 목록-->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">관심기업 목록</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{> user-sub/company-sub-list}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container p-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📋 관심구직자 이력서 목록</h2>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary d-flex justify-content-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            🏢 전체 관심구직자 보기
+        </button>
+    </div>
+
+    {{#companySubPostList}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title mb-3">{{title}}</h4>
+                <p> 이름 : {{user.personalName}}&nbsp|&nbsp{{time}}</p>
+                <div class="mb-3">
+                    <!-- board.boardSkills 리스트를 반복 -->
+                    {{#pPostSkills}}
+                        <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
+                        <span class="badge bg-secondary me-1">{{skill.name}}</span>
+                    {{/pPostSkills}}
+                </div>
+                <a href="/ppost/{{id}}" class="btn btn-primary">상세보기</a>
+            </div>
+        </div>
+    {{/companySubPostList}}
+</div>
+
+{{> layout/footer}}

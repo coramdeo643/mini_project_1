@@ -1,6 +1,9 @@
 package com.tenco.blog.ppost;
 
 
+import com.tenco.blog.skill.BoardSkill;
+import com.tenco.blog.skill.PPostSkill;
+import com.tenco.blog.skill.Skill;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.MyDateUtil;
 import jakarta.persistence.*;
@@ -11,6 +14,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,19 +31,23 @@ public class PPost {
 
     private String title;
     private String content;
-    // v2에서 사용했던 방식
-    // private String username;
-    // v3에서 Board 엔티티는 User 엔티티와 연관관계가 성립이 된다.
 
-    // 다 대 일
-    // 여러개의 게시글에는 한명의 작성자를 가질 수 있다.
-    // board쪽에서만 걸어 주었기에 단방향 맵핑이라고 할 수 있다.
-    @ManyToOne(fetch = FetchType.LAZY) // user라는 정보를 호출할때만 사용됨
-    @JoinColumn(name = "user_id") // 외래키 컬럼 명시
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "ppost", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PPostSkill> pPostSkills = new ArrayList<>();
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "ppost_skill_id")
+//    private PPostSkill pPostSkill;
+
     @CreationTimestamp
-    private Timestamp createdAt; // created_at (스네이크 케이스로 자동 변환)
+    private Timestamp createdAt;
+
+    @Transient
+    private boolean isPPostOwner;
 
     // 게시글에 소유자를 직접 확인하는 기능을 만들자
     public boolean isOwner(Long checkUserId){

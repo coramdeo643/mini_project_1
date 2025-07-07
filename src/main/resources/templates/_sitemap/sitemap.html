@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 5 트리 구조 사이트맵</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        /* 트리 뷰를 위한 커스텀 CSS */
+        .tree-view .list-group-item {
+            border: none; /* 각 아이템의 테두리를 제거해 깔끔하게 보이도록 합니다. */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        /* 자식이 있는 아이템에 커서 포인터 적용 */
+        .tree-view .has-children {
+            cursor: pointer;
+        }
+
+        /* 확장/축소 아이콘 (+/-) 스타일 */
+        .tree-view .has-children::before {
+            /* FontAwesome 아이콘이나 이미지를 사용해도 좋습니다. */
+            content: '[+]'; /* 축소 상태 아이콘 */
+            display: inline-block;
+            width: 24px; /* 아이콘 너비 */
+            font-weight: bold;
+            color: #6c757d;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        /* 확장되었을 때 아이콘 변경 (-) */
+        .tree-view .has-children:not(.collapsed)::before {
+            content: '[−]'; /* 확장 상태 아이콘 (마이너스 기호) */
+        }
+
+        /* 하위 아이템 들여쓰기 */
+        .tree-view .sub-items {
+            padding-left: 24px; /* 아이콘 너비만큼 들여쓰기 */
+            border-left: 1px solid #dee2e6;
+            margin-left: 11px; /* 아이콘과 라인을 맞추기 위한 미세 조정 */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container my-5">
+    <h2>팀 프로젝트 사이트맵</h2>
+    <h6>팀원 : 승원, 예람, 희수</h6>
+    <h6>기간 : '25.06.27. ~ '25.07.07.</h6>
+    <h6>프로젝트명 : 휴먼 클라우드 이력관리 플랫폼 웹개발</h6>
+
+    <div class="list-group tree-view mt-4">
+
+        <!-- 1레벨 아이템 (기본으로 펼쳐진 상태) -->
+        <a href="#level1-item1" class="list-group-item list-group-item-action has-children" data-bs-toggle="collapse" aria-expanded="true">
+            프로젝트 목표
+        </a>
+        <div class="collapse show sub-items" id="level1-item1">
+            <div class="list-group">
+<!--                <a href="#" class="list-group-item list-group-item-action">회원가입</a>-->
+                <!-- 2레벨 아이템 -->
+                <a href="#level2-item1" class="list-group-item list-group-item-action has-children collapsed" data-bs-toggle="collapse" aria-expanded="false">
+                    구직자/기업
+                </a>
+                <div class="collapse sub-items" id="level2-item1">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">회원가입</a>
+                        <a href="#" class="list-group-item list-group-item-action">로그인</a>
+                        <a href="#" class="list-group-item list-group-item-action">회원정보수정</a>
+                    </div>
+                </div>
+                <a href="#level2-item3" class="list-group-item list-group-item-action has-children collapsed" data-bs-toggle="collapse" aria-expanded="false">
+                    채용공고/이력서
+                </a>
+                <div class="collapse sub-items" id="level2-item3">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">전체 목록/상세보기</a>
+                        <a href="#" class="list-group-item list-group-item-action">나의 목록/상세보기</a>
+                        <a href="#" class="list-group-item list-group-item-action">작성/수정/삭제</a>
+                    </div>
+                </div>
+                <a href="#level2-item5" class="list-group-item list-group-item-action has-children collapsed" data-bs-toggle="collapse" aria-expanded="false">
+                    관심기업/구직자
+                </a>
+                <div class="collapse sub-items" id="level2-item5">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">각각의 목록</a>
+                        <a href="#" class="list-group-item list-group-item-action">각각의 채용공고/이력서목록</a>
+                        <a href="#" class="list-group-item list-group-item-action">등록/삭제</a>
+                    </div>
+                </div>
+                <a href="#level2-item2" class="list-group-item list-group-item-action has-children collapsed" data-bs-toggle="collapse" aria-expanded="false">
+                    기타
+                </a>
+                <div class="collapse sub-items" id="level2-item2">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">Q&A</a>
+                        <a href="#" class="list-group-item list-group-item-action">댓글</a>
+                        <a href="#" class="list-group-item list-group-item-action">지도 API</a>
+                        <a href="#" class="list-group-item list-group-item-action">예외처리</a>
+                        <a href="#" class="list-group-item list-group-item-action">사이트맵</a>
+                        <a href="#" class="list-group-item list-group-item-action"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Bootstrap 5 Bundle JS (Popper.js 포함) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

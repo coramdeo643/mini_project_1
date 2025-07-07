@@ -1,0 +1,47 @@
+<div id="map" style="width:auto;height:300px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5b9238bdd5f3fdb6450aa49a338bc5de&libraries=services"></script>
+
+<script>
+    const mapContainer = document.getElementById('map'); // 지도를 표시할 div
+    const companyAddress = '{{board.company.companyAddress}}'; // 서버에서 주소 받아오기
+    const companyName = '{{board.company.businessName}}'; // 서버에서 회사 이름 받아오기
+
+    // 주소가 없는 경우 지도를 표시하지 않음
+    if (companyAddress) {
+        const mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 초기 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
+
+        const map = new kakao.maps.Map(mapContainer, mapOption);
+        const geocoder = new kakao.maps.services.Geocoder();
+
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(companyAddress, function(result, status) {
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+                const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                const marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+
+                const infowindow = new kakao.maps.InfoWindow({
+                    content: `<div style="width:150px;text-align:center;padding:6px 0;">${companyName}</div>`
+                });
+                infowindow.open(map, marker);
+
+                map.setCenter(coords);
+            } else {
+                // [추가] 주소 검색 실패 시 콘솔에 에러를 출력하고, 사용자에게 안내 메시지를 표시
+                console.error(`주소 검색 실패: ${companyAddress}, 상태: ${status}`);
+                mapContainer.innerHTML = '<div style="display:flex; align-items:center; justify-content:center; height:100%; color: #888;">위치 정보를 불러올 수 없습니다.</div>';
+            }
+        });
+    } else {
+        // [추가] 주소 정보가 없을 경우의 처리
+        mapContainer.innerHTML = '<div style="display:flex; align-items:center; justify-content:center; height:100%; color: #888;">등록된 주소 정보가 없습니다.</div>';
+    }
+</script>

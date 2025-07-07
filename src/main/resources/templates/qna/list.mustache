@@ -1,8 +1,15 @@
 {{> layout/header}}
 
 <div class="container p-5">
-    <div style="margin:1rem 0" class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="/qna/save-form" class="btn btn-primary">글쓰기</a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>💬 Q&A 목록</h2>
+        {{#sessionUser}}
+            <a href="/qna/save-form" class="btn btn-primary">글쓰기</a>
+        {{/sessionUser}}
+        {{#companyUser}}
+            <a href="/qna/save-form" class="btn btn-primary">글쓰기</a>
+        {{/companyUser}}
+
     </div>
 
     {{#qnaList}}

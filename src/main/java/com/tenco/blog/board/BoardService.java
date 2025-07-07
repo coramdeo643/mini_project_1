@@ -3,6 +3,8 @@ package com.tenco.blog.board;
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
 import com.tenco.blog.company.Company;
+import com.tenco.blog.reply.Reply;
+import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +60,33 @@ public class BoardService {
         log.info("게시글 목록 조회 완료 - 총 {} 개", boardList.size());
         return boardList;
     }
+
+    // 상세보기 + 댓글 목록
+    public Board findByIdWithReplies(Long id, User sessionUser) {
+        log.info("게시글 상세 조회 서비스 시작 - ID {}", id);
+        // 1. 게시글 조회
+        Board board = boardJpaRepository.findByIdJoinUser(id).orElseThrow(
+                () -> new Exception404("게시글을 찾을 수 없습니다"));
+        // 2. 게시글 작성자 정보 포함
+        // 3. 게시글 소유권 설정(수정/삭제버튼표시용)
+        if (sessionUser != null) {
+            boolean isBoardOwner = board.isOwner(sessionUser.getId());
+            // 로직 : 메서드를 통해서 게시글 소유자를 확인하고
+            // 그 결과값을 Board 객체에 담아둔다
+            board.setBoardOwner(isBoardOwner);
+        }
+        // 댓글 정보(양방향 mapping) < 양방향 설정 Board < Replies 가져옴
+        List<Reply> replies = board.getReplies();
+        // 댓글 소유권 설정(삭제 버튼 표시용)
+        if (sessionUser != null) {
+            replies.forEach(reply -> {
+                boolean isReplyOwner = reply.isOwner(sessionUser.getId());
+                reply.setReplyOwner(isReplyOwner);
+            });
+        }
+        return board;
+    }
+
 
     /**
      * 게시글 상세 조회
@@ -138,5 +167,24 @@ public class BoardService {
             throw new Exception403("본인 게시글만 수정할 수 있습니다.");
         }
     }
+
+
+    public Board findByIdWithBoard(Long id, Company sessionUser) {
+        Board board = boardJpaRepository.findByIdJoinUser(id).orElseThrow(
+                () -> new Exception404("게시글을 찾을 수 없습니다."));
+        if (sessionUser != null) {
+            boolean isBoardOwner = board.isOwner(sessionUser.getId());
+            board.setBoardOwner(isBoardOwner);
+        }
+        return board;
+    }
+
+    public List<Board> findBoardsBySubscribedUserId(Long id) {
+        log.info("구독기업채용공고 조회 시작");
+        List<Board> userSubBoardList = boardJpaRepository.findBoardsBySubscribedUserId(id);
+        log.info("Total {} posts found", userSubBoardList.size());
+        return userSubBoardList;
+    }
+
 
 }

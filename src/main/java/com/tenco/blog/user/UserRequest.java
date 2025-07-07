@@ -14,7 +14,7 @@ public class UserRequest {
     public static class JoinDTO {
         private String username;
         private String password;
-        private String name;
+        private String personalName;
         private String telephone;
         private String email;
 
@@ -24,7 +24,7 @@ public class UserRequest {
             return User.builder()
                     .username(this.username)
                     .password(this.password)
-                    .name(this.name)
+                    .personalName(this.personalName)
                     .telephone(this.telephone)
                     .email(this.email)
                     .build();
@@ -33,20 +33,20 @@ public class UserRequest {
         //회원가입시 유효성 검증 메서드
         public void validate() {
 
-            if(username == null || username.trim().isEmpty()){
+            if (username == null || username.trim().isEmpty()) {
                 throw new IllegalArgumentException("사용자 명은 필수입니다.");
             }
-            if(password == null || password.trim().isEmpty()){
+            if (password == null || password.trim().isEmpty()) {
                 throw new IllegalArgumentException("비밀번호는 필수입니다.");
             }
-            if(name == null || name.trim().isEmpty()){
+            if (personalName == null || personalName.trim().isEmpty()) {
                 throw new IllegalArgumentException("이름은 필수입니다.");
             }
-            if(telephone == null || telephone.trim().isEmpty()){
+            if (telephone == null || telephone.trim().isEmpty()) {
                 throw new IllegalArgumentException("전화번호를 입력해주세요");
             }
             // 간단한 이메일 형식 검증 (정규화 표현식)
-            if(email.contains("@") == false) {
+            if (email.contains("@") == false) {
                 throw new IllegalArgumentException("올바른 이메일 형식이 아닙니다.");
             }
         }
@@ -57,17 +57,17 @@ public class UserRequest {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class LoginDTO{
+    public static class LoginDTO {
         private String username;
         private String password;
 
 
         // 유효성 검사
         public void validate() {
-            if (username == null || username.trim().isEmpty()){
+            if (username == null || username.trim().isEmpty()) {
                 throw new IllegalArgumentException("사용자 명은 필수입니다.");
             }
-            if (password == null || password.trim().isEmpty()){
+            if (password == null || password.trim().isEmpty()) {
                 throw new IllegalArgumentException("비밀번호는 필수입니다.");
             }
         }
@@ -76,25 +76,25 @@ public class UserRequest {
 
     // 회원 정보 수정용 DTO
     @Data
-    public static class UpdateDTO{
+    public static class UpdateDTO {
         private String password;
         private String email;
         private String telephone;
         // username <- 유니크 설정 함
 
         // toEntity (더티체킹 사용)
-        public void validate(){
-            if(password == null || password.trim().isEmpty()){
+        public void validate() {
+            if (password == null || password.trim().isEmpty()) {
                 throw new IllegalArgumentException("비밀번호는 필수입니다.");
             }
-            if(password.length() < 4){
+            if (password.length() < 4) {
                 throw new IllegalArgumentException("비밀번호는 4자 이상이어야 합니다.");
             }
             // 간단한 이메일 형식 검증 (정규화 표현식)
-            if(email.contains("@") == false) {
+            if (email.contains("@") == false) {
                 throw new IllegalArgumentException("올바른 이메일 형식이 아닙니다.");
             }
-            if(telephone == null || telephone.trim().isEmpty()){
+            if (telephone == null || telephone.trim().isEmpty()) {
                 throw new IllegalArgumentException("전화번호는 필수입니다.");
             }
         }

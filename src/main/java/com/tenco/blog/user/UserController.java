@@ -1,10 +1,7 @@
 package com.tenco.blog.user;
 
-import com.tenco.blog._core.errors.exception.Exception400;
-import com.tenco.blog._core.errors.exception.Exception401;
 import com.tenco.blog.board.BoardController;
 import com.tenco.blog.utils.Define;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -37,9 +34,10 @@ public class UserController {
                          HttpSession session) {
 
         reqDTO.validate();
-        User user = (User)session.getAttribute("sessionUser");
-        User updateUser = userService.updateById(user.getId(),reqDTO);
-        return "redirect:/user/update-form";
+        User user = (User) session.getAttribute("sessionUser");
+        User updateUser = userService.updateById(user.getId(), reqDTO);
+        session.setAttribute("updateUser", updateUser);
+        return "redirect:/user/login-form";
 
     }
 
@@ -51,10 +49,9 @@ public class UserController {
     }
 
     /**
-     *
-     *회원 가입 기능 요청
+     * 회원 가입 기능 요청
      */
-    @PostMapping("/user/join")
+    @PostMapping("/join")
     public String join(UserRequest.JoinDTO joinDTO) {
         joinDTO.validate();
         userService.join(joinDTO);
@@ -62,7 +59,7 @@ public class UserController {
     }
 
     /**
-     *로그인 화면 요청
+     * 로그인 화면 요청
      */
     @GetMapping("/user/login-form")
     public String loginForm() {
@@ -71,19 +68,19 @@ public class UserController {
 
 
     /**
-     *로그인 요청
+     * 로그인 요청
      */
     @PostMapping("/user/login")
     public String login(UserRequest.LoginDTO loginDTO, HttpSession session) {
         loginDTO.validate();
-        User user =  userService.login(loginDTO);
-        session.setAttribute(Define.SESSIONUSER_USER,user);
+        User user = userService.login(loginDTO);
+        session.setAttribute(Define.SESSIONUSER_USER, user);
         return "redirect:/";
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-       session.invalidate();
+        session.invalidate();
         return "redirect:/";
     }
 

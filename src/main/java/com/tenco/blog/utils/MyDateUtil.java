@@ -15,9 +15,9 @@ public class MyDateUtil {
         // Board 엔티티에 선언된 TimeStamp를 Date 객체로 변환
         // getTime() 메서드를 호출해서 밀초 단위로 시간을 받아 --> Date 객체 생성
         Date currentDate = new Date();
-
         //아파치 Commons 라이브러리 DateFormatUtils 클래스를 활용
         return DateFormatUtils.format(currentDate, "yyyy-MM-dd HH:mm");
+        //return DateFormatUtils.format(time, "yyyy-MM-dd HH:mm");
     }
 
 }

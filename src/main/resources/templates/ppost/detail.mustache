@@ -1,25 +1,40 @@
 {{> layout/header}}
-
+<!--이력서 상세보기-->
 <div class="container p-5">
 
     <!-- 수정삭제버튼 -->
-    <div class="d-flex justify-content-end">
-    <!--페이지 이동 요청 -->
-        <a href="/ppost/{{ppost.id}}/update-form" class="btn btn-warning me-1">수정</a>
-        <form action="/ppost/{{ppost.id}}/delete" method="post">
-            <button class="btn btn-danger">삭제</button>
-        </form>
-    </div>
-    <div class="d-flex justify-content-end">
-        <b>작성자</b> : {{ppost.user.username}}
-    </div>
+    {{#ppost.pPostOwner}}
+        <div class="d-flex justify-content-end">
+            <!--페이지 이동 요청 -->
+            <a href="/ppost/{{ppost.id}}/update-form" class="btn btn-warning me-1">수정</a>
+            <form action="/ppost/{{ppost.id}}/delete" method="post">
+                <button class="btn btn-danger">삭제</button>
+            </form>
+        </div>
+    {{/ppost.pPostOwner}}
 
     <!-- 게시글내용 -->
     <div>
         <h2><b>{{ppost.title}}</b></h2>
-        <hr />
-        <div class="m-4 p-2">
-            {{ppost.content}}
+        <b>작성자</b> : {{ppost.user.personalName}}
+        <!--관심구직자 버튼-->
+        {{#companyUser}}
+            <form action="/company-sub/save" method="post">
+                <input type="hidden" name="userId" value="{{ppost.user.id}}">
+                <input type="hidden" name="ppostId" value="{{ppost.id}}">
+                <button class="btn btn-primary btn-sm p-1 mt-1" onclick="return confirm('구독하시겠습니까?')">❤️ 관심구직자
+                </button>
+            </form>
+        {{/companyUser}}
+        <!--TODO 관심등록했으면 다시 눌러서 취소되도록? 현재 관심등록 중인지 아닌지 알수있도록?-->
+        <hr/>
+        <!-- board.boardSkills 리스트를 반복 -->
+        {{#ppost.pPostSkills}}
+            <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
+            <span class="badge bg-secondary me-1">{{skill.name}}</span>
+        {{/ppost.pPostSkills}}
+
+        <div class="m-4 p-2">{{ppost.content}}
         </div>
     </div>
 

@@ -12,81 +12,39 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm bg-dark bg-gradient navbar-dark">
+
     <div class="container-fluid">
         <a class="navbar-brand" href="/">saiYOU</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav nav-underline">
                 {{^sessionUser}}
                     {{^companyUser}}
                         <li class="nav-item">
                             <a class="nav-link" href="/qna/list">Q&A</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/join-form">회원가입</a>
+                            <a class="nav-link" href="/user/join-form">회원가입</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/login-form">개인로그인</a>
+                            <a class="nav-link" href="/user/login-form">로그인</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="/company/login-form">기업로그인</a>
+                            <a class="nav-link" href="/_sitemap/sitemap">사이트맵</a>
                         </li>
                     {{/companyUser}}
                 {{/sessionUser}}
+                <!--구직자 헤더.-->
+                {{> layout/header-user}}
+                <!--기업 헤더-->
+                {{> layout/header-company}}
+                <!--관리자 헤더-->
+                {{> layout/header-admin}}
 
-                {{#sessionUser}}
-                    <li class="nav-item">
-                        <span class="nav-link text-info">안녕하세요, {{sessionUser.username}}님!</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qna/list">Q&A</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/ppost/list">이력서</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">로그아웃</a>
-                    </li>
-                {{/sessionUser}}
-
-                {{#companyUser}}
-                    <li class="nav-item">
-                        <span class="nav-link text-info">안녕하세요, {{companyUser.username}}님!</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/qna/list">Q&A</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/board/list">채용공고</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/company/logout">로그아웃</a>
-                    </li>
-                {{/companyUser}}
-
-                {{#adminUser}}
-                    <li class="nav-item">
-                        <span class="nav-link text-info">안녕하세요, 관리자님!</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/com/tenco/blog/qna/save-form">기업회원1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/update-form">기업회원2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/update-form">개인회원1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/update-form">개인회원2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">로그아웃</a>
-                    </li>
-                {{/adminUser}}
             </ul>
         </div>
     </div>

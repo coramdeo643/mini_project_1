@@ -2,6 +2,8 @@ package com.tenco.blog.ppost;
 
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
+import com.tenco.blog.board.Board;
+import com.tenco.blog.company.Company;
 import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -124,6 +126,23 @@ public class PPostService {
         if(!PPost.isOwner(userId)) {
             throw new Exception403("본인 게시글만 수정할 수 있습니다.");
         }
+    }
+
+    public PPost findByIdWithPPost(Long id, User sessionUser) {
+        PPost ppost = PPostJpaRepository.findByIdJoinUser(id).orElseThrow(
+                () -> new Exception404("게시글을 찾을 수 없습니다."));
+        if (sessionUser != null) {
+            boolean isPPostOwner = ppost.isOwner(sessionUser.getId());
+            ppost.setPPostOwner(isPPostOwner);
+        }
+        return ppost;
+    }
+
+    public List<PPost> findPostsBySubscribedUserId(Long id) {
+        log.info("구독기업채용공고 조회 시작");
+        List<PPost> companySubPpostList = PPostJpaRepository.findPostsBySubscribedUserId(id);
+        log.info("Total {} posts found", companySubPpostList.size());
+        return companySubPpostList;
     }
 
 }
