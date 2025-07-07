@@ -16,7 +16,7 @@
     <!-- 게시글내용 -->
     <div>
         <h2><b>{{ppost.title}}</b></h2>
-        <b>작성자</b> : {{ppost.user.username}}
+        <b>작성자</b> : {{ppost.user.personalName}}
         <!--관심구직자 버튼-->
         {{#companyUser}}
             <form action="/company-sub/save" method="post">
