@@ -1,6 +1,7 @@
 package com.tenco.blog.ppost;
 
 
+import com.tenco.blog.skill.BoardSkill;
 import com.tenco.blog.skill.PPostSkill;
 import com.tenco.blog.skill.Skill;
 import com.tenco.blog.user.User;
@@ -13,6 +14,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,9 +36,12 @@ public class PPost {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ppost_skill_id")
-    private PPostSkill pPostSkill;
+    @OneToMany(mappedBy = "ppost", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PPostSkill> pPostSkills = new ArrayList<>();
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "ppost_skill_id")
+//    private PPostSkill pPostSkill;
 
     @CreationTimestamp
     private Timestamp createdAt;

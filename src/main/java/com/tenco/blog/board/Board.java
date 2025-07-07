@@ -44,9 +44,12 @@ public class Board {
 	@JoinColumn(name = "company_id")
 	private Company company;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "board_skill_id")
-	private BoardSkill boardSkill;
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<BoardSkill> boardSkills = new ArrayList<>();
+
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "board_skill_id")
+//	private BoardSkill boardSkill;
 
 	@CreationTimestamp
 	private Timestamp createdAt;
