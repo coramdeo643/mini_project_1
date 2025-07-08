@@ -1,27 +1,26 @@
 <!-- ⭐ Bootstrap 카드 내 별점 폼 -->
-<div class="card">
-    <div class="card-body text-center">
-        <h5 class="card-title">회사에 평점을 남겨보세요!</h5>
-
 {{#company}}
-        <form action="/rating" method="post">
-            <input type="hidden" name="companyId" value="{{id}}">
-            <input type="hidden" name="score" id="scoreInput" value="0"> <!-- JS가 이 값을 바꿈 -->
+    <div class="card shadow-sm rounded" style="max-width: 360px; margin-left: auto;">
+        <div class="card-body text-center py-3 px-3">
+            <h6 class="card-title mb-2 fw-semibold">회사에 평점을 남겨보세요!</h6>
 
-            <div id="stars" class="my-3">
-                <!-- JavaScript로 색을 바꿀 별들 -->
-                <span class="star" data-value="1">★</span>
-                <span class="star" data-value="2">★</span>
-                <span class="star" data-value="3">★</span>
-                <span class="star" data-value="4">★</span>
-                <span class="star" data-value="5">★</span>
-            </div>
+            <form action="/rating" method="post">
+                <input type="hidden" name="companyId" value="{{id}}">
+                <input type="hidden" name="score" id="scoreInput" value="0">
 
-            <button type="submit" class="btn btn-dark">평점 등록</button>
-        </form>
-    {{/company}}
+                <div id="stars" class="d-flex justify-content-center mb-2" style="font-size: 1.2rem;">
+                    <span class="star mx-1" data-value="1">★</span>
+                    <span class="star mx-1" data-value="2">★</span>
+                    <span class="star mx-1" data-value="3">★</span>
+                    <span class="star mx-1" data-value="4">★</span>
+                    <span class="star mx-1" data-value="5">★</span>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-sm">평점 등록</button>
+            </form>
+        </div>
     </div>
-</div>
+{{/company}}
 
 <!-- ⭐ 별점 UI용 JavaScript -->
 <script>
