@@ -1,5 +1,6 @@
 package com.tenco.blog.user;
 
+import com.tenco.blog._core.errors.exception.Exception401;
 import com.tenco.blog.board.BoardController;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpSession;
@@ -20,7 +21,10 @@ public class UserController {
     // 주소 설계 : http://localhost:8080/user/update-form
     @GetMapping("/user/update-form")
     public String updateForm(Model model, HttpSession session) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요합니다.");
+        }
         User user = userService.findById(sessionUser.getId());
         model.addAttribute("user", user);
         return "user/update-form";
@@ -34,8 +38,11 @@ public class UserController {
                          HttpSession session) {
 
         reqDTO.validate();
-        User user = (User) session.getAttribute("sessionUser");
-        User updateUser = userService.updateById(user.getId(), reqDTO);
+        User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요합니다.");
+        }
+        User updateUser = userService.updateById(sessionUser.getId(), reqDTO);
         session.setAttribute("updateUser", updateUser);
         return "redirect:/user/login-form";
 
