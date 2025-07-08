@@ -41,10 +41,11 @@ public class Application {
      * 구현해 기업이 변경해주게 만들 예정
      */
     @Column(nullable = false)
-    private String status = "PENDING";
+    private String status = "대기";
 
     @CreationTimestamp
     private Timestamp createdAt;
+
 
     @Builder
 
@@ -68,6 +69,22 @@ public class Application {
     public boolean isOwner(Long sessionId) {
         return this.user.getId().equals(sessionId);
     }
+
+
+    @Transient // DB에 저장되지 않음
+    private boolean isAccepted;
+
+    public boolean isAccepted() {
+        return "합격".equals(this.status);
+    }
+
+    @Transient // DB에 저장되지 않을 예정
+    private boolean isRated;
+
+    private boolean isRated() {
+        return isRated;
+    }
+
 
 
     public String getTime(){

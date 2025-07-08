@@ -3,8 +3,8 @@
 <div class="container p-5">
 
     <!-- 댓글목록 -->
-    <div class="card-footer">
-        <b>지원공고 목록</b>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📋 내가 지원한 회사 목록</h2>
     </div>
     <div class="list-group">
         {{#applicationResourceList}}
@@ -19,11 +19,26 @@
         </div>
             <div class="d-flex">
                 <!-- 지원 취소 -->
+            {{#accepted}}
+                {{#rated}}
+                    <p class="me-2 mb-0">이미 평가하셨습니다</p>
+                    <form action="/delete" method="post">
+                        <input type="hidden" name="companyId" value="{{id}}">
+                        <button type="submit" class="btn btn-dark">평점 수정</button>
+                    </form>
+                {{/rated}}
+
+                {{^rated}}
+                    {{> rating/rating-form}}
+                {{/rated}}
+            {{/accepted}}
+            {{^accepted}}
                 <form action="/application/{{id}}/delete" method="post" class="me-1">
 
                     <button type="submit" class="btn btn-success btn-sm"
                             onclick="return confirm('정말 입사지원을 취소 하시겠습니까?')">지원 취소</button>
                 </form>
+            {{/accepted}}
             </div>
         </div>
 

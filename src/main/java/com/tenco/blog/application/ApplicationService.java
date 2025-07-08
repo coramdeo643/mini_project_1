@@ -5,6 +5,7 @@ import com.tenco.blog.board.Board;
 import com.tenco.blog.board.BoardJpaRepository;
 import com.tenco.blog.company.Company;
 import com.tenco.blog.company.CompanyRepository;
+import com.tenco.blog.rating.RatingJpaRepository;
 import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class ApplicationService {
     private final ApplicationJpaRepository applicationJpaRepository;
     private final BoardJpaRepository boardJpaRepository;
     private final CompanyRepository companyRepository;
+    private final RatingJpaRepository ratingJpaRepository;
 
 
 
@@ -77,5 +79,18 @@ public class ApplicationService {
         application.setStatus(status); //
     }
 
+    public List<Application> findAllByUserWithRatingStatus (Long userId) {
+        // 1. 사용자의 전체 지원서 가져오기
+        List<Application> applications = applicationJpaRepository.findAllByUserIdWithBoard(userId);
+
+        // 2. 각 지원서에 대해 평점 남긴 적 있는지 확인
+        for (Application application : applications) {
+            Long companyId = application.getCompany().getId();
+            boolean hasRated = ratingJpaRepository.existsByUserIdAndCompanyId(userId,companyId);
+            application.setRated(hasRated);
+        }
+
+        return applications;
+    }
 
 }

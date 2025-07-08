@@ -13,7 +13,9 @@ public class ApplicationRequest {
     public static class SaveDTO {
         private Long boardId; // 지원서에 달릴 공고 ID
         private Long companyId;
-        private String status = "PENDING";
+        private String status = "대기";
+        private boolean isAccepted = false;
+        private boolean isRated = false;
 
         /**
          * 데이터 유효성 검증

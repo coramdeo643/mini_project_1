@@ -7,6 +7,7 @@ import com.tenco.blog.company.Company;
 import com.tenco.blog.company.CompanyService;
 import com.tenco.blog.ppost.PPost;
 import com.tenco.blog.ppost.PPostService;
+import com.tenco.blog.rating.RatingService;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,6 +39,7 @@ public class BoardController {
 	private final UserSubService userSubService;
 	private final PPostService pPostService;
 	private final BoardJpaRepository boardJpaRepository;
+	private  final RatingService ratingService;
 
 	/**
 	 * 게시글 수정 화면 요청
@@ -140,6 +142,8 @@ public class BoardController {
 		Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
 		Board board = boardService.findByIdWithBoard(id, sessionUser);
 		model.addAttribute("board", board);
+		Double avgScore = ratingService.avg(board.getCompany().getId());
+		model.addAttribute("avgScore", avgScore);
 		return "board/detail";
 	}
 
