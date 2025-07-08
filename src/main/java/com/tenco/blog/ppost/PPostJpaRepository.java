@@ -16,8 +16,8 @@ public interface PPostJpaRepository extends JpaRepository<PPost, Long> {
 	@Query("SELECT p FROM PPost p JOIN FETCH p.user u ORDER BY p.id DESC")
 	Page<PPost> findAllJoinUser(Pageable pageable);
 
-//	@Query("SELECT p FROM PPost p JOIN FETCH p.user u ORDER BY p.id DESC")
-//	List<PPost> findAllJoinUser();
+	@Query("SELECT p FROM PPost p JOIN FETCH p.user u ORDER BY p.id DESC")
+	List<PPost> findAllJoinUser();
 
 	@Query("SELECT p FROM PPost p JOIN FETCH p.user u WHERE p.id = :id")
 	Optional<PPost> findByIdJoinUser(@Param("id") Long id);

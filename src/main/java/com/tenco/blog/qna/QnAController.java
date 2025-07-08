@@ -1,7 +1,9 @@
 package com.tenco.blog.qna;
 
+import com.tenco.blog._core.common.PageLink;
 import com.tenco.blog._core.errors.exception.Exception401;
 import com.tenco.blog._core.errors.exception.Exception403;
+import com.tenco.blog.board.Board;
 import com.tenco.blog.qna.QnARequest;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
@@ -10,12 +12,18 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -149,9 +157,21 @@ public class QnAController {
 	}
 
 	@GetMapping("/qna/list")
-	public String list(Model model) {
-		List<QnA> qnaList = qnaService.findAll();
-		model.addAttribute("qnaList", qnaList);
+	public String list(Model model,
+					   @RequestParam(name = "page", defaultValue = "1") int page,
+					   @RequestParam(name = "size", defaultValue = "3") int size) {
+		Pageable pageable = PageRequest.of(page - 1, size, Sort.by("id").descending());
+		Page<QnA> qnaPage = qnaService.findAllPaging(pageable);
+		List<PageLink> pageLinks = new ArrayList<>();
+		for (int i = 0; i < qnaPage.getTotalPages(); i++) {
+			pageLinks.add(new PageLink(i, i + 1, i == qnaPage.getNumber()));
+		}
+		Integer prePageNumber = qnaPage.hasPrevious() ? qnaPage.getNumber() : null;
+		Integer nxtPageNumber = qnaPage.hasNext() ? qnaPage.getNumber() + 2: null;
+		model.addAttribute("pageLinks", pageLinks);
+		model.addAttribute("qnaPage", qnaPage);
+		model.addAttribute("prePageNumber", prePageNumber);
+		model.addAttribute("nxtPageNumber", nxtPageNumber);
 		return "qna/list";
 	}
 

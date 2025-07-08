@@ -7,6 +7,8 @@ import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +65,12 @@ public class QnAService {
 		List<QnA> qnaList = qnaJpaRepository.findAllWithAuthors();
 		log.info("게시글 목록 조회 완료 - 총 {} 개", qnaList.size());
 		return qnaList;
+	}
+
+	public Page<QnA> findAllPaging(Pageable pageable) {
+		Page<QnA> qnaPage = qnaJpaRepository.findAllPaging(pageable);
+		log.info("게시글 목록 조회 완료 - 총 {} 개", qnaPage.getTotalElements());
+		return qnaPage;
 	}
 
 	/**

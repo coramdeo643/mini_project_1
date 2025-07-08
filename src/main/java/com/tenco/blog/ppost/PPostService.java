@@ -45,16 +45,16 @@ public class PPostService {
     /**
      * 게시글 목록 조회
      */
-//    public List<PPost> findAll() {
-//        // 1. 로그 기록
-//        // 2. 데이베이스 게시글 조회
-//        // 3. 로그 기록
-//        // 4. 조회된 게시글 목록 반환
-//        log.info("게시글 조회 서비스 처리 시작");
-//        List<PPost> PPostList = PPostJpaRepository.findAllJoinUser();
-//        log.info("게시글 목록 조회 완료 - 총 {} 개", PPostList.size());
-//        return PPostList;
-//    }
+    public List<PPost> findAll() {
+        // 1. 로그 기록
+        // 2. 데이베이스 게시글 조회
+        // 3. 로그 기록
+        // 4. 조회된 게시글 목록 반환
+        log.info("게시글 조회 서비스 처리 시작");
+        List<PPost> PPostList = PPostJpaRepository.findAllJoinUser();
+        log.info("게시글 목록 조회 완료 - 총 {} 개", PPostList.size());
+        return PPostList;
+    }
 
     /**
      * 게시글 상세 조회

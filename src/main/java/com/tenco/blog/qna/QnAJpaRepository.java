@@ -1,5 +1,7 @@
 package com.tenco.blog.qna;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,6 +25,9 @@ public interface QnAJpaRepository extends JpaRepository<QnA, Long> {
             "LEFT JOIN FETCH q.company c " +
             "ORDER BY q.id DESC")
     List<QnA> findAllWithAuthors();
+
+    @Query("SELECT q FROM QnA q LEFT JOIN FETCH q.user u LEFT JOIN FETCH q.company c ORDER BY q.id DESC")
+    Page<QnA> findAllPaging(Pageable pageable);
 
     /**
      * [수정] QnA 상세 조회 시, 작성자인 User와 Company 정보를 함께 가져옵니다.
