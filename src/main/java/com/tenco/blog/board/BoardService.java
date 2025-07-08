@@ -8,6 +8,8 @@ import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,19 +49,21 @@ public class BoardService {
         return board;
     }
 
+    public Page<Board> findAllPaging(Pageable pageable) {
+        Page<Board> boardPage = boardJpaRepository.findAllJoinCompany(pageable);
+        log.info("게시글 목록 조회 완료 - 총 게시글 {} 개, 총 {} 페이지 ", boardPage.getTotalElements(), boardPage.getTotalPages());
+        return boardPage;
+    }
+
     /**
      * 게시글 목록 조회
      */
-    public List<Board> findAll() {
-        // 1. 로그 기록
-        // 2. 데이베이스 게시글 조회
-        // 3. 로그 기록
-        // 4. 조회된 게시글 목록 반환
-        log.info("게시글 조회 서비스 처리 시작");
-        List<Board> boardList = boardJpaRepository.findAllJoinUser();
-        log.info("게시글 목록 조회 완료 - 총 {} 개", boardList.size());
-        return boardList;
-    }
+//    public List<Board> findAll() {
+//        log.info("게시글 조회 서비스 처리 시작");
+//        List<Board> boardList = boardJpaRepository.findAllJoinUser();
+//        log.info("게시글 목록 조회 완료 - 총 {} 개", boardList.size());
+//        return boardList;
+//    }
 
     // 상세보기 + 댓글 목록
     public Board findByIdWithReplies(Long id, User sessionUser) {

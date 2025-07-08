@@ -2,6 +2,7 @@ package com.tenco.blog.board;
 
 import com.tenco.blog.UserSub.UserSub;
 import com.tenco.blog.UserSub.UserSubService;
+import com.tenco.blog._core.common.PageLink;
 import com.tenco.blog.company.Company;
 import com.tenco.blog.company.CompanyService;
 import com.tenco.blog.ppost.PPost;
@@ -13,6 +14,10 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -94,23 +100,40 @@ public class BoardController {
 	}
 
 	@GetMapping("/")
-	public String index(Model model, HttpSession session) {
-		Object companyUser = session.getAttribute("companyUser");
-
+	public String index(Model model, HttpSession session,
+						@RequestParam(name = "page", defaultValue = "1") int page,
+						@RequestParam(name = "size", defaultValue = "3") int size) {
+		Pageable pageable = PageRequest.of(page - 1, size, Sort.by("id").descending());
+		// 세션에서 기업 회원 정보를 가져옴
+		Object companyUser = session.getAttribute(Define.SESSIONUSER_COMPANY);
 		if (companyUser != null) {
-			// 기업회원인 경우
-			List<PPost> ppostList = pPostService.findAll();
-			model.addAttribute("ppostList", ppostList);
+			// --- 기업 회원일 경우: 이력서 목록 표시 ---
+			Page<PPost> ppostPage = pPostService.findAllPaging(pageable);
+			model.addAttribute("ppostPage", ppostPage);
 			model.addAttribute("isCompanyUser", true);
+			addPaginationAttributesToModel(model, ppostPage, size);
 		} else {
-			// 일반 사용자 or 비로그인
-			List<Board> boardList = boardService.findAll();
-			model.addAttribute("boardList", boardList);
+			// --- 개인이거나 비로그인일 경우: 채용공고 목록 표시 ---
+			Page<Board> boardPage = boardService.findAllPaging(pageable);
+			model.addAttribute("boardPage", boardPage);
 			model.addAttribute("isCompanyUser", false);
+			addPaginationAttributesToModel(model, boardPage, size);
 		}
 		return "index";
 	}
 
+	private void addPaginationAttributesToModel(Model model, Page<?> pageObject, int size) {
+		List<PageLink> pageLinks = new ArrayList<>();
+		for (int i = 0; i < pageObject.getTotalPages(); i++) {
+			pageLinks.add(new PageLink(i, i + 1, i == pageObject.getNumber()));
+		}
+		Integer previousPageNumber = pageObject.hasPrevious() ? pageObject.getNumber() : null;
+		Integer nextPageNumber = pageObject.hasNext() ? pageObject.getNumber() + 2 : null;
+		model.addAttribute("pageLinks", pageLinks);
+		model.addAttribute("previousPageNumber", previousPageNumber);
+		model.addAttribute("nextPageNumber", nextPageNumber);
+		model.addAttribute("size", size); // 템플릿에서 size를 사용할 수 있도록 추가
+	}
 
 	@GetMapping("/board/{id}")
 	public String detail(@PathVariable(name = "id") Long id, Model model, HttpSession session) {

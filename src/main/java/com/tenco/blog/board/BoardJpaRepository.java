@@ -1,6 +1,8 @@
 package com.tenco.blog.board;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,11 +17,12 @@ import java.util.Optional;
 // @Repository 생략 가능 --->JpaRepository 안에 선언되어 있음
 public interface BoardJpaRepository extends JpaRepository<Board, Long> {
 
-	// 기본 CRUD 추가적인 기능은 직접 선언해주어야한다.
+	@Query("SELECT b FROM Board b JOIN FETCH b.company c ORDER BY b.id DESC")
+	Page<Board> findAllJoinCompany(Pageable pageable);
 
 	// 게시글과 사용자 정보가 포함된 엔티티르 만들어 주어야 한다. (게시글 List 용)
-	@Query("SELECT b FROM Board b JOIN FETCH b.company c ORDER BY b.id DESC")
-	List<Board> findAllJoinUser();
+//	@Query("SELECT b FROM Board b JOIN FETCH b.company c ORDER BY b.id DESC")
+//	List<Board> findAllJoinUser();
 	// JOIN FETCH 는 모든 Board 엔티티와 연관된 User를 한방 쿼리로 가져 옴
 	// LAZY 전략이라서 N+1 방지를 할 수 있다.
 	// :게시글 10개가 있다면 지연 로딩 1(Board 조회) + 10(User 조회) = 11번 쿼리가 발생

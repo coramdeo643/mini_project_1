@@ -8,6 +8,8 @@ import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,19 +36,25 @@ public class PPostService {
         return PPost;
     }
 
+    public Page<PPost> findAllPaging(Pageable pageable) {
+        Page<PPost> ppostPage = PPostJpaRepository.findAllJoinUser(pageable);
+        log.info("게시글 목록 조회 완료 - 총 게시글 {} 개, 총 {} 페이지 ", ppostPage.getTotalElements(), ppostPage.getTotalPages());
+        return ppostPage;
+    }
+
     /**
      * 게시글 목록 조회
      */
-    public List<PPost> findAll() {
-        // 1. 로그 기록
-        // 2. 데이베이스 게시글 조회
-        // 3. 로그 기록
-        // 4. 조회된 게시글 목록 반환
-        log.info("게시글 조회 서비스 처리 시작");
-        List<PPost> PPostList = PPostJpaRepository.findAllJoinUser();
-        log.info("게시글 목록 조회 완료 - 총 {} 개", PPostList.size());
-        return PPostList;
-    }
+//    public List<PPost> findAll() {
+//        // 1. 로그 기록
+//        // 2. 데이베이스 게시글 조회
+//        // 3. 로그 기록
+//        // 4. 조회된 게시글 목록 반환
+//        log.info("게시글 조회 서비스 처리 시작");
+//        List<PPost> PPostList = PPostJpaRepository.findAllJoinUser();
+//        log.info("게시글 목록 조회 완료 - 총 {} 개", PPostList.size());
+//        return PPostList;
+//    }
 
     /**
      * 게시글 상세 조회
