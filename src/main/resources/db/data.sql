@@ -45,9 +45,28 @@ INSERT INTO board_tb (title, content, company_id, created_at) VALUES
 ('데브옵스 엔지니어', '채용직무: 데브옵스 엔지니어...', 5, '2025-07-03');
 
 INSERT INTO application_tb (user_id, company_id, board_id, status, created_at) VALUES
-(2, 1, 1, 'PENDING', NOW()),
-(5, 4, 7, 'PENDING', NOW()),
-(4, 5, 10, 'PENDING', NOW());
+(2, 1, 1, '합격', NOW()),
+(2, 4, 8, '대기', NOW()),
+(2, 5, 11, '대기', NOW()),
+
+(5, 4, 7, '합격', NOW()),
+(5, 1, 3, '대기', NOW()),
+(5, 2, 4, '대기', NOW()),
+
+(4, 5, 10, '대기', NOW()),
+(4, 1, 2, '대기', NOW()),
+(4, 2, 5, '합격', NOW()),
+
+(3, 2, 4, '대기', NOW()),
+(3, 3, 6, '합격', NOW()),
+(3, 5, 13, '대기', NOW()),
+
+(1, 2, 5, '대기', NOW()),
+(1, 3, 6, '대기', NOW()),
+(1, 4, 9, '합격', NOW());
+
+
+
 
 -- [수정] ppost_tb INSERT 문을 실제 테이블 구조에 맞게 수정
 INSERT INTO ppost_tb (title, content, user_id, created_at) VALUES
@@ -140,3 +159,20 @@ INSERT INTO reply_tb (comment, board_id, user_id, created_at) VALUES
 ('제주도 근무라니! 환경이 정말 좋겠네요.', 13, 5, NOW()),
 ('CI/CD 파이프라인 구축 경험이 있는데, 좋은 기회 같습니다.', 13, 3, NOW()),
 ('주로 사용하는 클라우드 서비스는 AWS인가요?', 13, 4, NOW());
+
+-- rating_tb 더미 데이터 삽입 (익명 평가, 중복 허용)
+INSERT INTO rating_tb (user_id, company_id, score) VALUES
+(2, 1, 5),   -- ssar → 삼성전자
+(2, 4, 4),   -- ssar → 네이버
+(3, 2, 3),   -- park25 → LG화학
+(3, 4, 5),   -- park25 → 네이버
+(3, 5, 2),   -- park25 → 카카오
+(5, 1, 4),   -- kim777 → 삼성전자
+(5, 2, 3),   -- kim777 → LG화학
+(5, 3, 5),   -- kim777 → 현대자동차
+(5, 4, 5),   -- kim777 → 네이버
+(1, 2, 4),   -- min → LG화학
+(1, 3, 3),   -- min → 현대자동차
+(4, 1, 4),   -- hmh2025 → 삼성전자
+(4, 4, 5),   -- hmh2025 → 네이버
+(4, 5, 5);   -- hmh2025 → 카카오

@@ -30,13 +30,16 @@
         </div>
         <!--관심기업 버튼-->
         {{#sessionUser}}
+        <div class="d-flex align-items-center gap-2">
             <form action="/user-sub/save" method="post">
                 <input type="hidden" name="companyId" value="{{board.company.id}}">
                 <input type="hidden" name="boardId" value="{{board.id}}">
                 <button class="btn btn-primary btn-sm p-1 mt-1" onclick="return confirm('구독하시겠습니까?')">❤️ 관심기업
                 </button>
             </form>
+            {{> rating/rating-company}}
         {{/sessionUser}}
+    </div>
         <hr/>
 
         <!-- board.boardSkills 리스트를 반복 -->

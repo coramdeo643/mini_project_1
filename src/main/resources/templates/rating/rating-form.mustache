@@ -1,0 +1,62 @@
+<!-- ⭐ Bootstrap 카드 내 별점 폼 -->
+<div class="card">
+    <div class="card-body text-center">
+        <h5 class="card-title">회사에 평점을 남겨보세요!</h5>
+
+{{#company}}
+        <form action="/rating" method="post">
+            <input type="hidden" name="companyId" value="{{id}}">
+            <input type="hidden" name="score" id="scoreInput" value="0"> <!-- JS가 이 값을 바꿈 -->
+
+            <div id="stars" class="my-3">
+                <!-- JavaScript로 색을 바꿀 별들 -->
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+
+            <button type="submit" class="btn btn-dark">평점 등록</button>
+        </form>
+    {{/company}}
+    </div>
+</div>
+
+<!-- ⭐ 별점 UI용 JavaScript -->
+<script>
+    const stars = document.querySelectorAll('.star');
+    const scoreInput = document.getElementById('scoreInput');
+
+    stars.forEach((star, index) => {
+      star.addEventListener('click', () => {
+        const rating = star.dataset.value;
+        scoreInput.value = rating;
+
+        // 색 초기화
+        stars.forEach(s => s.style.color = '#ccc');
+
+        // 클릭한 별까지 골드 색상 적용
+        for (let i = 0; i < rating; i++) {
+          stars[i].style.color = 'gold';
+        }
+      });
+
+      // 마우스 올렸을 때 효과 (선택은 아님)
+      star.addEventListener('mouseover', () => {
+        stars.forEach(s => s.style.color = '#ccc');
+        for (let i = 0; i < star.dataset.value; i++) {
+          stars[i].style.color = '#ffd700';
+        }
+      });
+
+      // 마우스 빠졌을 때 원래 상태로 복구
+      star.addEventListener('mouseout', () => {
+        const current = scoreInput.value;
+        stars.forEach(s => s.style.color = '#ccc');
+        for (let i = 0; i < current; i++) {
+          stars[i].style.color = 'gold';
+        }
+      });
+    });
+</script>

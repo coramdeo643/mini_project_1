@@ -27,6 +27,7 @@ public class ApplicationController {
     private final BoardService boardService;
     private final CompanyService companyService;
 
+
     // 지원 저장 기능 요청
     @PostMapping("/application/{id}/save")
     public String save(ApplicationRequest.SaveDTO saveDTO, HttpSession session) {
@@ -71,7 +72,7 @@ public class ApplicationController {
     public String resourceList(Model model, HttpSession session, User userId) {
         User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
 
-        List<Application> applicationResourceList = applicationService.findAllByBoardIdWithBoard(sessionUser.getId());
+        List<Application> applicationResourceList = applicationService.findAllByUserWithRatingStatus(sessionUser.getId());
         model.addAttribute("applicationResourceList",applicationResourceList);
         return "board/application-resource-list";
     }
@@ -80,13 +81,13 @@ public class ApplicationController {
     // (회사)합격 여부의 합
     @PostMapping("/application/{id}/accept")
     public String accept(@PathVariable Long id) {
-        applicationService.updateStatus(id, "PASSED");
+        applicationService.updateStatus(id, "합격");
         return "redirect:/board/application-list";
     }
     // (회사)합격 여부의 불
     @PostMapping("/application/{id}/reject")
     public String reject(@PathVariable Long id) {
-        applicationService.updateStatus(id, "REJECTED");
+        applicationService.updateStatus(id, "불합격");
         return "redirect:/board/application-list";
     }
     // 댓글 삭제 기능 요청
@@ -99,6 +100,9 @@ public class ApplicationController {
 
         return "redirect:/board/application-resource-list";
     }
+
+
+
 
 
 }
