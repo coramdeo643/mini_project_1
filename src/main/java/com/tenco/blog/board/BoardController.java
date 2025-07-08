@@ -102,7 +102,7 @@ public class BoardController {
 	@GetMapping("/")
 	public String index(Model model, HttpSession session,
 						@RequestParam(name = "page", defaultValue = "1") int page,
-						@RequestParam(name = "size", defaultValue = "3") int size) {
+						@RequestParam(name = "size", defaultValue = "6") int size) {
 		Pageable pageable = PageRequest.of(page - 1, size, Sort.by("id").descending());
 		// 세션에서 기업 회원 정보를 가져옴
 		Object companyUser = session.getAttribute(Define.SESSIONUSER_COMPANY);

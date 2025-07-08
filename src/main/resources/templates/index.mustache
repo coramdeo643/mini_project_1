@@ -24,7 +24,7 @@
         </div>
 
         <div class="row">
-            {{#boardList}}
+            {{#boardPage.content}}
                 <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
                     <a href="/board/{{id}}" class="btn" style="display: block; width: 100%; text-decoration: none;">
                         <div class="card p-3 text-center" style="width: 100%;">
@@ -46,7 +46,7 @@
                         </div>
                     </a>
                 </div>
-            {{/boardList}}
+            {{/boardPage.content}}
         </div>
     {{/isCompanyUser}}
 
@@ -72,7 +72,7 @@
         </div>
 
         <div class="row">
-            {{#ppostList}}
+            {{#ppostPage.content}}
                 <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
                     <a href="/board/{{id}}" class="btn" style="display: block; width: 100%; text-decoration: none;">
                         <div class="card p-3 text-center" style="width: 100%;">
@@ -94,7 +94,7 @@
                         </div>
                     </a>
                 </div>
-            {{/ppostList}}
+            {{/ppostPage.content}}
         </div>
     {{/isCompanyUser}}
 
