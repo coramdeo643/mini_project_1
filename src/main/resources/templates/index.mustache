@@ -4,7 +4,8 @@
 
     {{^isCompanyUser}}
         <div class="dropdown-center mb-3">
-            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-sm btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                 기술스택
             </button>
             <ul class="dropdown-menu">
@@ -21,29 +22,38 @@
                 <li><a class="dropdown-item" href="/board/filter?skill=Docker">Docker</a></li>
             </ul>
         </div>
-        {{#boardPage.content}}
-            <div class="card mb-3">
-                <div class="card-body">
-                    <!-- {{! title}} 은 현재 Board 객체읭 title 멤버 변수에 값을 출력한다.
-                        머스태치는 자동으로 getTitle()메서드를 호출한 것이다.-->
-                    <h4 class="card-title mb-3">{{title}}</h4>
-                    <p> 기업명 : {{company.businessName}}&nbsp|&nbsp{{time}}</p>
-                    <div class="mb-3">
-                        <!-- board.boardSkills 리스트를 반복 -->
-                        {{#boardSkills}}
-                            <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
-                            <span class="badge bg-secondary me-1">{{skill.name}}</span>
-                        {{/boardSkills}}
-                    </div>
-                    <a href="/board/{{id}}" class="btn btn-primary">상세보기</a>
+
+        <div class="row">
+            {{#boardList}}
+                <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+                    <a href="/board/{{id}}" class="btn" style="display: block; width: 100%; text-decoration: none;">
+                        <div class="card p-3 text-center" style="width: 100%;">
+                            <div style="height: 100px; display: flex; justify-content: center; align-items: center;">
+                                <img src="{{company.imageUrl}}" alt="회사 이미지"
+                                     style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{title}}</h5>
+                                <p class="card-text">기업명 : {{company.businessName}}&nbsp;|&nbsp;{{time}}</p>
+                                <div class="mb-3">
+                                    {{#boardSkills}}
+                                        <span class="badge text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 me-1">
+                                            {{skill.name}}
+                                        </span>
+                                    {{/boardSkills}}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </div>
-        {{/boardPage.content}}
+            {{/boardList}}
+        </div>
     {{/isCompanyUser}}
 
     {{#isCompanyUser}}
         <div class="dropdown-center mb-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-sm btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                 기술스택
             </button>
             <ul class="dropdown-menu">
@@ -60,24 +70,32 @@
                 <li><a class="dropdown-item" href="/ppost/filter?skill=Docker">Docker</a></li>
             </ul>
         </div>
-        {{#ppostPage.content}}
-            <div class="card mb-3">
-                <div class="card-body">
-                    <!-- {{! title}} 은 현재 Board 객체읭 title 멤버 변수에 값을 출력한다.
-                        머스태치는 자동으로 getTitle()메서드를 호출한 것이다.-->
-                    <h4 class="card-title mb-3">{{title}}</h4>
-                    <p> 작성자 : {{user.personalName}}&nbsp|&nbsp{{time}}</p>
-                    <div class="mb-3">
-                        <!-- board.boardSkills 리스트를 반복 -->
-                        {{#pPostSkills}}
-                            <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
-                            <span class="badge bg-secondary me-1">{{skill.name}}</span>
-                        {{/pPostSkills}}
-                    </div>
-                    <a href="/ppost/{{id}}" class="btn btn-primary">상세보기</a>
+
+        <div class="row">
+            {{#ppostList}}
+                <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+                    <a href="/board/{{id}}" class="btn" style="display: block; width: 100%; text-decoration: none;">
+                        <div class="card p-3 text-center" style="width: 100%;">
+                            <div style="height: 100px; display: flex; justify-content: center; align-items: center; ">
+                                <img src="/images/USER.jpg" alt="이력서 이미지"
+                                     style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; background-color: #fff;">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{title}}</h5>
+                                <p class="card-text">작성자 : {{user.personalName}}&nbsp|&nbsp{{time}}</p>
+                                <div class="mb-3">
+                                    {{#pPostSkills}}
+                                        <span class="badge text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 me-1">
+                                            {{skill.name}}
+                                        </span>
+                                    {{/pPostSkills}}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </div>
-        {{/ppostPage.content}}
+            {{/ppostList}}
+        </div>
     {{/isCompanyUser}}
 
 

@@ -15,13 +15,13 @@ INSERT INTO user_tb (username, password, personal_name, email, created_at) VALUE
 
 INSERT INTO company_tb (
     username, password, telephone, email, company_number,
-    industry, business_name, ceo_name, company_address
+    industry, business_name, ceo_name, company_address, image_url
 ) VALUES
-('samsung_hr', 'pass1234', '010-1234-5678', 'hr@samsung.com', '110-86-00123', '전자', '삼성전자', '이재용', '경기 수원시 영통구 삼성로 129'),
-('lg_recruit', 'lgpw2024', '010-9876-5432', 'recruit@lg.com', '110-86-00456', '화학', 'LG화학', '구광모', '서울 영등포구 여의대로 128'),
-('hyundai_corp', 'hy123456', '010-4567-7890', 'info@hyundai.com', '110-86-00789', '자동차', '현대자동차', '정의선', '서울시 서초구 헌릉로 12'),
-('naver_careers', 'naver9876', '010-2222-3333', 'careers@naver.com', '110-86-00999', 'IT', '네이버', '최수연', '경기 성남시 분당구 정자일로 95'),
-('kakao_hr', 'kakao2024', '010-3333-4444', 'hr@kakao.com', '110-86-00888', '모바일', '카카오', '홍은택', '제주특별자치도 제주시 첨단로 242');
+('samsung_hr', 'pass1234', '010-1234-5678', 'hr@samsung.com', '110-86-00123', '전자', '삼성전자', '이재용', '경기 수원시 영통구 삼성로 129','/images/SAMSUNG.jpg'),
+('lg_recruit', 'lgpw2024', '010-9876-5432', 'recruit@lg.com', '110-86-00456', '화학', 'LG화학', '구광모', '서울 영등포구 여의대로 128','/images/LG.jpg'),
+('hyundai_corp', 'hy123456', '010-4567-7890', 'info@hyundai.com', '110-86-00789', '자동차', '현대자동차', '정의선', '서울시 서초구 헌릉로 12','/images/HYUNDAI.jpg'),
+('naver_careers', 'naver9876', '010-2222-3333', 'careers@naver.com', '110-86-00999', 'IT', '네이버', '최수연', '경기 성남시 분당구 정자일로 95','/images/NAVER.jpg'),
+('kakao_hr', 'kakao2024', '010-3333-4444', 'hr@kakao.com', '110-86-00888', '모바일', '카카오', '홍은택', '제주특별자치도 제주시 첨단로 242','/images/KAKAO.jpg');
 
 INSERT INTO skill_tb (id, name) VALUES
 (1, 'Java'), (2, 'Spring Boot'), (3, 'MySQL'), (4, 'JavaScript'), (5, 'Linux'), (6, 'React'), (7, 'Vue.js'),
@@ -73,8 +73,8 @@ INSERT INTO qna_tb (title, content, user_id, company_id, created_at) VALUES
 
 -- 3. 최종 의존성 테이블 데이터 (연결 테이블, 댓글, 구독)
 INSERT INTO board_skill_tb (board_id, skill_id) VALUES
-(1, 9), (1, 10), (1, 2), (2, 8), (2, 1), (2, 10), (3, 5), (3, 6), (3, 4), (4, 3), (4, 8), (4, 10),
-(5, 9), (5, 8), (5, 1), (6, 8), (6, 1), (6, 10), (7, 4), (7, 5), (7, 1), (8, 1), (8, 3), (8, 8),
+(1, 9), (1, 10), (1, 2), (2, 8), (2, 1), (2, 10), (3, 5), (3, 6), (3, 4), (4, 3), (4, 8), (4, 7),
+(5, 9), (5, 8), (5, 1), (6, 8), (6, 1), (6, 10), (7, 4), (7, 5), (7, 1), (8, 1), (8, 3), (8, 7),
 (9, 8), (9, 3), (9, 10), (10, 4), (10, 5), (10, 6), (11, 1), (11, 2), (11, 3), (12, 4), (12, 5), (12, 6),
 (13, 9), (13, 10), (13, 2);
 

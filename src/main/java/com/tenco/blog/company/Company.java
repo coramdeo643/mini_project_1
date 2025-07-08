@@ -29,6 +29,8 @@ public class Company {
     private String ceoName;
     private String companyAddress;
 
+    private String imageUrl;
+
     //now()
     // 엔티티가 영속화될때 자동으로 pc 현재시간을 설정해 준다.
     @CreationTimestamp
@@ -39,7 +41,7 @@ public class Company {
     public Company(Long id, String username, String password, String telephone,
                    String email, Timestamp createdAt, String companyNumber,
                    String industry, String businessName, String ceoName,
-                   String companyAddress) {
+                   String companyAddress, String imageUrl) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -51,6 +53,7 @@ public class Company {
         this.businessName = businessName;
         this.ceoName = ceoName;
         this.companyAddress = companyAddress;
+        this.imageUrl = imageUrl;
     }
 
     public void update(CompanyRequest.UpdateDTO updateDTO) {

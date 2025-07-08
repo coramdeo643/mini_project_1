@@ -11,12 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class CompanyController {
     private static final Logger log = LoggerFactory.getLogger(BoardController.class);
     private final CompanyService companyService;
-
+    private final CompanyRepository companyRepository;
 
     // 주소 설계 : http://localhost:8080/user/update-form
     @GetMapping("/company/update-form")
@@ -36,7 +38,7 @@ public class CompanyController {
         reqDTO.validate();
         Company company = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
         Company updateCompany = companyService.updateById(company.getId(), reqDTO);
-        session.setAttribute("updateCompany",updateCompany);
+        session.setAttribute("updateCompany", updateCompany);
         return "redirect:/company/login-form";
 
     }
@@ -82,6 +84,13 @@ public class CompanyController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }
+
+    @GetMapping("/company/list")
+    public String list(Model model) {
+        List<Company> companyList = companyRepository.findAll();
+        model.addAttribute("companyList", companyList);
+        return "company/list"; // 머스태치: company/list.mustache
     }
 
 }

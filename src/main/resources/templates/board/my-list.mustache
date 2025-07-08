@@ -8,32 +8,39 @@
     </div>
 
     <!-- 공고 리스트 -->
-    {{#companyBoardList}}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">{{title}}</h5>
-                <p class="card-text text-muted">
-                    기업명 : {{company.businessName}} &nbsp;|&nbsp; {{time}}
-                </p>
-                <div class="mb-3">
-                    <!-- board.boardSkills 리스트를 반복 -->
-                    {{#boardSkills}}
-                        <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
-                        <span class="badge bg-secondary me-1">{{skill.name}}</span>
-                    {{/boardSkills}}
-                </div>
+    <div class="row">
+        {{#companyBoardList}}
+            <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+                <div class="card p-3 text-center" style="width: 100%;">
+                    <div style="height: 100px; display: flex; justify-content: center; align-items: center;">
+                        <img src="{{company.imageUrl}}" alt="회사 이미지"
+                             style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-text">기업명 : {{company.businessName}}&nbsp;|&nbsp;{{time}}</p>
+                        <div class="mb-3">
+                            {{#boardSkills}}
+                                <span class="badge text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 me-1">
+                                    {{skill.name}}
+                                </span>
+                            {{/boardSkills}}
+                        </div>
 
-                <div class="d-flex gap-2">
-                    <a href="/board/{{id}}" class="btn btn-sm btn-outline-primary">상세보기</a>
-                    <a href="/board/{{id}}/update-form" class="btn btn-sm btn-outline-secondary">수정</a>
-                    <form action="/board/{{id}}/delete" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-sm btn-outline-danger"
-                                onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
-                    </form>
+                        <div class="d-flex justify-content-center gap-2 mt-2">
+                            <a href="/board/{{id}}" class="btn btn-sm btn-outline-primary">상세보기</a>
+                            <a href="/board/{{id}}/update-form" class="btn btn-sm btn-outline-secondary">수정</a>
+                            <form action="/board/{{id}}/delete" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('정말 삭제하시겠습니까?')">삭제
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    {{/companyBoardList}}
+        {{/companyBoardList}}
+    </div>
 
     <!-- 공고가 없는 경우 -->
     {{^companyBoardList}}
