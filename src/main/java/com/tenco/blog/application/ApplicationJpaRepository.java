@@ -39,7 +39,7 @@ public interface ApplicationJpaRepository extends JpaRepository<Application,Long
 //               "JOIN FETCH a.board b " +
 //               "JOIN FETCH a.user u " +
 //               "WHERE b.company.id = :companyId")
-//       List<Application> findAllByCompanyId(@Param("companyId") Long companyId);
+//       List<Application> findAllByCompanyId(@Param("companyId") Long companyId);ff
 
        // 2 단계 회사의 모든 공고 보기
        @Query("SELECT a FROM Application a " +
