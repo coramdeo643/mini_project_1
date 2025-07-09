@@ -13,9 +13,14 @@
             <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
                 <div class="card p-3 text-center" style="width: 100%;">
                     <div style="height: 100px; display: flex; justify-content: center; align-items: center;">
+                        {{#company.imageUrl}}
                         <img src="{{company.imageUrl}}" alt="회사 이미지"
                              style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
-                    </div>
+                        {{/company.imageUrl}}
+                        {{^company.imageUrl}}
+                            <img src="/images/default-company.png" alt="기본 회사 이미지"/>
+                        {{/company.imageUrl}}
+                </div>
                     <div class="card-body">
                         <h5 class="card-title">{{title}}</h5>
                         <p class="card-text">기업명 : {{company.businessName}}&nbsp;|&nbsp;{{time}}</p>

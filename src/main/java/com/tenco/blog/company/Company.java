@@ -29,6 +29,7 @@ public class Company {
     private String ceoName;
     private String companyAddress;
 
+    @Column(nullable = true)
     private String imageUrl;
 
     //now()
