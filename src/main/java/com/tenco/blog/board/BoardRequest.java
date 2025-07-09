@@ -36,8 +36,14 @@ public class BoardRequest {
             if (title == null || title.trim().isEmpty()) {
                 throw new IllegalArgumentException("제목은 필수입니다.");
             }
+            if(title.length() > 20){
+                throw new IllegalArgumentException("제목은 20자 이내로 작성해주세요.");
+            }
             if (content == null || content.trim().isEmpty()) {
                 throw new IllegalArgumentException("내용은 필수입니다.");
+            }
+            if(content.length() > 1000){
+                throw new IllegalArgumentException("제목은 1000자 이내로 작성해주세요.");
             }
         }
     }
@@ -56,8 +62,14 @@ public class BoardRequest {
             if (title == null || title.trim().isEmpty()) {
                 throw new IllegalArgumentException("제목은 필수입니다.");
             }
+            if(title.length() > 20){
+                throw new IllegalArgumentException("제목은 20자 이내로 작성해주세요.");
+            }
             if (content == null || content.trim().isEmpty()) {
                 throw new IllegalArgumentException("내용은 필수입니다.");
+            }
+            if(content.length() > 1000){
+                throw new IllegalArgumentException("제목은 1000자 이내로 작성해주세요.");
             }
         }
     }

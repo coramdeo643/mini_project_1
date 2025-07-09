@@ -10,9 +10,7 @@ public class PPostRequest {
     public static class SaveDTO {
         private String title;
         private String content;
-        // username 제거 : 세션에서 가져올 예정
 
-        // (User) <-- toEntity() 호출할 때 세션에서 가져와서 넣어 주면 됨
         public PPost toEntity(User user) {
             return PPost.builder()
                     .title(this.title)
@@ -22,11 +20,17 @@ public class PPostRequest {
         }
 
         public void validate() {
-            if(title == null || title.trim().isEmpty()) {
-                throw new IllegalArgumentException("제목은 필수야");
+            if (title == null || title.trim().isEmpty()) {
+                throw new IllegalArgumentException("제목은 필수입니다.");
             }
-            if(content == null || content.trim().isEmpty()) {
-                throw new IllegalArgumentException("내용은 필수야");
+            if(title.length() > 20){
+                throw new IllegalArgumentException("제목은 20자 이내로 작성해주세요.");
+            }
+            if (content == null || content.trim().isEmpty()) {
+                throw new IllegalArgumentException("내용은 필수입니다.");
+            }
+            if(content.length() > 1000){
+                throw new IllegalArgumentException("제목은 1000자 이내로 작성해주세요.");
             }
         }
     }
@@ -37,16 +41,18 @@ public class PPostRequest {
         private String title;
         private String content;
 
-        // toEntity 메서드 안 만들 예정 (더티 체킹 활용)
-        // em.find() <--- Board <-- 영속화 <-- 상태값을 변경하면 자동 갱신
-
-        // 유효성 검사
         public void validate() {
-            if(title == null || title.trim().isEmpty()) {
-                throw new IllegalArgumentException("제목은 필수야");
+            if (title == null || title.trim().isEmpty()) {
+                throw new IllegalArgumentException("제목은 필수입니다.");
             }
-            if(content == null || content.trim().isEmpty()) {
-                throw new IllegalArgumentException("내용은 필수야");
+            if(title.length() > 20){
+                throw new IllegalArgumentException("제목은 20자 이내로 작성해주세요.");
+            }
+            if (content == null || content.trim().isEmpty()) {
+                throw new IllegalArgumentException("내용은 필수입니다.");
+            }
+            if(content.length() > 1000){
+                throw new IllegalArgumentException("제목은 1000자 이내로 작성해주세요.");
             }
         }
     }
