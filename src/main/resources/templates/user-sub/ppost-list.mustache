@@ -30,7 +30,7 @@
     <div class="row">
         {{#companySubPostList}}
             <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
-                <a href="/board/{{id}}" class="btn" style="display: block; width: 100%; text-decoration: none;">
+                <a href="/ppost/{{id}}" class="btn" style="display: block; width: 100%; text-decoration: none;">
                     <div class="card p-3 text-center" style="width: 100%;">
                         <div style="height: 100px; display: flex; justify-content: center; align-items: center; ">
                             <img src="/images/USER.jpg" alt="이력서 이미지"
@@ -41,8 +41,7 @@
                             <p class="card-text">작성자 : {{user.personalName}}&nbsp|&nbsp{{time}}</p>
                             <div class="mb-3">
                                 {{#pPostSkills}}
-                                    <span class="badge text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 me-1">
-                                        {{skill.name}}
+                                    <span class="badge rounded-3 me-1" style="color: #4b0082; background-color: #f6ecff;">                                        {{skill.name}}
                                     </span>
                                 {{/pPostSkills}}
                             </div>
