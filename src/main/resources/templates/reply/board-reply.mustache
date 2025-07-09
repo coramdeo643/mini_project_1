@@ -4,7 +4,7 @@
     {{#sessionUser}}
         <div class="card-body">
             <form action="/reply/save" method="post">
-                <input type="hidden" name="boardId" value="{{board.id}}">
+                <input type="hidden" name="qnaId" value="{{qna.id}}">
                 <textarea class="form-control" rows="2" placeholder="Enter comment" name="comment"></textarea>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-outline-primary mt-1">댓글등록</button>
@@ -16,7 +16,7 @@
     {{^sessionUser}}
         <div class="card-body text-center">
             <p class="text-muted mb-0">
-                댓글을 작성하려면 <a href="/login-form">로그인</a>이 필요합니다.
+                댓글을 작성하려면 <a href="/user/login-form">로그인</a>이 필요합니다.
             </p>
         </div>
     {{/sessionUser}}
@@ -25,7 +25,7 @@
         <b>댓글리스트</b>
     </div>
     <div class="list-group">
-        {{#board.replies}}
+        {{#qna.replies}}
             <!-- 댓글아이템 -->
             <div class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="d-flex">
@@ -35,19 +35,19 @@
 
                 {{#replyOwner}}
                     <form action="/reply/{{id}}/delete" method="post">
-                        <input type="hidden" name="boardId" value="{{board.id}}">
+                        <input type="hidden" name="qnaId" value="{{qna.id}}">
                         <button class="btn" onclick="return confirm('댓글을 삭제하시겠습니까?')">🗑</button>
                     </form>
                 {{/replyOwner}}
 
             </div>
-        {{/board.replies}}
+        {{/qna.replies}}
 
-        {{^board.replies}}
+        {{^qna.replies}}
             <div class="card-body text-center">
                 <p class="text-muted mb-0">아직 댓글이 없습니다</p>
             </div>
-        {{/board.replies}}
+        {{/qna.replies}}
 
     </div>
 </div>

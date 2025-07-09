@@ -27,17 +27,17 @@ public class ReplyController {
 		// 댓글 저장
 		replyService.save(saveDTO, sessionUser);
 		log.info("saved");
-		return "redirect:/board/" + saveDTO.getBoardId();
+		return "redirect:/qna/" + saveDTO.getQnaId();
 		// 로그인 > 댓글작성 > 댓글등록 > controller.save > service.save > JpaRepository.save
 	}
 
 	@PostMapping("/reply/{id}/delete")
 	public String delete(@PathVariable(name = "id") Long replyId,
-						 @RequestParam(name = "boardId") Long boardId,
+						 @RequestParam(name = "qnaId") Long qnaId,
 						 HttpSession session) {
 		User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
 		replyService.deleteById(replyId, sessionUser);
-		return "redirect:/board/" + boardId;
+		return "redirect:/qna/" + qnaId;
 	}
 }
 // 댓글 작성 조건

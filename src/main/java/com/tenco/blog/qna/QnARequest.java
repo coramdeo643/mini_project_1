@@ -1,8 +1,11 @@
 package com.tenco.blog.qna;
 
 import com.tenco.blog.company.Company;
+import com.tenco.blog.reply.Reply;
 import com.tenco.blog.user.User;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * 클라이언트에게 넘어온 데이터를
@@ -64,6 +67,7 @@ public class QnARequest {
 		private String content;
 		private String authorName; // 작성자 이름을 하나로 통합
 		private boolean isOwner;   // 최종 소유권 여부
+		private List<Reply> replies;
 
 		public DetailDTO(QnA qna, Object sessionPrincipal) {
 			this.id = qna.getId();
@@ -81,6 +85,17 @@ public class QnARequest {
 
 			// 최종 소유권 여부 설정
 			this.isOwner = qna.isOwner(sessionPrincipal);
+
+			this.replies = qna.getReplies();
+			if (sessionPrincipal instanceof User) {
+				User sessionUser = (User) sessionPrincipal;
+				replies.forEach(reply -> {
+					if (reply.getUser() != null && reply.isOwner(sessionUser.getId())) {
+						reply.setReplyOwner(true);
+					}
+				});
+			}
+
 		}
 	}
 

@@ -2,6 +2,7 @@ package com.tenco.blog.qna;
 
 
 import com.tenco.blog.company.Company;
+import com.tenco.blog.reply.Reply;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.MyDateUtil;
 import jakarta.persistence.*;
@@ -12,6 +13,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -66,4 +69,8 @@ public class QnA {
 	public String getTime() {
 		return MyDateUtil.timestampFormat(createdAt);
 	}
+
+	@OrderBy("id desc") // 정렬 옵션 설정 (내림차순)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "qna", cascade = CascadeType.REMOVE)
+	List<Reply> replies = new ArrayList<>(); // List 선언과 동시에 초기화
 }

@@ -1,6 +1,7 @@
 package com.tenco.blog.reply;
 
 import com.tenco.blog.board.Board;
+import com.tenco.blog.qna.QnA;
 import com.tenco.blog.user.User;
 import com.tenco.blog.utils.MyDateUtil;
 import jakarta.persistence.*;
@@ -38,18 +39,18 @@ public class Reply {
 	 * 하나의 게시글에는 여러개의 댓글이 달릴수있다
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "board_id")
-	private Board board;
+	@JoinColumn(name = "qna_id")
+	private QnA qna;
 
 	@CreationTimestamp // = now() server PC 시간 기준
 	private Timestamp createdAt;
 
 	@Builder
-	public Reply(Long id, String comment, User user, Board board, Timestamp createdAt) {
+	public Reply(Long id, String comment, User user, QnA qna, Timestamp createdAt) {
 		this.id = id;
 		this.comment = comment;
 		this.user = user;
-		this.board = board;
+		this.qna = qna;
 		this.createdAt = createdAt;
 	}
 

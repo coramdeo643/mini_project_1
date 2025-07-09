@@ -3,6 +3,8 @@ package com.tenco.blog.reply;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReplyJPARepository extends JpaRepository<Reply, Long> {
+
+
 	//CRUD 기능 추가
 	//Save(Reply) 댓글 저장
 	//findById(Long id) : id 로 댓글 조회

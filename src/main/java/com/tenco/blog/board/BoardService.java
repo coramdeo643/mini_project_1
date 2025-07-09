@@ -79,15 +79,7 @@ public class BoardService {
             // 그 결과값을 Board 객체에 담아둔다
             board.setBoardOwner(isBoardOwner);
         }
-        // 댓글 정보(양방향 mapping) < 양방향 설정 Board < Replies 가져옴
-        List<Reply> replies = board.getReplies();
-        // 댓글 소유권 설정(삭제 버튼 표시용)
-        if (sessionUser != null) {
-            replies.forEach(reply -> {
-                boolean isReplyOwner = reply.isOwner(sessionUser.getId());
-                reply.setReplyOwner(isReplyOwner);
-            });
-        }
+
         return board;
     }
 

@@ -66,9 +66,7 @@ public class Board {
 		return MyDateUtil.timestampFormat(createdAt);
 	}
 
-	@OrderBy("id desc") // 정렬 옵션 설정 (내림차순)
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "board", cascade = CascadeType.REMOVE)
-	List<Reply> replies = new ArrayList<>(); // List 선언과 동시에 초기화
+
 
 
     @OrderBy("id DESC") // 정렬 옵션 설정

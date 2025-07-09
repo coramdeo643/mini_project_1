@@ -3,6 +3,7 @@ package com.tenco.blog.qna;
 import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
 import com.tenco.blog.company.Company;
+import com.tenco.blog.reply.Reply;
 import com.tenco.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -76,7 +77,7 @@ public class QnAService {
 	/**
 	 * 게시글 상세 조회
 	 */
-	public QnA findById(Long id) {
+	public QnA findById(Long id, User sessionUser) {
 		// 1. 로그 기록
 		// 2. 데이터 베스에서 해당 board id 로 조회 -  WHERE
 		// 3. 게시글이 없다면 404 에러 처리
@@ -87,6 +88,15 @@ public class QnAService {
 			log.warn("게시글 조회 실패 - ID {}", id);
 			return new Exception404("게시글을 찾을 수 없습니다");
 		});
+		// 댓글 정보(양방향 mapping) < 양방향 설정 Board < Replies 가져옴
+		List<Reply> replies = qna.getReplies();
+		// 댓글 소유권 설정(삭제 버튼 표시용)
+		if (sessionUser != null) {
+			replies.forEach(reply -> {
+				boolean isReplyOwner = reply.isOwner(sessionUser.getId());
+				reply.setReplyOwner(isReplyOwner);
+			});
+		}
 		log.info("게시글 상세 조회 완료 - 제목 {}", qna.getTitle());
 		return qna;
 	}
@@ -146,8 +156,8 @@ public class QnAService {
 	/**
 	 * 게시글 소유자 확인 (수정 화면 요청 확인용)
 	 */
-	public void checkBoardOwner(Long boardId, Long userId) {
-		QnA qna = findById(boardId);
+	public void checkBoardOwner(Long qnaId, Long userId, User sessionUser) {
+		QnA qna = findById(qnaId, sessionUser);
 		if (!qna.isOwner(userId)) {
 			throw new Exception403("본인 게시글만 수정할 수 있습니다.");
 		}
