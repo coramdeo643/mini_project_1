@@ -154,10 +154,17 @@ public class BoardController {
 		if (company == null) {
 			return "redirect:/company/login-form";
 		}
+
+		// imageUrl이 null이면 기본 이미지 경로 설정
+		if (company.getImageUrl() == null || company.getImageUrl().isBlank()) {
+			company.setImageUrl("/images/default-company.png");
+		}
+
 		Long companyId = company.getId();
 		List<Board> companyBoardList = boardJpaRepository.findByCompanyId(companyId);
 
 		model.addAttribute("companyBoardList", companyBoardList);
+		model.addAttribute("company", company); // 이게 있어야 {{company.imageUrl}}에서 에러 안 남
 		return "board/my-list";
 	}
 
