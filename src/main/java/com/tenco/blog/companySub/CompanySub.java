@@ -36,7 +36,7 @@ public class CompanySub {
     private Timestamp createdAt;
 
     public boolean isOwner(Long checkUserId){
-        return this.user.getId().equals(checkUserId);
+        return this.company.getId().equals(checkUserId);
     }
 
     public String getTime() {

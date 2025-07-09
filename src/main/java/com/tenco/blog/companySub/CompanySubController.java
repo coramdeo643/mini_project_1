@@ -1,7 +1,6 @@
 package com.tenco.blog.companySub;
 
 import com.tenco.blog.company.Company;
-import com.tenco.blog.user.User;
 import com.tenco.blog.utils.Define;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
