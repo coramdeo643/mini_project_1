@@ -68,7 +68,7 @@ public class PPostController {
         // 4. 메인 페이지로 리다이렉트 처리
         User sessionUser = (User) session.getAttribute("sessionUser");
         PPostService.deleteById(id, sessionUser);
-        return "redirect:/ppost/list";
+        return "redirect:/ppost/my-list";
     }
 
     @GetMapping("/ppost/save-form")
@@ -84,7 +84,7 @@ public class PPostController {
         reqDTO.validate();
         User sessionUser = (User)session.getAttribute("sessionUser");
         PPostService.save(reqDTO, sessionUser);
-        return "redirect:/ppost/list";
+        return "redirect:/ppost/my-list";
     }
 
     @GetMapping("/ppost/list")
