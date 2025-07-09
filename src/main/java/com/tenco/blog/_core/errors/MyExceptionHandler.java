@@ -55,15 +55,20 @@ public class MyExceptionHandler {
 
     //  HttpServletRequest // 여러가지 기능을 긁어올수 있다.
     @ExceptionHandler(Exception403.class)
-    public String ex403(Exception403 e, HttpServletRequest request){
+    @ResponseBody
+    public ResponseEntity<String> ex403(Exception403 e, HttpServletRequest request){
 
         log.warn("=== 403 Forbidden 에러 발생 ===");
         log.warn("요청 URL : {}",request.getRequestURI());
         log.warn("인증 오류: {}", e.getMessage());
         log.warn("User-Agent: {}",request.getHeader("User-Agent"));
 
+        String script = "<script> alert('"+e.getMessage()+"'); history.back(); </script>";
         request.setAttribute("msg", e.getMessage());
-        return "err/403";
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .contentType(MediaType.TEXT_HTML)
+                .body(script);
     }
 
     @ExceptionHandler(Exception404.class)
