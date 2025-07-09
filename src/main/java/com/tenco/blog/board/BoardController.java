@@ -98,7 +98,7 @@ public class BoardController {
 		reqDTO.validate();
 		Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
 		boardService.save(reqDTO, sessionUser);
-		return "redirect:/board/list";
+		return "redirect:/board/my-list";
 	}
 
 	@GetMapping("/")
