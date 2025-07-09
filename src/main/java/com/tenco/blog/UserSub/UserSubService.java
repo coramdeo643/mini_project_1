@@ -32,9 +32,6 @@ public class UserSubService {
 	public List<UserSub> findAllByUserAndCompanyId(Long id) {
 		log.info("구독목록 조회 서비스 처리 시작");
 		List<UserSub> userSubList = userSubJpaRepository.findAllByUserAndCompanyId(id);
-		if (userSubList.isEmpty()) {
-			throw new Exception404("해당 사용자의 구독 정보를 찾을 수 없습니다.");
-		}
 		log.info("구독 목록 조회 완료 - 총 {} 개", userSubList.size());
 		return userSubList;
 	}

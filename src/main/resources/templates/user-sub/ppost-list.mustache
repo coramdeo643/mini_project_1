@@ -41,13 +41,18 @@
                             <p class="card-text">작성자 : {{user.personalName}}&nbsp|&nbsp{{time}}</p>
                             <div class="mb-3">
                                 {{#pPostSkills}}
-                                    <span class="badge rounded-3 me-1" style="color: #4b0082; background-color: #f6ecff;">                                        {{skill.name}}
-                                    </span>
+                                    <span class="badge rounded-3 me-1" style="color: #4b0082; background-color: #f6ecff;">{{skill.name}}</span>
                                 {{/pPostSkills}}
                             </div>
                         </div>
                     </div>
                 </a>
+            </div>
+        {{/companySubPostList}}
+        <!-- 없는 경우 -->
+        {{^companySubPostList}}
+            <div class="text-center text-muted mt-5">
+                <p>😯 등록된 관심구직자가 없습니다.</p>
             </div>
         {{/companySubPostList}}
     </div>

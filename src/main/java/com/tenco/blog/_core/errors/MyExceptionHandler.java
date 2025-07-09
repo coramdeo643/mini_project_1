@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 // 모든 컨트롤러에서 발생하는 예외 처리를 이 클래스에서 처리 하겠다.
 //RuntimeException 발생하면 해당 파일로 예외 처리가 집중 됨
@@ -22,6 +21,7 @@ public class MyExceptionHandler {
     private static  final Logger log = LoggerFactory.getLogger(MyExceptionHandler.class);
 
     @ExceptionHandler(Exception400.class)
+    @ResponseBody
     public String ex400(Exception400 e, HttpServletRequest request){
         log.warn("=== 400 Bad Request 에러 발생 ===");
         log.warn("요청 URL : {}",request.getRequestURI());
@@ -31,15 +31,6 @@ public class MyExceptionHandler {
         return "err/400";
     }
 
-//    @ExceptionHandler(Exception401.class)
-//    public String ex401(Exception401 e, HttpServletRequest request){
-//        log.warn("=== 401 UnAuthorized 에러 발생 ===");
-//        log.warn("요청 URL : {}",request.getRequestURI());
-//        log.warn("인증 오류: {}", e.getMessage());
-//        log.warn("User-Agent: {}",request.getHeader("User-Agent"));
-//        request.setAttribute("msg", e.getMessage());
-//        return "err/401";
-//    }
     @ExceptionHandler(Exception401.class)
     @ResponseBody // 데이터를 반환 함
     public ResponseEntity<String> ex403ByData(Exception401 e ,HttpServletRequest request) {
@@ -62,7 +53,6 @@ public class MyExceptionHandler {
         log.warn("요청 URL : {}",request.getRequestURI());
         log.warn("인증 오류: {}", e.getMessage());
         log.warn("User-Agent: {}",request.getHeader("User-Agent"));
-
         String script = "<script> alert('"+e.getMessage()+"'); history.back(); </script>";
         request.setAttribute("msg", e.getMessage());
         return ResponseEntity
@@ -72,24 +62,37 @@ public class MyExceptionHandler {
     }
 
     @ExceptionHandler(Exception404.class)
+//    @ResponseBody
+//    public ResponseEntity<String> ex404(Exception404 e, HttpServletRequest request){
     public String ex404(Exception404 e, HttpServletRequest request){
         log.warn("=== 404 Not Found 에러 발생 ===");
         log.warn("요청 URL : {}",request.getRequestURI());
         log.warn("인증 오류: {}", e.getMessage());
         log.warn("User-Agent: {}",request.getHeader("User-Agent"));
+//        String script = "<script> alert('"+e.getMessage()+"'); history.back(); </script>";
         request.setAttribute("msg", e.getMessage());
+//        return ResponseEntity
+//                .status(HttpStatus.NOT_FOUND)
+//                .contentType(MediaType.TEXT_HTML)
+//                .body(script);
         return "err/404";
     }
 
     @ExceptionHandler(Exception500.class)
-    public String ex500(Exception500 e, HttpServletRequest request){
+    @ResponseBody
+    public ResponseEntity<String> ex500(Exception500 e, HttpServletRequest request){
         log.warn("=== 500 Internal Server Error 에러 발생 ===");
         log.warn("요청 URL : {}",request.getRequestURI());
         log.warn("인증 오류: {}", e.getMessage());
         log.warn("User-Agent: {}",request.getHeader("User-Agent"));
+        String script = "<script> alert('"+e.getMessage()+"'); history.back(); </script>";
         request.setAttribute("msg", e.getMessage());
-        return "err/500";
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .contentType(MediaType.TEXT_HTML)
+                .body(script);
     }
+
 
     // 기타 모든 RuntimeException 처리
     @ExceptionHandler(RuntimeException.class)
