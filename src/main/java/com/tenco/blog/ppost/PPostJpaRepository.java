@@ -1,7 +1,6 @@
 package com.tenco.blog.ppost;
 
 
-import com.tenco.blog.board.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,6 +34,6 @@ public interface PPostJpaRepository extends JpaRepository<PPost, Long> {
 
 	// BoardRepository
 	@Query("SELECT p FROM PPost p JOIN p.pPostSkills ps JOIN ps.skill s WHERE s.name = :skillName")
-	List<PPost> findBySkillName(@Param("skillName") String skillName);
+	Page<PPost> findBySkillName(Pageable pageable, @Param("skillName") String skillName);
 
 }

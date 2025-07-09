@@ -44,7 +44,7 @@ public interface BoardJpaRepository extends JpaRepository<Board, Long> {
 
 	// BoardRepository
 	@Query("SELECT b FROM Board b JOIN b.boardSkills bs JOIN bs.skill s WHERE s.name = :skillName")
-	List<Board> findBySkillName(@Param("skillName") String skillName);
+	Page<Board> findBySkillName(Pageable pageable, @Param("skillName") String skillName);
 
 
 }

@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -124,9 +126,9 @@ public class PPostController {
     }
 
     @GetMapping("ppost/filter")
-    public String filterBySkill(@RequestParam("skill")String skillName, Model model) {
-        List<PPost> ppostList = PPostJpaRepository.findBySkillName(skillName);
-        model.addAttribute("ppostList", ppostList);
+    public String filterBySkill(Pageable pageable, @RequestParam("skill")String skillName, Model model) {
+        Page<PPost> ppostPage = PPostJpaRepository.findBySkillName(pageable, skillName);
+        model.addAttribute("ppostPage", ppostPage);
         model.addAttribute("isCompanyUser", true);
         return "index";
     }

@@ -76,7 +76,7 @@ public class QnARequest {
 
 			// 작성자 이름 설정 (개인 또는 기업)
 			if (qna.getUser() != null) {
-				this.authorName = qna.getUser().getUsername();
+				this.authorName = qna.getUser().getPersonalName();
 			} else if (qna.getCompany() != null) {
 				this.authorName = qna.getCompany().getBusinessName();
 			} else {

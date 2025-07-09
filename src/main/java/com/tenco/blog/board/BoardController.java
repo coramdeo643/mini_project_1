@@ -176,9 +176,9 @@ public class BoardController {
 
 
 	@GetMapping("/board/filter")
-	public String filterBySkill(@RequestParam("skill") String skillName, Model model) {
-		List<Board> boardList = boardJpaRepository.findBySkillName(skillName);
-		model.addAttribute("boardList", boardList);
+	public String filterBySkill(Pageable pageable, @RequestParam("skill") String skillName, Model model) {
+		Page<Board> boardPage = boardJpaRepository.findBySkillName(pageable, skillName);
+		model.addAttribute("boardPage", boardPage);
 		return "index"; // 머스태치 페이지 이름
 	}
 
