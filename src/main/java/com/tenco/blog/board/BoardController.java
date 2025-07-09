@@ -77,7 +77,7 @@ public class BoardController {
 		// 4. 메인 페이지로 리다이렉트 처리
 		Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
 		boardService.deleteById(id, sessionUser);
-		return "redirect:/board/list";
+		return "redirect:/board/my-list";
 	}
 
 	@GetMapping("/board/save-form")
