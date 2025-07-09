@@ -1,27 +1,29 @@
 {{> layout/header}}
 
-<div class="container p-5">
-    {{#qna.isOwner}}
-        <div class="d-flex justify-content-end">
-            <a href="/qna/{{qna.id}}/update-form" class="btn btn-warning me-1">수정</a>
-            <form action="/qna/{{qna.id}}/delete" method="post">
-                <button class="btn btn-danger">삭제</button>
-            </form>
-        </div>
-    {{/qna.isOwner}}
+<div class="container p-1">
+    <div class="border border-secondary-subtle rounded-4 bg-white p-4 m-4">
+        {{#qna.isOwner}}
+            <div class="d-flex justify-content-end">
+                <a href="/qna/{{qna.id}}/update-form" class="btn btn-warning me-1">수정</a>
+                <form action="/qna/{{qna.id}}/delete" method="post">
+                    <button class="btn btn-danger">삭제</button>
+                </form>
+            </div>
+        {{/qna.isOwner}}
 
-    <!-- 게시글내용 -->
-    <div>
-        <h2><b>{{qna.title}}</b></h2>
-        <div class="d-flex justify-content-end">
-            <b>작성자</b> : {{qna.authorName}} </div>
-        <hr/>
-        <div class="m-4 p-2">
-            {{qna.content}}
+        <!-- 게시글내용 -->
+        <div>
+            <h2><b>{{qna.title}}</b></h2>
+            <div class="d-flex justify-content-end">
+                <b>작성자</b> : {{qna.authorName}} </div>
+            <hr/>
+            <div class="m-4 p-2">
+                {{qna.content}}
+            </div>
         </div>
+        <!-- 댓글 영역-->
+        {{> reply/board-reply}}
     </div>
-    <!-- 댓글 영역-->
-    {{> reply/board-reply}}
 </div>
 
 {{> layout/footer}}
