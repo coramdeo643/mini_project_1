@@ -85,14 +85,10 @@ public class QnARequest {
 
 			// 최종 소유권 여부 설정
 			this.isOwner = qna.isOwner(sessionPrincipal);
-
 			this.replies = qna.getReplies();
-			if (sessionPrincipal instanceof User) {
-				User sessionUser = (User) sessionPrincipal;
+			if (sessionPrincipal != null) {
 				replies.forEach(reply -> {
-					if (reply.getUser() != null && reply.isOwner(sessionUser.getId())) {
-						reply.setReplyOwner(true);
-					}
+					reply.setReplyOwner(reply.isOwner(sessionPrincipal));
 				});
 			}
 

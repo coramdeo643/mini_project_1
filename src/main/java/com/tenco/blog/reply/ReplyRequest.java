@@ -1,6 +1,7 @@
 package com.tenco.blog.reply;
 
 import com.tenco.blog._core.errors.exception.Exception400;
+import com.tenco.blog.company.Company;
 import com.tenco.blog.qna.QnA;
 import com.tenco.blog.user.User;
 import lombok.Data;
@@ -30,10 +31,13 @@ public class ReplyRequest {
 		 * 멤버 변수에 없는 데이터가 필요할 때는
 		 * 외부에서 주입 받으면 된다.
 		 */
-		public Reply toEntity(User sessionUser, QnA qna) {
+		public Reply toEntity(Object sessionPrincipal, QnA qna) {
+			User user = (sessionPrincipal instanceof User) ? (User) sessionPrincipal : null;
+			Company company = (sessionPrincipal instanceof Company) ? (Company) sessionPrincipal : null;
 			return Reply.builder()
 					.comment(comment.trim())
-					.user(sessionUser)
+					.user(user)
+					.company(company)
 					.qna(qna)
 					.build();
 		}

@@ -20,32 +20,34 @@ import java.util.List;
 public class ReplyService {
 
 	private static final Logger log = LoggerFactory.getLogger(ReplyService.class);
-	// DI 처리
 	private final ReplyJPARepository replyJPARepository;
 	private final QnAJpaRepository qnaJpaRepository;
 
 	// 댓글저장기능
-	// 서비스계층, Repository 계층에 메서드 이름(같이, 다르게 정의)
 	@Transactional
-	public void save(ReplyRequest.SaveDTO saveDTO, User sessionUser) {
-		log.info("댓글 저장 서비스 처리 시작 - 게시글 id {}, 작성자 {}, ",
-				saveDTO.getQnaId(), sessionUser.getUsername());
+	public void save(ReplyRequest.SaveDTO saveDTO, Object sessionPrincipal) {
+		if(sessionPrincipal == null) {
+			throw new Exception403("댓글을 작성하려면 로그인이 필요합니다");
+		}
 		// 2. 댓글이 달릴 게시글 존재여부 확인
 		QnA qna = qnaJpaRepository.findById(saveDTO.getQnaId())
-				.orElseThrow(() -> new Exception404("Not found qna"));
+				.orElseThrow(() -> new Exception404("존재하지 않는 게시글입니다."));
 		// 3. 준영속 상태이다
-		Reply reply = saveDTO.toEntity(sessionUser, qna);
+		Reply reply = saveDTO.toEntity(sessionPrincipal, qna);
 		// 4. 저장 : 정방향 insert 처리
 		replyJPARepository.save(reply);
 	}
 	// 댓글삭제기능
 	@Transactional
-	public void deleteById(Long replyId, User sessionUser) {
+	public void deleteById(Long replyId, Object sessionPrincipal) {
 		log.info("댓글 삭제 서비스 처리 시작 - 댓글 ID {}", replyId);
+		if(sessionPrincipal == null) {
+			throw new Exception403("댓글을 삭제하려면 로그인이 필요합니다");
+		}
 		Reply reply = replyJPARepository.findById(replyId)
 						.orElseThrow(() -> new Exception404("댓글을 찾을 수 없습니다"));
 		// 현재 로그인한 사용자와 댓글 소유자 확인 한번더
-		if(!reply.isOwner(sessionUser.getId())) {
+		if(!reply.isOwner(sessionPrincipal)) {
 			throw new Exception403("본인이 작성한 댓글만 삭제할 수 있습니다");
 		}
 		replyJPARepository.deleteById(replyId);

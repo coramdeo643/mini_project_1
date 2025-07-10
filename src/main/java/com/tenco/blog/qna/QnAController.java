@@ -180,6 +180,7 @@ public class QnAController {
 		Object sessionPrincipal = getSessionPrincipal();
 		QnARequest.DetailDTO dto = qnaService.findById(id, sessionPrincipal);
 		model.addAttribute("qna", dto);
+		model.addAttribute("isLoggedIn", sessionPrincipal != null);
 		return "qna/detail";
 	}
 

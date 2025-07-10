@@ -17,15 +17,23 @@ public class ReplyController {
 	private static final Logger log = LoggerFactory.getLogger(ReplyController.class);
 	private final ReplyService replyService;
 
+	private Object getSessionPrincipal(HttpSession session) {
+		Object user = session.getAttribute(Define.SESSIONUSER_USER);
+		if(user != null) {
+			return user;
+		}
+		return session.getAttribute(Define.SESSIONUSER_COMPANY);
+	}
+
 	// 댓글 저장 기능 요청
 	@PostMapping("/reply/save")
 	public String save(ReplyRequest.SaveDTO saveDTO, HttpSession session) {
 		// 1. 인증검사(Interceptor 처리, config-WebMvcConfig)
 		// 2. 유효성검사
 		saveDTO.validate();
-		User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+		Object sessionPrincipal = getSessionPrincipal(session);
 		// 댓글 저장
-		replyService.save(saveDTO, sessionUser);
+		replyService.save(saveDTO, sessionPrincipal);
 		log.info("saved");
 		return "redirect:/qna/" + saveDTO.getQnaId();
 		// 로그인 > 댓글작성 > 댓글등록 > controller.save > service.save > JpaRepository.save
@@ -35,8 +43,8 @@ public class ReplyController {
 	public String delete(@PathVariable(name = "id") Long replyId,
 						 @RequestParam(name = "qnaId") Long qnaId,
 						 HttpSession session) {
-		User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
-		replyService.deleteById(replyId, sessionUser);
+		Object sessionPrincipal = getSessionPrincipal(session);
+		replyService.deleteById(replyId, sessionPrincipal);
 		return "redirect:/qna/" + qnaId;
 	}
 }
