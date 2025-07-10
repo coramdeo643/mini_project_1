@@ -17,8 +17,8 @@
                              style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; background-color: #fff;">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{title}}</h5>
-                        <p class="card-text">작성자 : {{user.personalName}}&nbsp|&nbsp{{time}}</p>
+                        <h6 class="card-title e_txt"><b>{{title}}</b></h6>
+                        <p class="card-text">{{user.personalName}}<br>{{time}}</p>
                         <div class="mb-3">
                             {{#pPostSkills}}
                                 <span class="badge rounded-3 me-1" style="color: #4b0082; background-color: #f6ecff;">{{skill.name}}
