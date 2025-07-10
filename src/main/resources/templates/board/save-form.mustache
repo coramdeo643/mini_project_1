@@ -1,7 +1,7 @@
 {{> layout/header}}
 
 <div class="container p-5">
-    <div class="card">
+    <div class="card mx-auto" style="width : 50%">
         <div class="card-header"><b>채용공고 작성화면</b></div>
         <div class="card-body">
             <form action="/board/save" method="post">
@@ -15,7 +15,9 @@
                     <input type="text" class="form-control" placeholder="Enter industry" value="{{company.industry}}" disabled>
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter title" name="title">
+                    <input type="text" class="form-control" placeholder="Enter title" name="title"
+                           id="myInput" maxlength="40" oninput="updateCounter()">
+                    <div id="counter" style="text-align: right; font-size: 13px;">0 / 40</div>
                 </div>
                 <div class="mb-3">
                     <textarea class="form-control" rows="5" placeholder="Enter content" name="content"></textarea>
@@ -25,5 +27,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function updateCounter() {
+      const input = document.getElementById("myInput");
+      const counter = document.getElementById("counter");
+      const maxLength = input.maxLength;
+      const currentLength = input.value.length;
+
+      counter.textContent = currentLength + " / " + maxLength;
+    }
+</script>
 
 {{> layout/footer}}
