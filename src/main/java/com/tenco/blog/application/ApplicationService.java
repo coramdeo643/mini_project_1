@@ -79,9 +79,9 @@ public class ApplicationService {
 //            throw new Exception403("권한이 없습니다!!");
 //        }
         // 권한 체크 확인
-        if(!applicationId.equals(sessionUser.getId())){
-            throw  new Exception403("권한이 없습니다.");
-        }
+//        if(!applicationId.equals(sessionUser.getId())){
+//            throw  new Exception403("권한이 없습니다.");
+//        }
         // db에서 삭제 처리
         applicationJpaRepository.deleteById(applicationId);
     }
