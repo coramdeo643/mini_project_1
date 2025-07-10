@@ -72,10 +72,10 @@ public class ApplicationService {
         log.info("지원 취소 서비스 처리 시작 - Application  ID {} ", applicationId);
 
         // Param("userId") Long id, @Param("boardId") Long boardId)
-        List<Application> application = applicationJpaRepository.findByUserIdAndApplicationId(applicationId,sessionUser.getId());
+        List<Application> application = applicationJpaRepository.findByUserIdAndApplicationId(sessionUser.getId(), applicationId);
 
-        if (application.equals(sessionUser)){
-            throw new Exception403("권한이 없습니다.");
+        if (application.isEmpty()){
+            throw new Exception403("해당 지원서를 삭제할 권한이 없습니다.");
         }
 
         applicationJpaRepository.deleteById(applicationId);
