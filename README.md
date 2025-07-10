@@ -74,6 +74,7 @@
 <br>
 
 ## 📁 프로젝트 구조
+```
 📦src
  ┗ 📂main
    ┣ 📂java
@@ -108,3 +109,4 @@
        ┣ 📂reply
        ┣ 📂user
        ┗ 📂user-sub
+```
