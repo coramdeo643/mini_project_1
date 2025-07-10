@@ -62,43 +62,4 @@
 <br>
 
 ## 📁 프로젝트 구조
-📦src
- ┗ 📂main
-   ┣ 📂java
-   ┃ ┗ 📂com
-   ┃   ┗ 📂tenco
-   ┃     ┗ 📂blog
-   ┃       ┣ 📂_core
-   ┃       ┃ ┣ 📂common
-   ┃       ┃ ┣ 📂config
-   ┃       ┃ ┣ 📂errors
-   ┃       ┃ ┃ ┗ 📂exception
-   ┃       ┃ ┗ 📂interceptor
-   ┃       ┣ 📂application
-   ┃       ┣ 📂board
-   ┃       ┣ 📂company
-   ┃       ┣ 📂companySub
-   ┃       ┣ 📂ppost
-   ┃       ┣ 📂qna
-   ┃       ┣ 📂rating
-   ┃       ┣ 📂reply
-   ┃       ┣ 📂skill
-   ┃       ┣ 📂UserSub
-   ┃       ┣ 📂user
-   ┃       ┗ 📂utils
-   ┗ 📂resources
-     ┣ 📂db
-     ┣ 📂static
-     ┃ ┗ 📂images
-     ┗ 📂templates
-       ┣ 📂_sitemap
-       ┣ 📂board
-       ┣ 📂company
-       ┣ 📂err
-       ┣ 📂layout
-       ┣ 📂map
-       ┣ 📂ppost
-       ┣ 📂qna
-       ┣ 📂reply
-       ┣ 📂user
-       ┗ 📂user-sub
+📦src ┗ 📂main ┣ 📂java ┃ ┗ 📂com ┃   ┗ 📂tenco ┃     ┗ 📂blog ┃       ┣ 📂_core (공통 모듈: 설정, 에러 핸들링, 인터셉터) ┃       ┣ 📂application (지원) ┃       ┣ 📂board (채용공고) ┃       ┣ 📂company (기업회원) ┃       ┣ 📂companySub (기업의 인재 구독) ┃       ┣ 📂ppost (이력서) ┃       ┣ 📂qna (Q&A 게시판) ┃       ┣ 📂rating (평점) ┃       ┣ 📂reply (댓글) ┃       ┣ 📂skill (기술스택) ┃       ┣ 📂user (개인회원) ┃       ┣ 📂UserSub (개인의 기업 구독) ┃       ┗ 📂utils (유틸리티) ┗ 📂resources ┣ 📂db (초기 데이터 SQL) ┣ 📂static (CSS, JS, 이미지) ┗ 📂templates (Mustache 템플릿) ┣ 📂_sitemap ┣ 📂board ┣ 📂company ┣ 📂err ┣ 📂layout ┣ 📂map ┣ 📂ppost ┣ 📂qna ┣ 📂reply ┣ 📂user ┗ 📂user-sub
