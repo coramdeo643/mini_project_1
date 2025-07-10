@@ -72,17 +72,12 @@ public class ApplicationService {
         log.info("지원 취소 서비스 처리 시작 - Application  ID {} ", applicationId);
 
         // Param("userId") Long id, @Param("boardId") Long boardId)
-        List<Application> application = applicationJpaRepository.findAllByUserIdWithBoard(sessionUser.getId());
+        List<Application> application = applicationJpaRepository.findByUserIdAndApplicationId(applicationId,sessionUser.getId());
 
-        // 권한 체크 확인
-//        if(!application.equals( sessionUser.getId())) {
-//            throw new Exception403("권한이 없습니다!!");
-//        }
-        // 권한 체크 확인
-//        if(!applicationId.equals(sessionUser.getId())){
-//            throw  new Exception403("권한이 없습니다.");
-//        }
-        // db에서 삭제 처리
+        if (application.equals(sessionUser)){
+            throw new Exception403("권한이 없습니다.");
+        }
+
         applicationJpaRepository.deleteById(applicationId);
     }
 

@@ -83,4 +83,7 @@ public interface ApplicationJpaRepository extends JpaRepository<Application,Long
        @Query("SELECT a FROM Application a WHERE a.user.id = :userId AND a.board.id = :boardId")
        Application findByApplicationId(@Param("userId") Long id, @Param("boardId") Long boardId);
 
+       @Query("SELECT a FROM Application a JOIN FETCH a.user WHERE a.user.id = :userId AND a.id = :applicationId")
+       List<Application> findByUserIdAndApplicationId(@Param("userId") Long userId, @Param("applicationId") Long applicationId);
+
 }
