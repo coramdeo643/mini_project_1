@@ -5,11 +5,22 @@
     <div class="d-flex justify-content-end">
         <!--채용공고지원-->
         {{#sessionUser}}
-            <form action="/application/{{board.id}}/save" method="post">
-                <input type="hidden" name="boardId" value="{{board.id}}">
-                <input type="hidden" name="companyId" value="{{board.company.id}}">
-                <button class="btn btn-success">지원</button>
-            </form>
+            {{#onaji}}
+                <form action="/application/delete" method="post">
+                    <!--                    지원자가 공고에 지원 했을 때 받는 해당 PK 값 -->
+                    <input type="hidden" name="applicationId" value="{{applicationId}}">
+                    <!--                    회사가 게시한 공고 PK 값 -->
+                    <input type="hidden" name="boardId" value="{{board.id}}">
+                    <button type="submit">지원 취소</button>
+                </form>
+            {{/onaji}}
+            {{^onaji}}
+                <form action="/application/{{board.id}}/save" method="post">
+                    <input type="hidden" name="boardId" value="{{board.id}}">
+                    <input type="hidden" name="companyId" value="{{board.company.id}}">
+                    <button class="btn btn-success">지원</button>
+                </form>
+            {{/onaji}}
         {{/sessionUser}}
         {{#board.boardOwner}}
             <!-- 수정삭제버튼 -->

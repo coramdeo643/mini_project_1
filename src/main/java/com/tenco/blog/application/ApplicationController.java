@@ -2,6 +2,7 @@ package com.tenco.blog.application;
 
 import com.tenco.blog.UserSub.UserSub;
 import com.tenco.blog._core.errors.exception.Exception401;
+import com.tenco.blog._core.errors.exception.Exception404;
 import com.tenco.blog.board.Board;
 import com.tenco.blog.board.BoardService;
 import com.tenco.blog.company.Company;
@@ -26,6 +27,8 @@ public class ApplicationController {
     private final ApplicationService applicationService;
     private final BoardService boardService;
     private final CompanyService companyService;
+    // 왜 ~~~~~~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!
+    //private final ApplicationJpaRepository applicationJpaRepository;
 
 
     // 지원 저장 기능 요청
@@ -90,15 +93,45 @@ public class ApplicationController {
         applicationService.updateStatus(id, "불합격");
         return "redirect:/board/application-list";
     }
-    // 댓글 삭제 기능 요청
+    //  삭제 기능 요청 (지원공고용)
     @PostMapping("/application/{id}/delete")
     public String delete(@PathVariable(name = "id") Long applicationId,
-
                          HttpSession session) {
+
+        // TODO -- 반드시 화면에서 boardId 전달해서 처리 하기 !!!!!!!!!!!!!!!!!
+
         User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
-        applicationService.deleteById(applicationId, sessionUser);
+        // public void deleteById(Long applicationId, Long boardId, User sessionUser) {
+        applicationService.deleteByListId(applicationId,sessionUser);
 
         return "redirect:/board/application-resource-list";
+    }
+
+//    //  삭제 기능 요청 (공고에서 취소용)
+//    @PostMapping("/application/{id}/board-delete")
+//    public String boardDelete(@PathVariable(name = "id") Long applicationId,
+//                              HttpSession session) {
+//        User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+//        Application application = applicationJpaRepository.findById(applicationId)
+//                .orElseThrow(() -> new Exception404("지원 내역을 찾을 수 없습니다."));
+//
+//        Long boardId = application.getBoard().getId();
+//        applicationService.deleteById(applicationId, sessionUser);
+//
+//        return "redirect:/board/" + boardId;
+//    }
+
+    @PostMapping("/application/delete")
+    public String boardDelete(
+            @RequestParam(name = "boardId") Long boardId,
+            @RequestParam(name = "applicationId") Long applicationId, HttpSession session) {
+        User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+        // applicationId
+        // boardId
+        // 삭제 -->  applicationId, boardId, session
+        applicationService.deleteById(applicationId, boardId, sessionUser);
+
+        return "redirect:/board/"+ boardId;
     }
 
 
