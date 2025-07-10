@@ -1,5 +1,16 @@
 </main>
 
+<script>
+    function updateCounter() {
+      const input = document.getElementById("myInput");
+      const counter = document.getElementById("counter");
+      const maxLength = input.maxLength;
+      const currentLength = input.value.length;
+
+      counter.textContent = currentLength + " / " + maxLength;
+    }
+</script>
+
 <footer class="bg-light p-4 text-center border border-top-1 border-secondary-subtle" >
     <h5>Created by JoinIT</h5>
     <h6>☎ 010-4242-3333</h6>

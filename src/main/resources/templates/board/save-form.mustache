@@ -28,15 +28,4 @@
     </div>
 </div>
 
-<script>
-    function updateCounter() {
-      const input = document.getElementById("myInput");
-      const counter = document.getElementById("counter");
-      const maxLength = input.maxLength;
-      const currentLength = input.value.length;
-
-      counter.textContent = currentLength + " / " + maxLength;
-    }
-</script>
-
 {{> layout/footer}}
