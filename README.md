@@ -4,7 +4,9 @@
 
 ## 📖 프로젝트 소개
 
-개인 회원(구직자)과 기업 회원(구인자)을 위한 채용 정보 플랫폼입니다. 사용자는 이력서를 등록하고 원하는 채용 공고에 지원할 수 있으며, 기업은 채용 공고를 게시하고 지원자를 관리할 수 있습니다. 또한, Q&A 커뮤니티와 상호 구독 기능을 통해 구인-구직자 간의 소통을 돕습니다.
+개인 회원(구직자)과 기업 회원(구인자)을 위한 채용 정보 플랫폼입니다. 
+사용자는 이력서를 등록하고 원하는 채용 공고에 지원할 수 있으며, 기업은 채용 공고를 게시하고 지원자를 관리할 수 있습니다. 
+또한, Q&A 커뮤니티와 상호 구독 기능을 통해 구인-구직자 간의 소통을 돕습니다.
 
 <br>
 
@@ -54,6 +56,16 @@
 | **Tools**    | Git, GitHub, IntelliJ IDEA                                        |
 
 <br>
+
+## 📸 주요 화면
+
+| 메인 화면 (채용공고) | 채용공고 상세 | 이력서 상세 |
+| :---: | :---: | :---: |
+| ![메인 화면](./images/screenshot-main.png) | ![채용공고 상세](./images/screenshot-board-detail.png) | ![이력서 상세](./images/screenshot-ppost-detail.png) |
+| **Q&A 게시판** | **마이페이지 (지원 현황)** | **마이페이지 (구독 기업)** |
+| ![Q&A 게시판](./images/screenshot-qna.png) | ![지원 현황](./images/screenshot-mypage-apply.png) | ![구독 기업](./images/screenshot-mypage-sub.png) |
+
+*   *위 이미지는 예시입니다. 프로젝트 루트에 `images` 폴더를 만들고 실제 스크린샷 파일(예: `screenshot-main.png`)로 교체해서 사용하세요.*
 
 ## 📄 ERD (Entity Relationship Diagram)
 
