@@ -55,7 +55,6 @@
 
 <br>
 
-!image
 ## 📄 ERD (Entity Relationship Diagram)
 
 ![Project ERD](./images/image.png)
