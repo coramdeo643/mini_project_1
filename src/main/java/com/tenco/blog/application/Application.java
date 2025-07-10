@@ -85,7 +85,10 @@ public class Application {
         return isRated;
     }
 
+    @Transient // DB에 저장되지 않을 예정
+    private boolean isOnaji;
 
+    private boolean isOnaji() {return isOnaji;}
 
     public String getTime(){
         return MyDateUtil.timestampFormat(createdAt);

@@ -3,6 +3,9 @@ package com.tenco.blog.board;
 import com.tenco.blog.UserSub.UserSub;
 import com.tenco.blog.UserSub.UserSubService;
 import com.tenco.blog._core.common.PageLink;
+import com.tenco.blog.application.Application;
+import com.tenco.blog.application.ApplicationJpaRepository;
+import com.tenco.blog.application.ApplicationService;
 import com.tenco.blog.company.Company;
 import com.tenco.blog.company.CompanyService;
 import com.tenco.blog.ppost.PPost;
@@ -21,10 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +40,9 @@ public class BoardController {
 	private final PPostService pPostService;
 	private final BoardJpaRepository boardJpaRepository;
 	private  final RatingService ratingService;
+	private  final ApplicationJpaRepository applicationJpaRepository;
+	private  final ApplicationService applicationService;
+
 
 	/**
 	 * 게시글 수정 화면 요청
@@ -137,11 +140,21 @@ public class BoardController {
 		model.addAttribute("size", size); // 템플릿에서 size를 사용할 수 있도록 추가
 	}
 
-	@GetMapping("/board/{id}")
-	public String detail(@PathVariable(name = "id") Long id, Model model, HttpSession session) {
-		Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
-		Board board = boardService.findByIdWithBoard(id, sessionUser);
+	@GetMapping("/board/{boardId}")
+	public String detail(@PathVariable(name = "boardId") Long boardId,
+						 Model model, HttpSession session) {
+		Company sessionCompany = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
+		User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
+		Board board = boardService.findByIdWithBoard(boardId, sessionCompany);
 		model.addAttribute("board", board);
+		if (sessionUser != null) {
+			boolean hasApplied = applicationJpaRepository.existsByUserIdAndBoardId(sessionUser.getId(), boardId);
+			model.addAttribute("onaji", hasApplied);
+			Application application = applicationJpaRepository.findByApplicationId(sessionUser.getId(), boardId);
+			if (application != null) {
+				model.addAttribute("applicationId", application.getId());
+			}
+		}
 		Double avgScore = ratingService.avg(board.getCompany().getId());
 		model.addAttribute("avgScore", avgScore);
 		return "board/detail";

@@ -16,6 +16,7 @@ public class ApplicationRequest {
         private String status = "대기";
         private boolean isAccepted = false;
         private boolean isRated = false;
+        private boolean isOnaji = false;
 
         /**
          * 데이터 유효성 검증

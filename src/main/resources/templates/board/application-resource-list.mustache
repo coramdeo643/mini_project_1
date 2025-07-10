@@ -10,6 +10,26 @@
         {{#applicationResourceList}}
 
             {{#board}}
+            <div class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <a href="/board/{{board.id}}" class="text-decoration-none text-dark fw-bold">
+                    {{title}}
+                </a>
+            {{/board}}
+            <div class="ms-3">합격여부 :{{status}}</div>
+        </div>
+            <div class="d-flex align-items-center gap-2">
+                {{#accepted}}
+                    {{#rated}}
+                        <div class="d-flex align-items-center justify-content-end gap-2">
+                            <span class="mb-0">이미 평가하셨습니다</span>
+                            <form action="/delete" method="post" class="mb-0">
+                                <input type="hidden" name="companyId" value="{{id}}">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">평점 수정</button>
+                            </form>
+                        </div>
+                    {{/rated}}
             <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
                 <div class="card p-3 text-center" style="width: 100%;">
                     <div style="height: 100px; display: flex; justify-content: center; align-items: center;">

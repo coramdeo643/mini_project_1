@@ -1,5 +1,6 @@
 package com.tenco.blog.application;
 
+import com.tenco.blog._core.errors.exception.Exception403;
 import com.tenco.blog._core.errors.exception.Exception404;
 import com.tenco.blog.board.Board;
 import com.tenco.blog.board.BoardJpaRepository;
@@ -7,6 +8,8 @@ import com.tenco.blog.company.Company;
 import com.tenco.blog.company.CompanyRepository;
 import com.tenco.blog.rating.RatingJpaRepository;
 import com.tenco.blog.user.User;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +31,6 @@ public class ApplicationService {
     private final RatingJpaRepository ratingJpaRepository;
 
 
-
     // 지원 기능
     @Transactional
     public void save(ApplicationRequest.SaveDTO saveDTO, User sessionUser) {
@@ -47,24 +49,51 @@ public class ApplicationService {
         // 저장 - 정방향 insert 처리
         applicationJpaRepository.save(application);
     }
+    // 공고에서 삭제
+    @Transactional
+    public void deleteById(Long applicationId, Long boardId, User sessionUser) {
+        log.info("지원 취소 서비스 처리 시작 - Application  ID {} ", applicationId);
 
+        // Param("userId") Long id, @Param("boardId") Long boardId)
+        Application application = applicationJpaRepository.findByApplicationId(sessionUser.getId(), boardId);
 
-    public void deleteById(Long applicationId, User sessionUser) {
-        log.info("지원 취소 서비스 처리 시작 - 댓글 ID{}");
+        // 권한 체크 확인
+        if(!application.getUser().getId().equals( sessionUser.getId())) {
+            throw new Exception403("권한이 없습니다!!");
+        }
+        // db에서 삭제 처리
+        applicationJpaRepository.deleteById(application.getId());
+    }
 
-        Application application = applicationJpaRepository.findById(applicationId)
-                .orElseThrow(() -> new Exception404("지원한 이력이 없습니다."));
+    // 지원리스트에서 삭제
 
+    @Transactional
+    public void deleteByListId(Long applicationId, User sessionUser) {
+        log.info("지원 취소 서비스 처리 시작 - Application  ID {} ", applicationId);
 
+        // Param("userId") Long id, @Param("boardId") Long boardId)
+        List<Application> application = applicationJpaRepository.findAllByUserIdWithBoard(sessionUser.getId());
+
+        // 권한 체크 확인
+//        if(!application.equals( sessionUser.getId())) {
+//            throw new Exception403("권한이 없습니다!!");
+//        }
+        // 권한 체크 확인
+        if(!applicationId.equals(sessionUser.getId())){
+            throw  new Exception403("권한이 없습니다.");
+        }
+        // db에서 삭제 처리
         applicationJpaRepository.deleteById(applicationId);
     }
 
     // 회사가 사용하는 지원자 확인
+    @Transactional
     public List<Application> findAllByBoardIdWithUser(Long companyId) {
         return applicationJpaRepository.findAllByBoardIdWithUser(companyId);
     }
 
     // 유저가 사용하는 공고 확인
+    @Transactional
     public List<Application> findAllByBoardIdWithBoard(Long userId) {
         return applicationJpaRepository.findAllByUserIdWithBoard(userId);
     }
@@ -78,7 +107,7 @@ public class ApplicationService {
                 .orElseThrow(() -> new Exception404("해당 지원서를 찾을 수 없습니다."));
         application.setStatus(status); //
     }
-
+    @Transactional
     public List<Application> findAllByUserWithRatingStatus (Long userId) {
         // 1. 사용자의 전체 지원서 가져오기
         List<Application> applications = applicationJpaRepository.findAllByUserIdWithBoard(userId);
@@ -92,5 +121,19 @@ public class ApplicationService {
 
         return applications;
     }
+    @Transactional
+    public List<Application> findAllBoardsWithApplyStatus(Long userId) {
+        List<Application> applications = applicationJpaRepository.findAllByUserIdWithBoard(userId);
+
+        for (Application application : applications) {
+            Long boardId = application.getBoard().getId();
+            boolean hasApplied = applicationJpaRepository.existsByUserIdAndBoardId(userId, boardId);
+            application.setOnaji(hasApplied);
+        }
+
+        return applications;
+    }
+
+
 
 }

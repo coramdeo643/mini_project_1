@@ -30,6 +30,9 @@ public interface ApplicationJpaRepository extends JpaRepository<Application,Long
                "JOIN FETCH a.board b " +
                "WHERE b.company.id = :companyId")
        List<Application> findAllByBoardIdWithUser(@Param("companyId") Long companyId);
+
+
+
        // 유저가 사용하는거
        @Query("SELECT a FROM Application a JOIN FETCH a.board b WHERE a.user.id = :userId")
        List<Application> findAllByUserIdWithBoard(@Param("userId") Long userId);
@@ -63,6 +66,21 @@ public interface ApplicationJpaRepository extends JpaRepository<Application,Long
        @Query("SELECT a FROM Application a JOIN FETCH a.board b JOIN FETCH b.company c WHERE a.user.id = :userId")
        List<Application> findAllByUserIdWithBoardAndCompany(@Param("userId") Long userId);
 
+       // 이미 지원했는지 확인하는 쿼리
+//       @Query("SELECT COUNT(a) > 0 FROM Application a WHERE a.user.id = :userId AND a.board.id = :boardId")
+//       boolean existsByUserIdAndBoardId(@Param("userId") Long userId, @Param("boardId") Long boardId);
 
+       @Query("SELECT COUNT(a) > 0 FROM Application a WHERE a.user.id = :userId AND a.board.id = :boardId")
+       boolean existsByUserIdAndBoardId(@Param("userId") Long userId, @Param("boardId") Long boardId);
+
+
+
+
+       @Query("SELECT a FROM Application a WHERE a.board.id = :idx")
+       List<Application> findByBoardId(@Param("idx") Long idx);
+
+
+       @Query("SELECT a FROM Application a WHERE a.user.id = :userId AND a.board.id = :boardId")
+       Application findByApplicationId(@Param("userId") Long id, @Param("boardId") Long boardId);
 
 }
