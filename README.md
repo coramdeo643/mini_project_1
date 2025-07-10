@@ -10,8 +10,8 @@
 
 ## 📅 프로젝트 기간 및 팀원
 
--   **기간**: 2025.06.27 ~ 2025.07.07
--   **팀원**: 승원, 예람, 희수
+-   **기간**: @
+-   **팀원**: @
 
 <br>
 
@@ -55,11 +55,51 @@
 
 <br>
 
+!image
 ## 📄 ERD (Entity Relationship Diagram)
 
-!image
-
+![Project ERD](./images/image.png)
 
 <br>
 
 ## 📁 프로젝트 구조
+📦src
+ ┗ 📂main
+   ┣ 📂java
+   ┃ ┗ 📂com
+   ┃   ┗ 📂tenco
+   ┃     ┗ 📂blog
+   ┃       ┣ 📂_core
+   ┃       ┃ ┣ 📂common
+   ┃       ┃ ┣ 📂config
+   ┃       ┃ ┣ 📂errors
+   ┃       ┃ ┃ ┗ 📂exception
+   ┃       ┃ ┗ 📂interceptor
+   ┃       ┣ 📂application
+   ┃       ┣ 📂board
+   ┃       ┣ 📂company
+   ┃       ┣ 📂companySub
+   ┃       ┣ 📂ppost
+   ┃       ┣ 📂qna
+   ┃       ┣ 📂rating
+   ┃       ┣ 📂reply
+   ┃       ┣ 📂skill
+   ┃       ┣ 📂UserSub
+   ┃       ┣ 📂user
+   ┃       ┗ 📂utils
+   ┗ 📂resources
+     ┣ 📂db
+     ┣ 📂static
+     ┃ ┗ 📂images
+     ┗ 📂templates
+       ┣ 📂_sitemap
+       ┣ 📂board
+       ┣ 📂company
+       ┣ 📂err
+       ┣ 📂layout
+       ┣ 📂map
+       ┣ 📂ppost
+       ┣ 📂qna
+       ┣ 📂reply
+       ┣ 📂user
+       ┗ 📂user-sub
