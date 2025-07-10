@@ -1,7 +1,3 @@
-# Human Cloud - 이력서 관리 플랫폼
-
-<br>
-
 ## 📖 프로젝트 소개
 
 개인 회원(구직자)과 기업 회원(구인자)을 위한 채용 정보 플랫폼입니다. <br>
@@ -52,13 +48,31 @@
 
 ## 📸 주요 화면
 
-| 메인 화면 (채용공고) | 채용공고 상세 | 이력서 상세 |
-| :---: | :---: | :---: |
-| ![메인 화면](./images/screenshot-main.png) | ![채용공고 상세](./images/screenshot-board-detail.png) | ![이력서 상세](./images/screenshot-ppost-detail.png) |
-| **Q&A 게시판** | **마이페이지 (지원 현황)** | **마이페이지 (구독 기업)** |
-| ![Q&A 게시판](./images/screenshot-qna.png) | ![지원 현황](./images/screenshot-mypage-apply.png) | ![구독 기업](./images/screenshot-mypage-sub.png) |
+### **✅ 공통 및 핵심 기능**
 
-*   *위 이미지는 예시입니다. 프로젝트 루트에 `images` 폴더를 만들고 실제 스크린샷 파일(예: `screenshot-main.png`)로 교체해서 사용하세요.*
+| 메인 (채용공고) | 이력서 목록 | Q&A 목록 |
+| :---: | :---: | :---: |
+| ![메인 화면](./images/screenshot-main.png) | ![전체 이력서 목록](./images/screenshot-resume-list.png) | ![Q&A 목록](./images/screenshot-qna-list.png) |
+| **채용공고 상세** | **이력서 상세** | **Q&A 상세** |
+| ![채용공고 상세](./images/screenshot-board-detail.png) | ![이력서 상세](./images/screenshot-resume-detail.png) | ![Q&A 상세](./images/screenshot-qna-detail.png) |
+
+<br>
+
+### **👤 개인 회원 기능**
+
+| 회원가입 / 로그인 | 내 이력서 목록 | 지원 현황 |
+| :---: | :---: | :---: |
+| ![개인 회원가입](./images/screenshot-user-join.png) | ![내 이력서 목록](./images/screenshot-my-resumes.png) | ![지원 현황](./images/screenshot-apply-status.png) |
+| **구독 기업 목록** | **구독 기업 공고** | **합격 기업 평점** |
+| ![구독 기업 목록](./images/screenshot-sub-companies.png) | ![구독 기업 공고](./images/screenshot-sub-company-boards.png) | ![기업 평점](./images/screenshot-ratings.png) |
+
+<br>
+
+### **🏢 기업 회원 기능**
+
+| 회원가입 / 로그인 | 지원자 관리 | 관심 인재 목록 |
+| :---: | :---: | :---: |
+| ![기업 회원가입](./images/screenshot-company-join.png) | ![지원자 관리](./images/screenshot-applicants.png) | ![관심 인재 목록](./images/screenshot-sub-users.png) |
 
 ## 📄 ERD (Entity Relationship Diagram)
 
