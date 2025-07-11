@@ -29,9 +29,7 @@ public class CompanyService {
         return companyRepository.save(joinDTO.toEntity());
     }
 
-    /**
-     * 로그인 처리
-     */
+
     public Company login(CompanyRequest.LoginDTO loginDTO){
 
         return  companyRepository
@@ -41,9 +39,7 @@ public class CompanyService {
                 });
     }
 
-    /**
-     * 사용자 정보 조회
-     */
+
     public Company findById(Long id ){
         return companyRepository.findById(id).orElseThrow(() -> {
             log.info("사용자 조회 실패 ID {}" ,id);
@@ -51,9 +47,7 @@ public class CompanyService {
         });
     }
 
-    /**
-     *  회원 정보 수정 처리 (더티 체킹)
-     */
+
     @Transactional
     public Company updateById(Long userId, CompanyRequest.UpdateDTO updateDTO){
 

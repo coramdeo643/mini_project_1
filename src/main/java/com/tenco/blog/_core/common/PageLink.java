@@ -9,9 +9,9 @@ import lombok.Data;
 
 @Data
 public class PageLink {
-	private int pageNumber; // 내부 페이지 번호(0부터, Spring Pageable 전용)
-	private int displayNumber; // 사용자에게 표시할 페이지 번호(1부터~)
-	private boolean active; // 현재 페이지 여부
+	private int pageNumber;
+	private int displayNumber;
+	private boolean active;
 
 	// 생성자
 	public PageLink(int pageNumber, int displayNumber, boolean active) {

@@ -18,9 +18,7 @@ public class ApplicationRequest {
         private boolean isRated = false;
         private boolean isOnaji = false;
 
-        /**
-         * 데이터 유효성 검증
-         */
+
         public void validate() {
             if (boardId == null) {
                 throw new Exception400("공고  정보가 필요합니다");

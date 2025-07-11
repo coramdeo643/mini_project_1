@@ -16,9 +16,6 @@ public class UserService {
     private final UserJpaRepository userJpaRepository;
 
 
-    /**
-     * 회원가입 처리
-     */
     @Transactional
     public User join(UserRequest.JoinDTO joinDTO){
         userJpaRepository.findByUsername(joinDTO.getUsername())
@@ -28,9 +25,6 @@ public class UserService {
         return userJpaRepository.save(joinDTO.toEntity());
     }
 
-    /**
-     * 로그인 처리
-     */
     public User login(UserRequest.LoginDTO loginDTO){
 
         return  userJpaRepository
@@ -40,9 +34,6 @@ public class UserService {
                 });
     }
 
-    /**
-     * 사용자 정보 조회
-     */
     public User findById(Long id ){
         return userJpaRepository.findById(id).orElseThrow(() -> {
             log.info("사용자 조회 실패 ID {}" ,id);
@@ -50,9 +41,7 @@ public class UserService {
         });
     }
 
-    /**
-     *  회원 정보 수정 처리 (더티 체킹)
-     */
+
     @Transactional
     public User updateById(Long userId, UserRequest.UpdateDTO updateDTO){
         User user = findById(userId);

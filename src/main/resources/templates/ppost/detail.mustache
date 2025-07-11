@@ -1,11 +1,8 @@
 {{> layout/header}}
-<!--이력서 상세보기-->
 <div class="container p-1">
     <div class="border border-secondary-subtle rounded-4 bg-white p-4 m-4">
-        <!-- 수정삭제버튼 -->
         {{#ppost.PPostOwner}}
             <div class="d-flex justify-content-end">
-                <!--페이지 이동 요청 -->
                 <a href="/ppost/{{ppost.id}}/update-form" class="btn btn-warning me-1">수정</a>
                 <form action="/ppost/{{ppost.id}}/delete" method="post">
                     <button class="btn btn-danger">삭제</button>
@@ -13,11 +10,9 @@
             </div>
         {{/ppost.PPostOwner}}
 
-        <!-- 게시글내용 -->
         <div>
             <h2><b>{{ppost.title}}</b></h2>
             <b>작성자</b> : {{ppost.user.personalName}}
-            <!--관심구직자 버튼-->
             {{#companyUser}}
                 <form action="/company-sub/save" method="post">
                     <input type="hidden" name="userId" value="{{ppost.user.id}}">
@@ -26,11 +21,8 @@
                     </button>
                 </form>
             {{/companyUser}}
-            <!--TODO 관심등록했으면 다시 눌러서 취소되도록? 현재 관심등록 중인지 아닌지 알수있도록?-->
             <hr/>
-            <!-- board.boardSkills 리스트를 반복 -->
             {{#ppost.pPostSkills}}
-                <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
                 <span class="badge rounded-3 me-1" style="color: #4b0082; background-color: #f6ecff;">{{skill.name}}</span>
             {{/ppost.pPostSkills}}
 

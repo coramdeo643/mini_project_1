@@ -1,6 +1,5 @@
-<!-- 댓글 영역-->
+
 <div class="card mt-3">
-    <!-- 로그인시 댓글등록 보임-->
     {{#isLoggedIn}}
         <div class="card-body">
             <form action="/reply/save" method="post">
@@ -12,7 +11,6 @@
             </form>
         </div>
     {{/isLoggedIn}}
-    <!--        비 로그인시 로그인 안내-->
     {{^isLoggedIn}}
             <div class="card-body text-center">
                 <p class="text-muted mb-0">
@@ -20,13 +18,11 @@
                 </p>
             </div>
     {{/isLoggedIn}}
-    <!-- 댓글목록 -->
     <div class="card-footer">
         <b>댓글리스트</b>
     </div>
     <div class="list-group">
         {{#qna.replies}}
-            <!-- 댓글아이템 -->
             <div class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <div class="px-2 me-2 bg-primary text-white rounded">{{authorName}}</div>

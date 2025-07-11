@@ -22,8 +22,7 @@ public class RatingController {
 
     @PostMapping("/rating")
     public String save(RatingRequest.SaveDTO saveDTO, HttpSession session) {
-        // 인증 검사 (인터셉터에서 처리)
-        //유효성 검사
+
 
         User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
         ratingService.save(saveDTO, sessionUser);

@@ -18,9 +18,7 @@ public class BoardRequest {
         private String title;
         private String content;
 
-        // username 제거 : 세션에서 가져올 예정
 
-        // (User) <-- toEntity() 호출할 때 세션에서 가져와서 넣어 주면 됨
         public Board toEntity(Company company) {
             return Board.builder()
                     .businessName(company.getBusinessName())
@@ -48,16 +46,13 @@ public class BoardRequest {
         }
     }
 
-    // 게시글 수정용 DTO 설계
+
     @Data
     public static class UpdateDTO {
         private String title;
         private String content;
 
-        // toEntity 메서드 안 만들 예정 (더티 체킹 활용)
-        // em.find() <--- Board <-- 영속화 <-- 상태값을 변경하면 자동 갱신
 
-        // 유효성 검사
         public void validate() {
             if (title == null || title.trim().isEmpty()) {
                 throw new IllegalArgumentException("제목은 필수입니다.");

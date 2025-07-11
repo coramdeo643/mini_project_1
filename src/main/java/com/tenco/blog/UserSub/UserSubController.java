@@ -16,7 +16,7 @@ public class UserSubController {
 	private static final Logger log = LoggerFactory.getLogger(UserSubController.class);
 	private final UserSubService userSubService;
 
-	// 삭제 기능
+
 	@PostMapping("/user-sub/{id}/delete")
 	public String delete(@PathVariable(name = "id") Long id, HttpSession session) {
 		User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
@@ -28,7 +28,7 @@ public class UserSubController {
 		return "redirect:/user-sub/board-list";
 	}
 
-	// 구독하기 기능
+
 	@PostMapping("/user-sub/save")
 	public String save(UserSubRequest.SaveDTO reqDTO,
 					   HttpSession session) {

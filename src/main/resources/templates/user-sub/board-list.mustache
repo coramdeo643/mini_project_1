@@ -1,7 +1,5 @@
 {{> layout/header}}
-<!--내가 구독한 기업의 채용공고목록-->
 
-<!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -20,7 +18,6 @@
 <div class="container p-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>📋 관심기업 채용공고 목록</h2>
-        <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary d-flex justify-content-end" data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop">
             🏢 전체 관심기업 보기
@@ -51,7 +48,6 @@
                 </a>
             </div>
         {{/userSubBoardList}}
-        <!-- 이력서가 없는 경우 -->
         {{^userSubBoardList}}
             <div class="text-center text-muted mt-5">
                 <p>😯 등록된 관심기업이 없습니다.</p>

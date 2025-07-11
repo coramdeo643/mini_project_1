@@ -25,12 +25,10 @@ public class User {
     private String personalName;
     private String telephone;
     private String email;
-    //now()
-    // 엔티티가 영속화될때 자동으로 pc 현재시간을 설정해 준다.
+
     @CreationTimestamp
     private Timestamp createdAt;
 
-    //객체 생성시 가독성과 안정성 향상
     @Builder
     public User(Long id, String username, String password, String personalName, String telephone, String email, Timestamp createdAt) {
         this.id = id;

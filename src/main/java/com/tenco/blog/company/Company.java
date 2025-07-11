@@ -17,7 +17,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 사용자 이름 중복 방지를 위한 유니크 제약 설정
+
     @Column(unique = true)
     private String username;
     private String password;
@@ -32,12 +32,11 @@ public class Company {
     @Column(nullable = true)
     private String imageUrl;
 
-    //now()
-    // 엔티티가 영속화될때 자동으로 pc 현재시간을 설정해 준다.
+
     @CreationTimestamp
     private Timestamp createdAt;
 
-    //객체 생성시 가독성과 안정성 향상
+
     @Builder
     public Company(Long id, String username, String password, String telephone,
                    String email, Timestamp createdAt, String companyNumber,

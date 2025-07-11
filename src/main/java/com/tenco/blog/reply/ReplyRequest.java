@@ -10,9 +10,8 @@ public class ReplyRequest {
 
 	@Data
 	public static class SaveDTO {
-		// id, comment
-		private Long qnaId; // 댓글 게시글 ID
-		private String comment; // reply comment
+		private Long qnaId;
+		private String comment;
 
 		public void validate() {
 			if (comment == null || comment.trim().isEmpty()) {
@@ -26,11 +25,7 @@ public class ReplyRequest {
 			}
 		}
 
-		/**
-		 * 보통 SAVE DTO에 toEntity 메서드를 만들게 된다
-		 * 멤버 변수에 없는 데이터가 필요할 때는
-		 * 외부에서 주입 받으면 된다.
-		 */
+
 		public Reply toEntity(Object sessionPrincipal, QnA qna) {
 			User user = (sessionPrincipal instanceof User) ? (User) sessionPrincipal : null;
 			Company company = (sessionPrincipal instanceof Company) ? (Company) sessionPrincipal : null;

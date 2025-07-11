@@ -33,13 +33,6 @@ public class Application {
     @JoinColumn(name = "company_id")
     private Company company;
 
-
-
-    /**
-     * 생성시 무조건 PENDING 으로 생성될 것이고
-     * 추후 업데이트 쿼리로 지정된 "PASSED"/"REJECTED"값을 버튼으로
-     * 구현해 기업이 변경해주게 만들 예정
-     */
     @Column(nullable = false)
     private String status = "대기";
 
@@ -58,11 +51,7 @@ public class Application {
         //this.status = status != null ? status:"PENDING" ; // 삼항연사자를 사용하여 값이 없으면 자동으로 "PENDING"입력
         this.createdAt = createdAt;
     }
-/**
-     * Transient 데이터 베이스에 생성이 안되는 필드(즉 변수)
-     * 왜 사용 ? - 현재 로그인한 사용자가  여러개의 지원서 중 작성했던
-     * 이력에 삭제 기능을 추가하기 위해 편의성 변수를 할당한다.
-     */
+
     @Transient
     private boolean isApplicationOwner;
 
@@ -71,21 +60,21 @@ public class Application {
     }
 
 
-    @Transient // DB에 저장되지 않음
+    @Transient
     private boolean isAccepted;
 
     public boolean isAccepted() {
         return "합격".equals(this.status);
     }
 
-    @Transient // DB에 저장되지 않을 예정
+    @Transient
     private boolean isRated;
 
     private boolean isRated() {
         return isRated;
     }
 
-    @Transient // DB에 저장되지 않을 예정
+    @Transient
     private boolean isOnaji;
 
     private boolean isOnaji() {return isOnaji;}

@@ -18,7 +18,7 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(BoardController.class);
     private final UserService userService;
 
-    // 주소 설계 : http://localhost:8080/user/update-form
+
     @GetMapping("/user/update-form")
     public String updateForm(Model model, HttpSession session) {
         User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
@@ -30,9 +30,7 @@ public class UserController {
         return "user/update-form";
     }
 
-    /**
-     * 회원 수정 기능 요청
-     */
+
     @PostMapping("/user/update")
     public String update(UserRequest.UpdateDTO reqDTO,
                          HttpSession session) {
@@ -55,9 +53,7 @@ public class UserController {
         return "user/join-form";
     }
 
-    /**
-     * 회원 가입 기능 요청
-     */
+
     @PostMapping("/join")
     public String join(UserRequest.JoinDTO joinDTO) {
         joinDTO.validate();
@@ -65,18 +61,13 @@ public class UserController {
         return "redirect:/user/login-form";
     }
 
-    /**
-     * 로그인 화면 요청
-     */
+
     @GetMapping("/user/login-form")
     public String loginForm() {
         return "user/login-form";
     }
 
 
-    /**
-     * 로그인 요청
-     */
     @PostMapping("/user/login")
     public String login(UserRequest.LoginDTO loginDTO, HttpSession session) {
         loginDTO.validate();

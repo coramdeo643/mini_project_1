@@ -5,7 +5,6 @@ import lombok.Data;
 
 public class PPostRequest {
 
-    // 게시글 저장 DTO
     @Data
     public static class SaveDTO {
         private String title;
@@ -35,7 +34,7 @@ public class PPostRequest {
         }
     }
 
-    // 게시글 수정용 DTO 설계
+
     @Data
     public static class UpdateDTO {
         private String title;

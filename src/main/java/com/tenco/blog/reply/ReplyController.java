@@ -25,18 +25,14 @@ public class ReplyController {
 		return session.getAttribute(Define.SESSIONUSER_COMPANY);
 	}
 
-	// 댓글 저장 기능 요청
+
 	@PostMapping("/reply/save")
 	public String save(ReplyRequest.SaveDTO saveDTO, HttpSession session) {
-		// 1. 인증검사(Interceptor 처리, config-WebMvcConfig)
-		// 2. 유효성검사
 		saveDTO.validate();
 		Object sessionPrincipal = getSessionPrincipal(session);
-		// 댓글 저장
 		replyService.save(saveDTO, sessionPrincipal);
 		log.info("saved");
 		return "redirect:/qna/" + saveDTO.getQnaId();
-		// 로그인 > 댓글작성 > 댓글등록 > controller.save > service.save > JpaRepository.save
 	}
 
 	@PostMapping("/reply/{id}/delete")
@@ -48,9 +44,3 @@ public class ReplyController {
 		return "redirect:/qna/" + qnaId;
 	}
 }
-// 댓글 작성 조건
-/*
-1. 로그인이 되어 있어야
-2. 로그인이 안되면 다른 디자인
-3. 로그인한 유저가 작성한 댓글은 본인이 삭제가능해야한다
- */

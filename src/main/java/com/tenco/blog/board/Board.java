@@ -48,10 +48,6 @@ public class Board {
 	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BoardSkill> boardSkills = new ArrayList<>();
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "board_skill_id")
-//	private BoardSkill boardSkill;
-
 	@CreationTimestamp
 	private Timestamp createdAt;
 
@@ -66,11 +62,8 @@ public class Board {
 		return MyDateUtil.timestampFormat(createdAt);
 	}
 
-
-
-
-    @OrderBy("id DESC") // 정렬 옵션 설정
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board",cascade = CascadeType.REMOVE) // mappedBy를 pk를 가지면 안된다.
-    List<Application> applications = new ArrayList<>(); //List 선언과 동시에 초기화 왜냐면 reply이 있기전에 list가 있어야 해서
+    @OrderBy("id DESC")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board",cascade = CascadeType.REMOVE)
+    List<Application> applications = new ArrayList<>();
 
 }

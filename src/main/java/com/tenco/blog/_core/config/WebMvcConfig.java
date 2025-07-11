@@ -10,10 +10,9 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @RequiredArgsConstructor
-@Configuration // IoC 처리 (싱글톤 패턴 관리)
+@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    // DI 처리 (생성자 의존 주입)
     private final UserInterceptor userInterceptor;
     private final CompanyInterceptor companyInterceptor;
     private final IfLoggedInInterceptor ifLoggedInInterceptor;
@@ -34,9 +33,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 );
 
         registry.addInterceptor(userInterceptor)
-                // 인터셉터가 동작할 URI 패턴을 지정
                 .addPathPatterns("/user/**", "/ppost/save-form", "/ppost/save", "/ppost/update-form/**", "/ppost/update/**", "/ppost/delete/**")
-                // 인터셉터에서 제외할 URI 패턴 설정
                 .excludePathPatterns("/user/join-form", "/user/join", "/user/login-form", "/user/login"
                 );
 

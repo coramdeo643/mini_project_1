@@ -7,7 +7,6 @@ import lombok.Data;
 
 public class UserSubRequest {
 
-    // 게시글 저장 DTO
     @Data
     public static class SaveDTO {
         private User user;

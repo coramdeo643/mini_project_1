@@ -26,10 +26,6 @@ public class Reply {
 	@Column(nullable = false, length = 500) // 기본값 255
 	private String comment;
 
-	/**
-	 * 댓글 작성자
-	 * 한명의 사용자가 여러개의 댓글을 작성할수있다
-	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -37,15 +33,12 @@ public class Reply {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	private Company company;
-	/**
-	 * 게시글에 댓글이 달릴수있다
-	 * 하나의 게시글에는 여러개의 댓글이 달릴수있다
-	 */
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "qna_id")
 	private QnA qna;
 
-	@CreationTimestamp // = now() server PC 시간 기준
+	@CreationTimestamp
 	private Timestamp createdAt;
 
 	@Builder
@@ -58,11 +51,7 @@ public class Reply {
 		this.createdAt = createdAt;
 	}
 
-	/**
-	 * Transient DB에 생성이 안되는 필드(즉, 변수)
-	 * 왜? 뷰에 현재 로그인한 사용자가 여러개의 댓글 중
-	 * 내가 작성한 댓글은 삭제하는 기능을 추가하기 위해 편의성 변수를 할당
-	 */
+
 	@Transient
 	private boolean isReplyOwner;
 

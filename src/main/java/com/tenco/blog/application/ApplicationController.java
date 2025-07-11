@@ -27,115 +27,65 @@ public class ApplicationController {
     private final ApplicationService applicationService;
     private final BoardService boardService;
     private final CompanyService companyService;
-    // 왜 ~~~~~~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!
-    //private final ApplicationJpaRepository applicationJpaRepository;
 
 
-    // 지원 저장 기능 요청
     @PostMapping("/application/{id}/save")
     public String save(ApplicationRequest.SaveDTO saveDTO, HttpSession session) {
-        // 인증 검사 (인터셉터에서 처리)
-        //유효성 검사
-
         User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
-        applicationService.save(saveDTO,sessionUser);
-        return "redirect:/board/"+saveDTO.getBoardId();
+        applicationService.save(saveDTO, sessionUser);
+        return "redirect:/board/" + saveDTO.getBoardId();
     }
 
-    // 지원 취소 기능 요청
 
-
-//    // 지원리스트 목록 화면
-//    @GetMapping("/company/{id}/applicationlist")
-//    public String index(@PathVariable(name = "id") Long id,
-//                        Model model,
-//                        HttpSession session) {
-//        Board board = boardService.findById(id);
-//        model.addAttribute("board",board);
-//        Company sessionUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
-//
-//        List<Application> applications = applicationService.findAllByBoardIdWithUser(id);
-//        model.addAttribute("companyUser", true);
-//        model.addAttribute("applications", applications);
-//        return "/company/applicationlist" + id;
-//    }
-
-    // 회사 입장에서 확인하는 지원자리스트
     @GetMapping("/board/application-list")
     public String list(Model model, HttpSession session, Company companyId) {
         Company sessionCompany = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
 
         List<Application> applicationList = applicationService.findAllByBoardIdWithUser(sessionCompany.getId());
-        model.addAttribute("applicationList",applicationList);
+        model.addAttribute("applicationList", applicationList);
         return "board/application-list";
     }
 
-    // 유저 입장에서 확인하는 지원리스트
+
     @GetMapping("/board/application-resource-list")
     public String resourceList(Model model, HttpSession session, User userId) {
         User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
 
         List<Application> applicationResourceList = applicationService.findAllByUserWithRatingStatus(sessionUser.getId());
-        model.addAttribute("applicationResourceList",applicationResourceList);
+        model.addAttribute("applicationResourceList", applicationResourceList);
         return "board/application-resource-list";
     }
 
 
-    // (회사)합격 여부의 합
     @PostMapping("/application/{id}/accept")
     public String accept(@PathVariable Long id) {
         applicationService.updateStatus(id, "합격");
         return "redirect:/board/application-list";
     }
-    // (회사)합격 여부의 불
+
     @PostMapping("/application/{id}/reject")
     public String reject(@PathVariable Long id) {
         applicationService.updateStatus(id, "불합격");
         return "redirect:/board/application-list";
     }
-    //  삭제 기능 요청 (지원공고용)
+
     @PostMapping("/application/{id}/delete")
     public String delete(@PathVariable(name = "id") Long applicationId,
                          HttpSession session) {
-
-        // TODO -- 반드시 화면에서 boardId 전달해서 처리 하기 !!!!!!!!!!!!!!!!!
-
         User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
         // public void deleteById(Long applicationId, Long boardId, User sessionUser) {
-        applicationService.deleteByListId(applicationId,sessionUser);
-
+        applicationService.deleteByListId(applicationId, sessionUser);
         return "redirect:/board/application-resource-list";
     }
-
-//    //  삭제 기능 요청 (공고에서 취소용)
-//    @PostMapping("/application/{id}/board-delete")
-//    public String boardDelete(@PathVariable(name = "id") Long applicationId,
-//                              HttpSession session) {
-//        User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
-//        Application application = applicationJpaRepository.findById(applicationId)
-//                .orElseThrow(() -> new Exception404("지원 내역을 찾을 수 없습니다."));
-//
-//        Long boardId = application.getBoard().getId();
-//        applicationService.deleteById(applicationId, sessionUser);
-//
-//        return "redirect:/board/" + boardId;
-//    }
 
     @PostMapping("/application/delete")
     public String boardDelete(
             @RequestParam(name = "boardId") Long boardId,
             @RequestParam(name = "applicationId") Long applicationId, HttpSession session) {
         User sessionUser = (User) session.getAttribute(Define.SESSIONUSER_USER);
-        // applicationId
-        // boardId
-        // 삭제 -->  applicationId, boardId, session
         applicationService.deleteById(applicationId, boardId, sessionUser);
-
-        return "redirect:/board/"+ boardId;
+        return "redirect:/board/" + boardId;
     }
-
-
-
 
 
 }
