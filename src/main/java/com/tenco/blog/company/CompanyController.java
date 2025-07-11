@@ -20,7 +20,6 @@ public class CompanyController {
     private final CompanyService companyService;
     private final CompanyRepository companyRepository;
 
-    // 주소 설계 : http://localhost:8080/user/update-form
     @GetMapping("/company/update-form")
     public String updateForm(Model model, HttpSession session) {
         Company companyUser = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
@@ -29,9 +28,7 @@ public class CompanyController {
         return "company/update-form";
     }
 
-    /**
-     * 회원 수정 기능 요청
-     */
+
     @PostMapping("/company/update")
     public String update(CompanyRequest.UpdateDTO reqDTO,
                          HttpSession session) {
@@ -50,9 +47,7 @@ public class CompanyController {
         return "company/join-form";
     }
 
-    /**
-     * 회원 가입 기능 요청
-     */
+
     @PostMapping("/company/join")
     public String join(CompanyRequest.JoinDTO joinDTO) {
         joinDTO.validate();
@@ -60,18 +55,13 @@ public class CompanyController {
         return "redirect:/company/login-form";
     }
 
-    /**
-     * 로그인 화면 요청
-     */
+
     @GetMapping("/company/login-form")
     public String loginForm() {
         return "company/login-form";
     }
 
 
-    /**
-     * 로그인 요청
-     */
     @PostMapping("/company/login")
     public String login(CompanyRequest.LoginDTO loginDTO, HttpSession session) {
         loginDTO.validate();
@@ -90,7 +80,7 @@ public class CompanyController {
     public String list(Model model) {
         List<Company> companyList = companyRepository.findAll();
         model.addAttribute("companyList", companyList);
-        return "company/list"; // 머스태치: company/list.mustache
+        return "company/list";
     }
 
 }

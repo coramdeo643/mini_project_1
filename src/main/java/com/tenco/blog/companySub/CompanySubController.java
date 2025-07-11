@@ -16,7 +16,7 @@ public class CompanySubController {
 	private static final Logger log = LoggerFactory.getLogger(CompanySubController.class);
 	private final CompanySubService companySubService;
 
-	// 삭제 기능
+
 	@PostMapping("/company-sub/{id}/delete")
 	public String delete(@PathVariable(name = "id") Long id, HttpSession session) {
 		Company sessionC = (Company) session.getAttribute(Define.SESSIONUSER_COMPANY);
@@ -27,7 +27,7 @@ public class CompanySubController {
 		return "redirect:/user-sub/ppost-list";
 	}
 
-	// 구독하기 기능
+
 	@PostMapping("/company-sub/save")
 	public String save(CompanySubRequest.SaveDTO reqDTO,
 					   HttpSession session) {

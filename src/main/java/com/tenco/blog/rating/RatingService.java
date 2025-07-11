@@ -43,7 +43,6 @@ public class RatingService {
         ratingJpaRepository.delete(rating);
     }
 
-    // 평균점을 반환해주는 메서드
     public Double avg (Long companyid) {
         Double score = ratingJpaRepository.findAvgScoreByCompanyId(companyid);
         return (score != null) ? Math.round(score * 10.0) / 10.0 : 0.0; // 소수점 첫번쩨 자리까지 반올림

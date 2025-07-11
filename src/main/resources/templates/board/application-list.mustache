@@ -1,7 +1,6 @@
 {{> layout/header}}
 
 <div class="container p-5">
-    <!-- 댓글목록 -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>📋 입사 지원자 목록</h2>
     </div>
@@ -29,14 +28,12 @@
                             </div>
                         </div>
                         <div class="d-flex">
-                            <!-- 합격 버튼 -->
                             <form action="/application/{{id}}/accept" method="post" class="me-1">
                                 <button type="submit" class="btn btn-success btn-sm"
                                         onclick="return confirm('이 지원자를 합격 처리할까요?')">합격
                                 </button>
                             </form>
 
-                            <!-- 불합격 버튼 -->
                             <form action="/application/{{id}}/reject" method="post">
                                 <button type="submit" class="btn btn-danger btn-sm"
                                         onclick="return confirm('이 지원자를 불합격 처리할까요?')">불합격

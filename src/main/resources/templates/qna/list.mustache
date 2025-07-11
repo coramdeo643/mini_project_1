@@ -15,8 +15,6 @@
     {{#qnaPage.content}}
         <div class="card mb-3">
             <div class="card-body">
-                <!-- {{! title}} 은 현재 Board 객체읭 title 멤버 변수에 값을 출력한다.
-                        머스태치는 자동으로 getTitle()메서드를 호출한 것이다.-->
                 <h4 class="card-title mb-3">{{title}}</h4>
                 <p> 작성자 :
                     {{#user}}{{personalName}}{{/user}}
@@ -28,7 +26,6 @@
     {{/qnaPage.content}}
 
     <ul class="pagination d-flex justify-content-center">
-        <!--   이번 페이지 버튼      -->
         {{#prePageNumber}}
             <li class="page-item">
                 <a class="page-link" href="/qna/list?page={{prePageNumber}}&size={{qnaPage.size}}">Previous</a>
@@ -39,14 +36,12 @@
                 <a class="page-link" href="#">Previous</a>
             </li>
         {{/prePageNumber}}
-        <!-- 페이지 번호 -->
         {{#pageLinks}}
             <li class="page-item {{#active}}active{{/active}}">
                 <a class="page-link" href="/qna/list?page={{displayNumber}}&size={{qnaPage.size}}">{{displayNumber}}</a>
             </li>
         {{/pageLinks}}
 
-        <!-- 다음 페이지 버튼  -->
         {{#nxtPageNumber}}
             <li class="page-item">
                 <a class="page-link" href="/qna/list?page={{nxtPageNumber}}&size={{qnaPage.size}}">Next</a>

@@ -3,7 +3,6 @@
 <div class="container p-5">
     {{> skill}}
     <ul class="pagination d-flex justify-content-center">
-        <!--   이번 페이지 버튼      -->
         {{#previousPageNumber}}
             <li class="page-item">
                 <a class="page-link" href="/?page={{previousPageNumber}}&size={{size}}">Previous</a>
@@ -15,14 +14,12 @@
             </li>
         {{/previousPageNumber}}
 
-        <!-- 페이지 번호 -->
         {{#pageLinks}}
             <li class="page-item {{#active}}active{{/active}}">
                 <a class="page-link" href="/?page={{displayNumber}}&size={{size}}">{{displayNumber}}</a>
             </li>
         {{/pageLinks}}
 
-        <!-- 다음 페이지 버튼  -->
         {{#nextPageNumber}}
             <li class="page-item">
                 <a class="page-link" href="/?page={{nextPageNumber}}&size={{size}}">Next</a>

@@ -28,11 +28,3 @@ public class BoardSkill {
     private Skill skill;
 
 }
-//-- 게시글과 기술스택의 다대다 관계 테이블
-//CREATE TABLE board_skill_tb (
-//        board_id INT,
-//        skill_id INT,
-//        PRIMARY KEY (board_id, skill_id),
-//FOREIGN KEY (board_id) REFERENCES board_tb(id),
-//FOREIGN KEY (skill_id) REFERENCES skill_tb(id)
-//        );

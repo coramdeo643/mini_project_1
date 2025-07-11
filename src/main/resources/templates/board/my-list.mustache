@@ -1,13 +1,11 @@
 {{> layout/header}}
 
 <div class="container p-5">
-    <!-- 상단 버튼 -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>📋 내 채용공고 목록</h2>
         <a href="/board/save-form" class="btn btn-primary">✏️ 공고 등록</a>
     </div>
 
-    <!-- 공고 리스트 -->
     <div class="row">
         {{#companyBoardList}}
             <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
@@ -47,7 +45,6 @@
         {{/companyBoardList}}
     </div>
 
-    <!-- 공고가 없는 경우 -->
     {{^companyBoardList}}
         <div class="text-center text-muted mt-5">
             <p>등록된 채용공고가 없습니다.</p>

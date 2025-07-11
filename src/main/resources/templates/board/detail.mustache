@@ -3,13 +3,10 @@
 <div class="container p-1">
     <div class="border border-secondary-subtle rounded-4 bg-white p-4 m-4">
         <div class="d-flex justify-content-end">
-            <!--채용공고지원-->
             {{#sessionUser}}
                 {{#onaji}}
                     <form action="/application/delete" method="post">
-                        <!--                    지원자가 공고에 지원 했을 때 받는 해당 PK 값 -->
                         <input type="hidden" name="applicationId" value="{{applicationId}}">
-                        <!--                    회사가 게시한 공고 PK 값 -->
                         <input type="hidden" name="boardId" value="{{board.id}}">
                         <button type="submit" class="btn btn-secondary">지원 취소</button>
                     </form>
@@ -23,7 +20,6 @@
                 {{/onaji}}
             {{/sessionUser}}
             {{#board.boardOwner}}
-                <!-- 수정삭제버튼 -->
                 <a href="/board/{{board.id}}/update-form" class="btn btn-warning me-1">수정</a>
                 <form action="/board/{{board.id}}/delete" method="post">
                     <button class="btn btn-danger">삭제</button>
@@ -31,7 +27,6 @@
             {{/board.boardOwner}}
         </div>
 
-        <!-- 게시글내용 -->
         <div>
             <h2><b>{{board.title}}</b></h2>
             <div class="d-flex justify-content-start">
@@ -39,7 +34,6 @@
                 <b>대표자명</b>&nbsp;: {{board.company.ceoName}} &nbsp;&nbsp;
                 <b>업종</b>&nbsp;: {{board.company.industry}} &nbsp;&nbsp;
             </div>
-            <!--관심기업 버튼-->
             {{#sessionUser}}
             <div class="d-flex align-items-center gap-2">
                 <form action="/user-sub/save" method="post">
@@ -53,9 +47,7 @@
         </div>
             <hr/>
 
-            <!-- board.boardSkills 리스트를 반복 -->
             {{#board.boardSkills}}
-                <!-- 반복문 안에서는 현재 요소(BoardSkill)의 skill 필드에 바로 접근 -->
                 <span class="badge rounded-3 me-1" style="color: #4b0082; background-color: #f6ecff;">{{skill.name}}</span>
             {{/board.boardSkills}}
             <div class="m-4 p-2" style="white-space: pre-line;">{{board.content}}</div>

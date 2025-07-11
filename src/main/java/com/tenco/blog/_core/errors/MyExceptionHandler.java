@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-// 모든 컨트롤러에서 발생하는 예외 처리를 이 클래스에서 처리 하겠다.
-//RuntimeException 발생하면 해당 파일로 예외 처리가 집중 됨
-@ControllerAdvice  // 에러 페이지로 연결 처리 // IoC대상
-// @RestControllerAdvice // 데이터를 반환해서 내렬 줄 때 사용
+@ControllerAdvice
+
 public class MyExceptionHandler {
 
-    // slf4j 로거 생성 - 로깅 사용시 Sysout 대신 활용하는것이 좋다.
+
     private static  final Logger log = LoggerFactory.getLogger(MyExceptionHandler.class);
 
     @ExceptionHandler(Exception400.class)
@@ -32,10 +30,8 @@ public class MyExceptionHandler {
     }
 
     @ExceptionHandler(Exception401.class)
-    @ResponseBody // 데이터를 반환 함
+    @ResponseBody
     public ResponseEntity<String> ex403ByData(Exception401 e ,HttpServletRequest request) {
-        // location.href ='/login-form'
-        //String script = "<script> alert('"+ e.getMessage() +"'); history.back(); </script>";
         String script = "<script> alert('"+ e.getMessage() +"'); location.href ='/user/login-form'; </script>";
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
@@ -44,7 +40,6 @@ public class MyExceptionHandler {
     }
 
 
-    //  HttpServletRequest // 여러가지 기능을 긁어올수 있다.
     @ExceptionHandler(Exception403.class)
     @ResponseBody
     public ResponseEntity<String> ex403(Exception403 e, HttpServletRequest request){
@@ -62,19 +57,12 @@ public class MyExceptionHandler {
     }
 
     @ExceptionHandler(Exception404.class)
-//    @ResponseBody
-//    public ResponseEntity<String> ex404(Exception404 e, HttpServletRequest request){
     public String ex404(Exception404 e, HttpServletRequest request){
         log.warn("=== 404 Not Found 에러 발생 ===");
         log.warn("요청 URL : {}",request.getRequestURI());
         log.warn("인증 오류: {}", e.getMessage());
         log.warn("User-Agent: {}",request.getHeader("User-Agent"));
-//        String script = "<script> alert('"+e.getMessage()+"'); history.back(); </script>";
         request.setAttribute("msg", e.getMessage());
-//        return ResponseEntity
-//                .status(HttpStatus.NOT_FOUND)
-//                .contentType(MediaType.TEXT_HTML)
-//                .body(script);
         return "err/404";
     }
 
@@ -94,7 +82,6 @@ public class MyExceptionHandler {
     }
 
 
-    // 기타 모든 RuntimeException 처리
     @ExceptionHandler(RuntimeException.class)
     public String handleRuntimeException(Exception500 e, HttpServletRequest request){
         log.warn("=== 예상 못한 런타입 에러 발생 ====");
