@@ -1,0 +1,69 @@
+{{> layout/header}}
+
+<div class="container p-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📋 지원한 채용공고 목록</h2>
+    </div>
+    <div class="row">
+        {{#applicationResourceList}}
+
+            {{#board}}
+            <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+                <div class="card p-3 text-center" style="width: 100%;">
+                    <div style="height: 100px; display: flex; justify-content: center; align-items: center;">
+                        {{#company.imageUrl}}
+                            <img src="{{company.imageUrl}}" alt="회사 이미지"
+                                 style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
+                        {{/company.imageUrl}}
+                        {{^company.imageUrl}}
+                            <img src="/images/empty.png" alt="기본 회사 이미지"
+                                 style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
+                        {{/company.imageUrl}}                </div>
+                    <div class="card-body">
+                        <a href="/board/{{board.id}}" class="text-decoration-none text-dark fw-bold">
+                            {{title}}
+                        </a>
+                    {{/board}}
+                    <div class="mb-2">합격여부 :{{status}}</div>
+                    <div>
+                        {{#accepted}}
+                            {{#rated}}
+                                <div class="d-flex align-items-center justify-content-center gap-2">
+                                    {{#company}}
+                                    <form action="/delete" method="post" class="mb-0">
+                                        <input type="hidden" name="companyId" value="{{id}}">
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm">평점 수정</button>
+                                    </form>
+                                        {{/company}}
+                                </div>
+                            {{/rated}}
+
+                            {{^rated}}
+                                {{> rating/rating-form }}
+                            {{/rated}}
+                        {{/accepted}}
+
+                        {{^accepted}}
+                            <form action="/application/{{id}}/delete" method="post" class="mb-0">
+                                <button type="submit" class="btn btn-success btn-sm"
+                                        onclick="return confirm('정말 입사지원을 취소 하시겠습니까?')">지원 취소</button>
+                            </form>
+                        {{/accepted}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {{/applicationResourceList}}
+
+        {{^applicationResourceList}}
+            <div class="card-body text-center">
+                <p class="text-muted mb-0" >아직 지원한 공고가 없습니다</p>
+            </div>
+        {{/applicationResourceList}}
+    </div>
+</div>
+
+{{> layout/footer}}

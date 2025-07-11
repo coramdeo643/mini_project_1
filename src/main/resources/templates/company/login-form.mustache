@@ -1,0 +1,28 @@
+{{> layout/header}}
+
+<div class="container p-5">
+
+    <div class="d-flex justify-content-center align-items-center vh-50">
+        <div class="text-center m-2">
+            <a href="/user/login-form" class="btn btn-primary m-2">👤 개인 회원 로그인</a>
+            <a href="/company/login-form" class="btn btn-success m-2">🏢 기업 회원 로그인</a>
+        </div>
+    </div>
+
+    <div id="company-login" class="card mx-auto" style="width : 50%">
+        <div class="card-header text-center"><b>🏢 기업 회원 로그인</b></div>
+        <div class="card-body">
+            <form action="/company/login" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Enter company ID" name="username" value="samsung_hr">
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" placeholder="Enter password" name="password" value="pass1234">
+                </div>
+                <button type="submit" class="btn btn-success form-control">로그인</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{> layout/footer}}

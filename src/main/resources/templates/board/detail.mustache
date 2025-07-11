@@ -1,69 +1,63 @@
 {{> layout/header}}
 
-<div class="container p-5">
-
-    <!-- 수정삭제버튼 -->
-    <div class="d-flex justify-content-end">
-        <!-- 페이지 이동 요청 -->
-        <!-- a 태그는 링크 이동용, url로 이동하므로 get 요청 -->
-        <a href="/board/{{board.id}}/update-form" class="btn btn-warning me-1">수정</a>
-        <!-- post 로 데이터 전송 /  method="delete"는 지원하지 않음, 삭제 동작도 post로 처리 -->
-        <form action="/board/{{board.id}}/delete" method="post">
-            <button class="btn btn-danger">삭제</button>
-        </form>
-    </div>
-    <div class="d-flex justify-content-end">
-        <b>작성자</b> : {{board.user.username}}
-    </div>
-
-    <!-- 게시글내용 -->
-    <div>
-        <h2><b>{{board.title}}</b></h2>
-        <hr/>
-        <div class="m-4 p-2">
-            {{board.content}}
-        </div>
-    </div>
-
-    <!-- 댓글 -->
-    <div class="card mt-3">
-        <!-- 댓글등록 -->
-        <div class="card-body">
-            <form action="/reply/save" method="post">
-                <textarea class="form-control" rows="2" name="comment"></textarea>
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-outline-primary mt-1">댓글등록</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- 댓글목록 -->
-        <div class="card-footer">
-            <b>댓글리스트</b>
-        </div>
-        <div class="list-group">
-            <!-- 댓글아이템 -->
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <div class="px-1 me-1 bg-primary text-white rounded">cos</div>
-                    <div>댓글 내용입니다</div>
-                </div>
-                <form action="/reply/1/delete" method="post">
-                    <button class="btn">🗑</button>
+<div class="container p-1">
+    <div class="border border-secondary-subtle rounded-4 bg-white p-4 m-4">
+        <div class="d-flex justify-content-end">
+            {{#sessionUser}}
+                {{#onaji}}
+                    <form action="/application/delete" method="post">
+                        <input type="hidden" name="applicationId" value="{{applicationId}}">
+                        <input type="hidden" name="boardId" value="{{board.id}}">
+                        <button type="submit" class="btn btn-secondary">지원 취소</button>
+                    </form>
+                {{/onaji}}
+                {{^onaji}}
+                    <form action="/application/{{board.id}}/save" method="post">
+                        <input type="hidden" name="boardId" value="{{board.id}}">
+                        <input type="hidden" name="companyId" value="{{board.company.id}}">
+                        <button class="btn btn-success">지원</button>
+                    </form>
+                {{/onaji}}
+            {{/sessionUser}}
+            {{#board.boardOwner}}
+                <a href="/board/{{board.id}}/update-form" class="btn btn-warning me-1">수정</a>
+                <form action="/board/{{board.id}}/delete" method="post">
+                    <button class="btn btn-danger">삭제</button>
                 </form>
+            {{/board.boardOwner}}
+        </div>
+
+        <div>
+            <h2><b>{{board.title}}</b></h2>
+            <div class="d-flex justify-content-start">
+                <b>기업명</b>&nbsp;: {{board.company.businessName}} &nbsp;&nbsp;
+                <b>대표자명</b>&nbsp;: {{board.company.ceoName}} &nbsp;&nbsp;
+                <b>업종</b>&nbsp;: {{board.company.industry}} &nbsp;&nbsp;
             </div>
-            <!-- 댓글아이템 -->
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <div class="px-1 me-1 bg-primary text-white rounded">ssar</div>
-                    <div>댓글 내용입니다</div>
-                </div>
-                <form action="/reply/1/delete" method="post">
-                    <button class="btn">🗑</button>
+            {{#sessionUser}}
+            <div class="d-flex align-items-center gap-2">
+                <form action="/user-sub/save" method="post">
+                    <input type="hidden" name="companyId" value="{{board.company.id}}">
+                    <input type="hidden" name="boardId" value="{{board.id}}">
+                    <button class="btn btn-primary btn-sm p-1 mt-1" onclick="return confirm('구독하시겠습니까?')">❤️ 관심기업
+                    </button>
                 </form>
+                {{> rating/rating-company}}
+            {{/sessionUser}}
+        </div>
+            <hr/>
+
+            {{#board.boardSkills}}
+                <span class="badge rounded-3 me-1" style="color: #4b0082; background-color: #f6ecff;">{{skill.name}}</span>
+            {{/board.boardSkills}}
+            <div class="m-4 p-2" style="white-space: pre-line;">{{board.content}}</div>
+            <div class="mt-4">
+                {{> map/kakao-map}}
             </div>
         </div>
     </div>
+
+
 </div>
 
 {{> layout/footer}}

@@ -1,0 +1,59 @@
+{{> layout/header}}
+
+<div class="container p-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>💬 Q&A 목록</h2>
+        {{#sessionUser}}
+            <a href="/qna/save-form" class="btn btn-primary">글쓰기</a>
+        {{/sessionUser}}
+        {{#companyUser}}
+            <a href="/qna/save-form" class="btn btn-primary">글쓰기</a>
+        {{/companyUser}}
+
+    </div>
+
+    {{#qnaPage.content}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title mb-3">{{title}}</h4>
+                <p> 작성자 :
+                    {{#user}}{{personalName}}{{/user}}
+                    {{#company}}{{businessName}}{{/company}}
+                    &nbsp|&nbsp{{time}}</p>
+                <a href="/qna/{{id}}" class="btn btn-primary">상세보기</a>
+            </div>
+        </div>
+    {{/qnaPage.content}}
+
+    <ul class="pagination d-flex justify-content-center">
+        {{#prePageNumber}}
+            <li class="page-item">
+                <a class="page-link" href="/qna/list?page={{prePageNumber}}&size={{qnaPage.size}}">Previous</a>
+            </li>
+        {{/prePageNumber}}
+        {{^prePageNumber}}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Previous</a>
+            </li>
+        {{/prePageNumber}}
+        {{#pageLinks}}
+            <li class="page-item {{#active}}active{{/active}}">
+                <a class="page-link" href="/qna/list?page={{displayNumber}}&size={{qnaPage.size}}">{{displayNumber}}</a>
+            </li>
+        {{/pageLinks}}
+
+        {{#nxtPageNumber}}
+            <li class="page-item">
+                <a class="page-link" href="/qna/list?page={{nxtPageNumber}}&size={{qnaPage.size}}">Next</a>
+            </li>
+        {{/nxtPageNumber}}
+        {{^nxtPageNumber}}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        {{/nxtPageNumber}}
+    </ul>
+
+</div>
+
+{{> layout/footer}}

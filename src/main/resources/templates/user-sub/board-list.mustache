@@ -1,0 +1,65 @@
+{{> layout/header}}
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">🏢 관심기업 목록</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{> user-sub/user-sub-list}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container p-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📋 관심기업 채용공고 목록</h2>
+        <button type="button" class="btn btn-primary d-flex justify-content-end" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">
+            🏢 전체 관심기업 보기
+        </button>
+    </div>
+
+    <div class="row">
+        {{#userSubBoardList}}
+            <div class="col-md-4 mb-4" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+                <a href="/board/{{id}}" class="btn" style="display: block; width: 100%; text-decoration: none;">
+                    <div class="card p-3 text-center" style="width: 100%;">
+                        <div style="height: 100px; display: flex; justify-content: center; align-items: center;">
+                            {{#company.imageUrl}}
+                                <img src="{{company.imageUrl}}" alt="회사 이미지"
+                                     style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
+                            {{/company.imageUrl}}
+                            {{^company.imageUrl}}
+                                <img src="/images/empty.png" alt="기본 회사 이미지"
+                                     style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
+                            {{/company.imageUrl}}                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title e_txt"><b>{{title}}</b></h6>
+                            <p class="card-text">{{company.businessName}}<br>{{time}}</p>
+                            <div class="mb-3">
+                                {{#boardSkills}}
+                                    <span class="badge rounded-3 me-1" style="color: #4b0082; background-color: #f6ecff;">
+                                        {{skill.name}}
+                                    </span>
+                                {{/boardSkills}}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {{/userSubBoardList}}
+        {{^userSubBoardList}}
+            <div class="text-center text-muted mt-5">
+                <p>😯 등록된 관심기업이 없습니다.</p>
+            </div>
+        {{/userSubBoardList}}
+
+    </div>
+</div>
+
+{{> layout/footer}}

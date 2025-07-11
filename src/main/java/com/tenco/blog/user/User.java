@@ -18,24 +18,38 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 사용자 이름 중복 방지를 위한 유니크 제약 조건 설정
+    // 사용자 이름 중복 방지를 위한 유니크 제약 설정
     @Column(unique = true)
     private String username;
-
     private String password;
+    private String personalName;
+    private String telephone;
     private String email;
 
-    // 엔티티가 영속화 될 때 자동으로 pc 현재 시간을 설정
     @CreationTimestamp
     private Timestamp createdAt;
 
-    // 객체 생성 시 가독성과 안정성 향상
     @Builder
-    public User(Long id, String username, String password, String email, Timestamp createdAt) {
+    public User(Long id, String username, String password, String personalName, String telephone, String email, Timestamp createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.personalName = personalName;
         this.email = email;
+        this.telephone = telephone;
         this.createdAt = createdAt;
     }
+
+    public void update(UserRequest.UpdateDTO updateDTO) {
+        if (updateDTO.getPassword() != null && !updateDTO.getPassword().trim().isEmpty()) {
+            this.password = updateDTO.getPassword();
+        }
+        if (updateDTO.getTelephone() != null && !updateDTO.getTelephone().trim().isEmpty()) {
+            this.telephone = updateDTO.getTelephone();
+        }
+        if (updateDTO.getEmail() != null && updateDTO.getEmail().contains("@")) {
+            this.email = updateDTO.getEmail();
+        }
+    }
+
 }

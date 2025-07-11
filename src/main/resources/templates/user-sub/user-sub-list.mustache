@@ -1,0 +1,16 @@
+
+<div class="container p-5">
+    {{#userSubList}}
+        <div class="card mb-3">
+            <div style="display:flex; justify-content:space-between; align-items:center;"
+                 class="card-body">
+                <input type="hidden" name="id" value="{{id}}">
+                <h4 class="card-title m-0">{{company.businessName}}</h4>
+                <p class="m-0"> 구독일자 : {{time}}</p>
+                <form action="/user-sub/{{id}}/delete" method="post">
+                    <button class="btn" onclick="return confirm('구독 취소하시겠습니까?')">🗑</button>
+                </form>
+            </div>
+        </div>
+    {{/userSubList}}
+</div>
