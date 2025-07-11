@@ -33,9 +33,14 @@
                 <a href="/board/{{id}}" class="btn" style="display: block; width: 100%; text-decoration: none;">
                     <div class="card p-3 text-center" style="width: 100%;">
                         <div style="height: 100px; display: flex; justify-content: center; align-items: center;">
-                            <img src="{{company.imageUrl}}" alt="회사 이미지"
-                                 style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
-                        </div>
+                            {{#company.imageUrl}}
+                                <img src="{{company.imageUrl}}" alt="회사 이미지"
+                                     style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
+                            {{/company.imageUrl}}
+                            {{^company.imageUrl}}
+                                <img src="/images/empty.png" alt="기본 회사 이미지"
+                                     style="width: 150px; height: 100px; object-fit: contain; background-color: #fff;">
+                            {{/company.imageUrl}}                        </div>
                         <div class="card-body">
                             <h6 class="card-title e_txt"><b>{{title}}</b></h6>
                             <p class="card-text">{{company.businessName}}<br>{{time}}</p>
