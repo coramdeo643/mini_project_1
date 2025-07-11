@@ -30,10 +30,12 @@
                         {{#accepted}}
                             {{#rated}}
                                 <div class="d-flex align-items-center justify-content-center gap-2">
+                                    {{#company}}
                                     <form action="/delete" method="post" class="mb-0">
                                         <input type="hidden" name="companyId" value="{{id}}">
                                         <button type="submit" class="btn btn-outline-secondary btn-sm">평점 수정</button>
                                     </form>
+                                        {{/company}}
                                 </div>
                             {{/rated}}
 
